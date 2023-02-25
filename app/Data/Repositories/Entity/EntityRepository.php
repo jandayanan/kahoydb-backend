@@ -59,7 +59,12 @@ class EntityRepository extends BaseRepository
             }
 
         }
+
         //endregion data validation
+
+        if(!isset($data['status'])){
+            $data['status'] = 'active';
+        }
 
         //region existence check
 

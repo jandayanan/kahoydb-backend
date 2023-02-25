@@ -363,8 +363,8 @@ class UserRepository extends BaseRepository
 
         // endregion Existence Check
 
-        $entity = $this->entity_repo->create($data);
-        if(isset($entity) && !is_code_success( $entity->getCode() ) ){
+        $entity = $this->entity_repo->define($data);
+        if((isset($entity) && !is_code_success( $entity->getCode() )) || is_null($entity)){
             return $this->httpInternalServerResponse([
                 "code" => 500,
                 "message" => _("Data Validation Error."),

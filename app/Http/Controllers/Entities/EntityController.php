@@ -39,7 +39,7 @@ class EntityController extends BaseController
      */
     public function create(Request $request){
         $data = $request->all();
-        return $this->absorb ( $this->entity_repo->create($data) )->json();
+        return $this->absorb ( $this->entity_repo->define($data) )->json();
     }
 
     /**
@@ -101,6 +101,6 @@ class EntityController extends BaseController
     public function update(Request $request, $id){
         $data = $request->all();
         $data['id'] = $id;
-        return $this->absorb ( $this->entity_repo->create($data) )->json();
+        return $this->absorb ( $this->entity_repo->define($data) )->json();
     }
 }
