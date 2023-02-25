@@ -85,7 +85,7 @@ class ActivityRepository extends BaseRepository
     /**
      * Delete an activity
      *
-     * @param id
+     * @param array $data
      * @return ActivityRepository
      */
     public function delete($data=[]){

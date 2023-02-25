@@ -181,6 +181,10 @@ class ParticipantRepository extends BaseRepository
             }
         }
 
+        if(isset($data['relations'])){
+            $params['relations'] = $data['relations'];
+        }
+
         $result = $this->fetchGeneric( $params, $this->participant );
         if( !$result ){
             return $this->httpNotFoundResponse([

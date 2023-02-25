@@ -2,6 +2,9 @@
 
 namespace App\Data\Models\Participants;
 
+use App\Data\Models\Activities\Activity;
+use App\Data\Models\Entity\Entity;
+
 class Participant extends \Shared\BaseClasses\Model
 {
     /**
@@ -22,6 +25,14 @@ class Participant extends \Shared\BaseClasses\Model
         'participant_status'
     ];
 
-    // ToDo: Relationship
+    public function activity()
+    {
+        return $this->belongsTo(Activity::class, "activity_id");
+    }
+
+    public function entity()
+    {
+        return $this->belongsTo(Entity::class, "entity_id");
+    }
 
 }

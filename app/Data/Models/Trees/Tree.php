@@ -2,6 +2,9 @@
 
 namespace App\Data\Models\Trees;
 
+use App\Data\Models\Activities\Activity;
+use App\Data\Models\Entity\Entity;
+
 class Tree extends \Shared\BaseClasses\Model
 {
     /**
@@ -34,6 +37,16 @@ class Tree extends \Shared\BaseClasses\Model
         'tree_status'
     ];
 
-    // ToDo: Relationship
+
+    public function activity()
+    {
+        return $this->belongsTo(Activity::class, "activity_id");
+    }
+
+
+    public function planter()
+    {
+        return $this->belongsTo(Entity::class, "planter_id");
+    }
 
 }

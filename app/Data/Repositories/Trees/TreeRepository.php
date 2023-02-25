@@ -185,6 +185,10 @@ class TreeRepository extends BaseRepository
             }
         }
 
+        if(isset($data['relations'])){
+            $params['relations'] = $data['relations'];
+        }
+
         $result = $this->fetchGeneric( $params, $this->tree );
         if( !$result ){
             return $this->httpNotFoundResponse([
