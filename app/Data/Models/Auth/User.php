@@ -69,7 +69,7 @@ class User extends AuthBaseModel
             'name' => $name,
             'token' => hash('sha256', $plainTextToken = Str::random(40)),
             'abilities' => $abilities,
-            'expired_at' => carbon_now()->addHours(12)
+            'expires_at' => carbon_now()->addHours(12)
         ]);
         $token->plainTextToken = ( (string) $token->id) .'|'. $plainTextToken;
 
