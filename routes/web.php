@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,15 +16,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use Shared\Traits\Instances\Response;
 Route::get('/', function () {
-    if( env("APP_DEFAULT_ROUTE") != "" &&
-        env("APP_DEFAULT_ROUTE") != "/"
-    ){
-        return redirect( env("APP_DEFAULT_ROUTE") );
-    }
+    return Inertia::render('Auth/Login');
+})->middleware('guest');
 
-    return Response::respond([
-        'message' => 'Unauthorized access.'
-    ]);
+Route::group([
+    'middleware' => ['auth.web']
+], function (){
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard', ['page' => 'dashboard']);
+    });
+    Route::get('/activity', function () {
+        return Inertia::render('ActivitiesList', ['page' => 'activities']);
+    });
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

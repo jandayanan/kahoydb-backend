@@ -32,9 +32,9 @@ Route::group([
         'prefix' => 'auth',
         'namespace' => 'Auth',
     ], function () {
-        Route::post('login', "TokenController@login");
-        Route::post("define", "UserController@define"); // Create user
-        Route::post("register", "UserController@register"); // Create Entities and user
+        Route::post('login', "TokenController@login")->name('auth.login');
+        Route::post("define", "UserController@define")->name('create'); // Create user
+        Route::post("register", "UserController@register")->name('register'); // Create Entities and user
 
         Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('user', function (Request $request) {
