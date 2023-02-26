@@ -35,7 +35,7 @@ export function deleteActivity(id) {
 
 export function getAllEntities() {
   return new Promise((resolve, reject) => {
-    axios.get('entities/all?relations[0]=participants.activity.trees')
+    axios.get('entities/all?relations[0]=participants.activity.trees.activity')
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })

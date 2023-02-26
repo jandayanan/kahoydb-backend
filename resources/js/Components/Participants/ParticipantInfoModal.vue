@@ -43,9 +43,12 @@
             </CNavLink>
           </CNavItem>
         </CNav>
-        <CTabContent>
+        <CTabContent class="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="activies-tab" :visible="tabPaneActiveKey === 1">
-
+            <ParticipantActivitiesTable :items="activities" />
+          </CTabPane>
+          <CTabPane role="tabpanel" aria-labelledby="trees-tab" :visible="tabPaneActiveKey === 2">
+            <ParticipantTreesTable :items="trees" />
           </CTabPane>
         </CTabContent>
       </CContainer>
@@ -55,8 +58,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import ParticipantActivitiesTable from './ParticipantActivitiesTable.vue'
+import ParticipantTreesTable from './ParticipantTreesTable.vue'
+
 export default {
   name: "ParticipantInfoModal",
+  components: {
+    ParticipantActivitiesTable,
+    ParticipantTreesTable
+  },
   props: {
     entity: {
       type: Object,
@@ -65,36 +75,34 @@ export default {
   },
   data() {
     return {
-      participants: [],
       activities: [],
       trees: [],
       tab: "activities",
       tabPaneActiveKey: 1
     };
   },
+  updated() {
+    this.segregateEntities()
+  },
   methods: {
     segregateEntities() {
-      this.participants = this.entity.participants
-      this.participants.forEach((participant) => {
+      // Segregate activities and trees into separate arrays
+      this.clearEntities()
+      this.entity.participants.forEach((participant) => {
         if (participant.activity.trees) {
           this.trees = this.trees.concat(participant.activity.trees)
         }
-        delete participant.activity.trees
         this.activities.push(participant.activity)
       })
     },
     resetModalState() {
+      // Resets modal state
       this.$store.commit('updateParticipantInfoModalState', false)
+      this.clearEntities()
+    },
+    clearEntities() {
       this.activities = []
       this.trees = []
-    }
-  },
-  watch: {
-    entity: {
-      deep: true,
-      handler() {
-        this.segregateEntities()
-      }
     }
   },
   computed: {
