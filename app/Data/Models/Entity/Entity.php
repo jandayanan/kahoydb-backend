@@ -3,6 +3,7 @@
 namespace App\Data\Models\Entity;
 
 use App\Data\Models\BaseModel;
+use App\Data\Models\Participants\Participant;
 
 /**
  * Class Entities
@@ -36,5 +37,10 @@ class Entity extends BaseModel
     public $timestamps = true;
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
+    }
 
 }
