@@ -2,6 +2,8 @@
 
 namespace App\Data\Models\Activities;
 
+use App\Data\Models\Trees\Tree;
+
 class Activity extends \Shared\BaseClasses\Model
 {
     /**
@@ -24,4 +26,8 @@ class Activity extends \Shared\BaseClasses\Model
         'activity_status'
     ];
 
+    public function trees()
+    {
+        return $this->hasMany(Tree::class);
+    }
 }
