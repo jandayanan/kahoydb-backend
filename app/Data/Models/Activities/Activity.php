@@ -2,6 +2,7 @@
 
 namespace App\Data\Models\Activities;
 
+use App\Data\Models\Participants\Participant;
 use App\Data\Models\Trees\Tree;
 
 class Activity extends \Shared\BaseClasses\Model
@@ -29,5 +30,10 @@ class Activity extends \Shared\BaseClasses\Model
     public function trees()
     {
         return $this->hasMany(Tree::class);
+    }
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
     }
 }
