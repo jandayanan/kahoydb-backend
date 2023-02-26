@@ -35,8 +35,10 @@
             aria-label="Activity Status Selection Field"
             v-model="form.status"
             :options="[
-              { label: 'Active', value: 'active' },
-              { label: 'Inactive', value: 'inactive' }
+              { label: 'Pending', value: 'pending' },
+              { label: 'In Progress', value: 'in_progress' },
+              { label: 'For Follow Up', value: 'for_follow_up' },
+              { label: 'Done', value: 'done' }
             ]">
           </CFormSelect>
       </CModalBody>
@@ -50,10 +52,10 @@
 </template>
 
 <script>
-import { insertActivity } from '@/service/api'
+import { upsertActivity } from '@/service/api'
 
 export default {
-  name: 'UpsertModal',
+  name: 'ActivityUpsertModal',
   props: {
     isVisible: {
       type: Boolean,
@@ -75,7 +77,7 @@ export default {
         name: null,
         startDate: null,
         endDate: null,
-        status: "active",
+        status: "pending",
         errors: []
       },
     }
@@ -115,7 +117,7 @@ export default {
       this.form.startDate = `${rawStartDate.getFullYear()}-${rawStartDate.getMonth()+1}-${rawStartDate.getDate()}`
       this.form.endDate = `${rawEndDate.getFullYear()}-${rawEndDate.getMonth()+1}-${rawEndDate.getDate()}`
 
-      insertActivity(this.form)
+      upsertActivity(this.form)
       .then(res => {
         this.closeModal()
         this.$store.commit('updateNewDataStatus', true)

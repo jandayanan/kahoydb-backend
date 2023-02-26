@@ -1,15 +1,15 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import ActivityTable from '@/Components/Activity/ActivityTable.vue';
-import ActivityUpsertModal from '@/Components/Activity/ActivityUpsertModal.vue'
+import EntitiesTable from '@/Components/Entities/EntitiesTable.vue'
+import EntityUpsertModal from '@/Components/Entities/EntityUpsertModal.vue'
 import { Head } from '@inertiajs/vue3';
 
 export default {
-  name: 'ActivitiesList',
+  name: 'Entities',
   components: {
     AuthenticatedLayout,
-    ActivityTable,
-    ActivityUpsertModal,
+    EntitiesTable,
+    EntityUpsertModal,
     Head
   },
   props: {
@@ -27,7 +27,8 @@ export default {
   },
   methods: {
     selectedRow(row){
-      this.activity = row
+      console.log(row)
+      this.entity = row
       this.method = 'update'
       this.isVisible = true
     },
@@ -37,24 +38,27 @@ export default {
     }
   }
 }
-
 </script>
 
 <template>
-  <Head title="Activities" />
+  <Head title="Entities" />
   <AuthenticatedLayout :page="page">
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-          <CButton color="success" class="mb-5" @click="showUpsertModal">Add Activity</CButton>
-          <ActivityTable @updateSelectedRow="selectedRow"/>
+          <CButton color="success" class="mb-5" @click="showUpsertModal">Add Entity</CButton>
+          <EntitiesTable @updateSelectedRow="selectedRow"/>
         </div>
       </div>
     </div>
-    <ActivityUpsertModal 
+    <EntityUpsertModal 
       :method="method" 
-      :activity="activity"
+      :entity="entity"
       :isVisible="isVisible"
       @close="isVisible=false"/>
   </AuthenticatedLayout>
 </template>
+
+<style>
+
+</style>

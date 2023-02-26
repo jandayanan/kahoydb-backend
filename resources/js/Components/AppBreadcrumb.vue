@@ -46,6 +46,17 @@ export default {
             'name': 'Participants',
             'active': true
           },
+        ],
+        'entities': [
+          {
+            'name': 'Dashboard',
+            'active': false,
+            'path': '/dashoard'
+          },
+          {
+            'name': 'Entities',
+            'active': true
+          },
         ]
       },
       breadcrumbs: []

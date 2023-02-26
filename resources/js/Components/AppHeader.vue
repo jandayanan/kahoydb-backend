@@ -7,11 +7,6 @@
       <CHeaderBrand class="mx-auto d-lg-none" to="/">
         <CIcon :icon="logo" height="48" alt="Logo" />
       </CHeaderBrand>
-      <CHeaderNav class="d-none d-md-flex me-auto">
-        <CNavItem>
-          <CNavLink href="/dashboard"> Dashboard </CNavLink>
-        </CNavItem>
-      </CHeaderNav>
       <CHeaderNav>
         <AppHeaderDropdownAccnt />
       </CHeaderNav>

@@ -29,6 +29,9 @@ Route::group([
     Route::get('/activity', function () {
         return Inertia::render('ActivitiesList', ['page' => 'activities']);
     });
+    Route::get('/entities', function () {
+        return Inertia::render('EntitiesList', ['page' => 'entities']);
+    });
 });
 
 Route::middleware('auth')->group(function () {

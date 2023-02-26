@@ -21,13 +21,23 @@
       </CNavLink>
     </CNavItem>
     <CNavItem>
-      <CNavLink href="#" :active="page == 'participants'">
+      <CNavLink href="/participants" :active="page == 'participants'">
+        <CIcon
+        class="nav-icon"
+        :icon="'cil-people'"
+        >
+        </CIcon>
+        Participants
+      </CNavLink>
+    </CNavItem>
+    <CNavItem>
+      <CNavLink href="/entities" :active="page == 'entities'">
         <CIcon
         class="nav-icon"
         :icon="'cil-user'"
         >
         </CIcon>
-        Participants
+        Entities
       </CNavLink>
     </CNavItem>
   </CSidebarNav>
