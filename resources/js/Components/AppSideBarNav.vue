@@ -9,7 +9,7 @@
         </CIcon>
         Dashboard
       </CNavLink>
-      </CNavItem>
+    </CNavItem>
     <CNavItem>
       <CNavLink href="/activity" :active="page == 'activities'">
         <CIcon

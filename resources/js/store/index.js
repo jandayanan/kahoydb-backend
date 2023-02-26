@@ -5,7 +5,8 @@ export default createStore({
     sidebarVisible: '',
     sidebarUnfoldable: false,
     isReloading: false,
-    hasNewData: false
+    hasNewData: false,
+    showParticipantInfoModal: false
   },
   mutations: {
     updateNewDataStatus(state, status) {
@@ -23,6 +24,9 @@ export default createStore({
     updateSidebarVisible(state, payload) {
       state.sidebarVisible = payload.value
     },
+    updateParticipantInfoModalState(state, payload) {
+      state.showParticipantInfoModal = payload
+    }
   },
   actions: {},
   modules: {},

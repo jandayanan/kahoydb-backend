@@ -13,7 +13,6 @@
     </div>
     <VTable 
       v-if="!isLoading"
-      :columns="columns"  
       :data="items" 
       :filters="filters" 
       :selectOnClick="true"
@@ -72,31 +71,7 @@ export default {
   name: 'EntitiesTable',
   data(){
     return {
-      columns: [
-        {
-          key: 'id',
-          label: '#'
-        },
-        {
-          key: 'full_name',
-          label: 'Name'
-        },
-        {
-          key: 'email',
-          label: 'Email'
-        },
-        {
-          key: 'contact_number',
-          label: 'Contact #'
-        },
-        {
-          key: 'status',
-          label: 'Status'
-        },
-        {
-          label: 'Actions'
-        }
-      ],
+      
       items: [], 
       filters: {
         name: {

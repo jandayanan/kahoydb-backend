@@ -22,6 +22,7 @@
           <th>Name</th>
           <th>Start Date</th>
           <th>End Date</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </template>
@@ -30,9 +31,8 @@
           <td>{{ row.id }}</td>
           <td>{{ row.name }}</td>
           <td>{{ row.start_date }}</td>
-          <td>
-            {{ row.end_date }}
-          </td>
+          <td>{{ row.end_date }}</td>
+          <td>{{ row.activity_status }}</td>
           <td>
             <div class="d-flex">
               <CButton color="success" @click="updateRow(row)">
@@ -70,27 +70,6 @@ export default {
   name: 'ActivityTable',
   data(){
     return {
-      columns: [
-        {
-          key: 'id',
-          label: '#'
-        },
-        {
-          key: 'name',
-          label: 'Name'
-        },
-        {
-          key: 'start_date',
-          label: 'Start Date'
-        },
-        {
-          key: 'end_date',
-          label: 'End Date'
-        },
-        {
-          label: 'Actions'
-        }
-      ],
       items: [], 
       filters: {
         name: {

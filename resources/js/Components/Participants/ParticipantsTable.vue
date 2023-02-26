@@ -12,8 +12,7 @@
       <CSpinner color="success" />
     </div>
     <VTable 
-      v-if="!isLoading"
-      :columns="columns"  
+      v-if="!isLoading" 
       :data="items" 
       :filters="filters" 
       :selectOnClick="true"
@@ -25,78 +24,34 @@
           <th>Email</th>
           <th>Contact #</th>
           <th>Status</th>
-          <th>Actions</th>
         </tr>
       </template>
       <template #body="{rows}">
-        <tr v-for="row in rows" :key="row.id">
+        <tr v-for="row in rows" :key="row.id" @click="showInfoModal(row)">
           <td>{{ row.id }}</td>
           <td>{{ row.full_name }}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.contact_number }}</td>
           <td>{{ row.status }}</td>
-          <td>
-            <div class="d-flex">
-              <CButton color="success" @click="updateRow(row)">
-                <CIcon
-                class="nav-icon"
-                :icon="'cil-pencil'">
-                </CIcon>
-              </CButton>
-              <CButton color="danger" class="ml-2" @click="showDeleteModal(row.id)">
-                <CIcon
-                class="nav-icon"
-                :icon="'cil-x-circle'">
-                </CIcon>
-              </CButton>
-            </div>
-          </td>
         </tr>
       </template>
     </VTable>
-    <CModal :visible="showDeleteModalVisible" @close="showDeleteModalVisible = false">
-    <CModalBody>Are you sure you want to delete {{ name }} entity</CModalBody>
-      <CModalFooter>
-        <CButton color="secondary" @click="showDeleteModalVisible = false">Cancel</CButton>
-        <CButton color="danger" @click="removeEntity">Delete</CButton>
-      </CModalFooter>
-    </CModal>
+    <ParticipantInfoModal :entity="modalData"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { getAllEntities, deleteEntity } from '@/service/api'
+import { getAllEntities} from '@/service/api'
+import ParticipantInfoModal from './ParticipantInfoModal.vue'
 
 export default {
   name: 'ParticipantsTable',
+  components: {
+    ParticipantInfoModal
+  },  
   data(){
     return {
-      columns: [
-        {
-          key: 'id',
-          label: '#'
-        },
-        {
-          key: 'full_name',
-          label: 'Name'
-        },
-        {
-          key: 'email',
-          label: 'Email'
-        },
-        {
-          key: 'contact_number',
-          label: 'Contact #'
-        },
-        {
-          key: 'status',
-          label: 'Status'
-        },
-        {
-          label: 'Actions'
-        }
-      ],
       items: [], 
       filters: {
         name: {
@@ -104,7 +59,7 @@ export default {
           keys: ['full_name', 'email']
         }
       },
-      entityId: null,
+      modalData: [],
       showDeleteModalVisible: false
     }
   },
@@ -125,38 +80,21 @@ export default {
         this.$store.commit('updateNewDataStatus', false) 
       })
     },  
-    removeEntity(){
-      deleteEntity(this.entityId)
-      .then(() => {
-        this.getEntities()
-        this.showDeleteModalVisible = false
-      })
-    },
-    showDeleteModal(id) {
-      this.entityId = id
-      this.showDeleteModalVisible = true
-    },
-    updateRow(row){
-      this.$emit('updateSelectedRow', row)
-    }
-  },
-  watch: {
-    hasNewData(current, old) {
-      // Triggers if there's a new activity inserted or updated, reloads table
-      if(current == true) {
-        this.getEntities()
-      }
+    showInfoModal(row){
+      this.modalData = row
+      this.$store.commit('updateParticipantInfoModalState', true)
     }
   },
   computed: {
     ...mapState({
       isLoading: state => state.isReloading,
-      hasNewData: state => state.hasNewData
     })
   }
 }
 </script>
 
 <style>
-
+  tr {
+    cursor: pointer;
+  }
 </style>
