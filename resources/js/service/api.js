@@ -5,9 +5,9 @@ const token = localStorage.getItem('api_token')
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
-export function getAllActivities() {
+export function getAllActivities(relations = '') {
   return new Promise((resolve, reject) => {
-    axios.get('activities/all')
+    axios.get(`activities/all?${relations}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
@@ -33,9 +33,9 @@ export function deleteActivity(id) {
   })
 }
 
-export function getAllEntities() {
+export function getAllEntities(relations = '') {
   return new Promise((resolve, reject) => {
-    axios.get('entities/all?relations[0]=participants.activity.trees.activity')
+    axios.get(`entities/all?${relations}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
@@ -66,6 +66,17 @@ export function deleteEntity(id) {
 export function getAllParticipants() {
   return new Promise((resolve, reject) => {
     axios.get('participants/all?relations[0]=entity&relations[1]=activity')
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function upsertParticipant(data, activityId) {
+  return new Promise((resolve, reject) => {
+    if(data.status == null) {
+      data.status = 'active'
+    }
+    axios.post(`participants/define?entity_id=${data.id}&activity_id=${activityId}&participant_status=${data.status}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })

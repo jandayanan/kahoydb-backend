@@ -13,6 +13,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 
 import { iconsSet as icons } from '@/Assets/icons'
 import store from '@/store/index'
+import _ from 'lodash'
 
 import '@vuepic/vue-datepicker/dist/main.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -32,6 +33,7 @@ createInertiaApp({
       .use(VueDatePicker)
       .use(store)
       .provide('icons', icons)
+      .provide('$_', _)
       .component('CIcon', CIcon)
       .component('VDatePicker', VueDatePicker)
       .mount(el);
