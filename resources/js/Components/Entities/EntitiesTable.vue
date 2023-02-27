@@ -24,17 +24,17 @@
           <th>Email</th>
           <th>Contact #</th>
           <th>Status</th>
-          <th>Actions</th>
+          <th v-if="permission == 'write'">Actions</th>
         </tr>
       </template>
       <template #body="{rows}">
-        <tr v-for="row in rows" :key="row.id">
+        <tr v-for="row in rows" :key="row.id" @click="selectedRow(row)">
           <td>{{ row.id }}</td>
           <td>{{ `${row.first_name} ${row.last_name}`}}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.contact_number }}</td>
-          <td>{{ row.status }}</td>
-          <td>
+          <td>{{ row.status.toUpperCase() }}</td>
+          <td v-if="permission == 'write'">
             <div class="d-flex">
               <CButton color="success" @click="updateRow(row)">
                 <CIcon
@@ -42,7 +42,7 @@
                 :icon="'cil-pencil'">
                 </CIcon>
               </CButton>
-              <CButton color="danger" class="ml-2" @click="showDeleteModal(row.id)">
+              <CButton color="danger" class="ml-2" @click="deleteRow(row)">
                 <CIcon
                 class="nav-icon"
                 :icon="'cil-x-circle'">
@@ -53,80 +53,49 @@
         </tr>
       </template>
     </VTable>
-    <CModal :visible="showDeleteModalVisible" @close="showDeleteModalVisible = false">
-    <CModalBody>Are you sure you want to delete {{ name }} entity</CModalBody>
-      <CModalFooter>
-        <CButton color="secondary" @click="showDeleteModalVisible = false">Cancel</CButton>
-        <CButton color="danger" @click="removeEntity">Delete</CButton>
-      </CModalFooter>
-    </CModal>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { getAllEntities, deleteEntity } from '@/service/api'
 
 export default {
   name: 'EntitiesTable',
+  props: {
+    items: {
+      type: Array,
+      default: []
+    },
+    permission: {
+      type: String,
+      default: 'write'
+    }
+  },
   data(){
     return {
-      
-      items: [], 
       filters: {
         name: {
           value: '',
           keys: ['full_name', 'email']
         }
-      },
-      entityId: null,
-      showDeleteModalVisible: false
+      }
     }
   },
-  mounted(){
-    this.getEntities()
-  },
   methods: {
-    getEntities(){
-      // Toggle loading state 
-      this.$store.commit('toggleReload')
-
-      getAllEntities()
-      .then(res => {
-        this.items = res.data.data.entity
-        
-        // Reset loading state
-        this.$store.commit('toggleReload')
-        this.$store.commit('updateNewDataStatus', false) 
-      })
-    },  
-    removeEntity(){
-      deleteEntity(this.entityId)
-      .then(() => {
-        this.getEntities()
-        this.showDeleteModalVisible = false
-      })
-    },
-    showDeleteModal(id) {
-      this.entityId = id
-      this.showDeleteModalVisible = true
+    deleteRow(row) {
+      this.$emit('deleteSelectedRow', row)
+      this.$store.commit('updateDeleteModalState', true)
     },
     updateRow(row){
       this.$emit('updateSelectedRow', row)
-    }
-  },
-  watch: {
-    hasNewData(current, old) {
-      // Triggers if there's a new activity inserted or updated, reloads table
-      if(current == true) {
-        this.getEntities()
-      }
+    },
+    selectedRow(row) {
+      this.$emit('selectedRow', row)
     }
   },
   computed: {
     ...mapState({
       isLoading: state => state.isReloading,
-      hasNewData: state => state.hasNewData
     })
   }
 }
