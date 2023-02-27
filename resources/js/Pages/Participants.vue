@@ -1,6 +1,7 @@
 <script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ParticipantsTable from '@/Components/Participants/ParticipantsTable.vue' 
+import ParticipantsContent from '@/Components/Participants/ParticipantsContent.vue' 
 import { Head } from '@inertiajs/vue3';
 
 export default {
@@ -8,6 +9,7 @@ export default {
   components: {
     AuthenticatedLayout,
     ParticipantsTable,
+    ParticipantsContent,
     Head
   },
   props: {
@@ -24,7 +26,7 @@ export default {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-          <ParticipantsTable />
+          <ParticipantsContent />
         </div>
       </div>
     </div>
