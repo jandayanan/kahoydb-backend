@@ -4,6 +4,7 @@ namespace App\Data\Models\Entity;
 
 use App\Data\Models\BaseModel;
 use App\Data\Models\Participants\Participant;
+use App\Data\Models\Trees\Tree;
 
 /**
  * Class Entities
@@ -43,4 +44,8 @@ class Entity extends BaseModel
         return $this->hasMany(Participant::class);
     }
 
+    public function trees()
+    {
+        return $this->hasMany(Tree::class, 'planter_id');
+    }
 }
