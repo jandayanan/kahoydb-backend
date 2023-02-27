@@ -31,7 +31,7 @@
         <td>{{ row.donated_at }}</td>
         <td>{{ row.latitude }}</td>
         <td>{{ row.longitude }}</td>
-        <td>{{ row.tree_status }}</td>
+        <td>{{ row.tree_status.toUpperCase() }}</td>
       </tr>
     </template>
   </VTable>
