@@ -30,7 +30,7 @@ Route::group([
 
     Route::group([
         'prefix' => 'auth',
-        'namespace' => 'Auth',
+        'namespace' => 'Auth'
     ], function () {
         Route::post('login', "TokenController@login")->name('auth.login');
         Route::post("define", "UserController@define")->name('create'); // Create user
@@ -71,70 +71,81 @@ Route::group([
     ], function(){
         Route::group([
             'prefix' => 'users',
-            'namespace' => 'Auth',
+            'namespace' => 'Auth'
         ], function () {
             Route::get("all", "UserController@all");
-            Route::get("fetch/{id}", "UserController@fetch");
-            Route::get("search", "UserController@search");
             Route::post('delete/{id}', 'UserController@delete');
             Route::post("define", "UserController@define");
+            Route::get("fetch/{id}", "UserController@fetch");
+            Route::get("search", "UserController@search");
         });
 
         Route::group([
             "prefix" => "entities",
-            "namespace" => "Entities",
+            "namespace" => "Entities"
         ], function () {
 
             Route::get("all", "EntityController@all");
             Route::post("create", "EntityController@create");
-            Route::get("fetch/{entity_id}", "EntityController@fetch");
             Route::post('update/{entity_id}', 'EntityController@update');
             Route::post('delete/{entity_id}', 'EntityController@delete');
+            Route::get("fetch/{entity_id}", "EntityController@fetch");
             Route::get("search", "EntityController@search");
         });
 
 
         Route::group([
             "prefix" => "activities",
-            "namespace" => "Activities",
+            "namespace" => "Activities"
         ], function () {
 
             Route::get("all", "ActivityController@all");
+            Route::post('delete/{id}', 'ActivityController@delete');
             Route::post("define", "ActivityController@define");
             Route::get("fetch/{id}", "ActivityController@fetch");
-            Route::post('delete/{id}', 'ActivityController@delete');
             Route::get("search", "ActivityController@search");
         });
 
 
         Route::group([
             "prefix" => "participants",
-            "namespace" => "Participants",
+            "namespace" => "Participants"
         ], function () {
 
             Route::get("all", "ParticipantController@all");
+            Route::post('delete/{id}', 'ParticipantController@delete');
             Route::post("define", "ParticipantController@define");
             Route::get("fetch/{id}", "ParticipantController@fetch");
-            Route::post('delete/{id}', 'ParticipantController@delete');
             Route::get("search", "ParticipantController@search");
         });
 
 
         Route::group([
             "prefix" => "trees",
-            "namespace" => "Trees",
+            "namespace" => "Trees"
         ], function () {
 
             Route::get("all", "TreeController@all");
+            Route::post('delete/{id}', 'TreeController@delete');
             Route::post("define", "TreeController@define");
             Route::get("fetch/{id}", "TreeController@fetch");
-            Route::post('delete/{id}', 'TreeController@delete');
             Route::get("search", "TreeController@search");
         });
 
     });
 
 
+    Route::group([
+        "prefix" => "variables",
+        "namespace" => "Variables"
+    ], function() {
+        Route::get("all", "VariablesController@all" );
+        Route::post("delete/{id}", "VariablesController@delete" );
+        Route::post("define", "VariablesController@define" );
+        Route::get("fetch/{id}", "VariablesController@fetch" );
+        Route::get("search", "VariablesController@search" );
+        Route::get("of/{type}", "VariablesController@fetchByType" );
+    });
 
 
 });
