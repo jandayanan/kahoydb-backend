@@ -79,7 +79,6 @@ export default {
       this.entities = []
       this.toInsert = []
       this.$store.commit('updateParticipantInsertModalState', false)
-      this.$store.commit('updateActivityOutputModalState', false)
     },
     pushSelectedEntity(row) {
       // Pushes entity to the array for inserting participants, then removes entity from the pack
@@ -100,6 +99,7 @@ export default {
 
       this.isSubmitDisabled = false
       this.resetModalState()
+      this.$store.commit('updateActivityOutputModalState', false)
       this.$emit('inserted')
     },
     removeEntityFromForm(item) {
