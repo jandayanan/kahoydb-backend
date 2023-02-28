@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class UserTablesSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class UserTablesSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-        $employee_data = [];
+        $entity_data = [];
         $user_data = [];
-        $i = 1;
+        $i = 0;
 
         $users = [
             [
@@ -64,11 +64,11 @@ class UserTablesSeeder extends Seeder
             $user['created_at'] = $date;
             $user['updated_at'] = $date;
 
-            $employee_data[] = $data;
+            $entity_data[] = $data;
             $user_data[] = $user;
         }
 
-        \DB::table('entities')->insert($employee_data);
+        \DB::table('entities')->insert($entity_data);
         \DB::table('users')->insert($user_data);
     }
 }
