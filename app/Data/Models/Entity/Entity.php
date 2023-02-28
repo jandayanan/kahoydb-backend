@@ -44,6 +44,11 @@ class Entity extends BaseModel
         return $this->hasMany(Participant::class);
     }
 
+    public function participant()
+    {
+        return $this->hasOne(participant::class, 'entity_id');
+    }
+
     public function trees()
     {
         return $this->hasMany(Tree::class, 'planter_id');
