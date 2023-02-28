@@ -118,7 +118,7 @@ export default {
       // Toggle loading state 
       this.$store.commit('toggleReload')
 
-      await getAllActivities('relations[0]=participants.entity.trees&relations[1]=trees.planter')
+      await getAllActivities('relations[0]=participants.entity.trees&relations[1]=trees.planter.participant')
       .then(res => {
         this.items = res.data.data.activities
         

@@ -25,7 +25,6 @@
         <th>Name</th>
         <th>Email</th>
         <th>Contact #</th>
-        <th>Status</th>
         <th v-if="type == 'write'">Actions</th>
       </tr>
     </template>
@@ -35,7 +34,6 @@
           <td>{{ row.full_name }}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.contact_number }}</td>
-          <td>{{ row.status.toUpperCase() }}</td>
       </tr>
     </template>
   </VTable>
