@@ -15,6 +15,9 @@
     :data="data" 
     :filters="filters" 
     :selectOnClick="true"
+    :page-size="pageSize"
+    v-model:currentPage="currentPage"
+    @totalPagesChanged="totalPages = $event"
     class="table table-striped table-hover">
     <template #head>
       <tr>
@@ -36,6 +39,12 @@
       </tr>
     </template>
   </VTable>
+  <v-pagination
+    v-model="currentPage"
+    :pages="totalPages"
+    :range-size="1"
+    active-color="#DCEDFF"
+  />
 </template>
 
 <script>
@@ -61,6 +70,9 @@ export default {
   data(){
     return { 
       data: [],
+      pageSize: 25,
+      totalPages: 1,
+      currentPage: 1,
       filters: {
         name: {
           value: '',

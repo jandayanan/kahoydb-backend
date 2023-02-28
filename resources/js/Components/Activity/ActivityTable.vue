@@ -11,9 +11,13 @@
     <div class="d-flex justify-content-center" v-if="isLoading">
       <CSpinner color="success" />
     </div>
-    <VTable :data="items" 
+    <VTable 
       v-if="!isLoading"
+      :data="items" 
       :filters="filters"
+      :page-size="pageSize"
+      v-model:currentPage="currentPage"
+      @totalPagesChanged="totalPages = $event"
       class="table table-striped table-hover">
       <template #head>
         <tr>
@@ -58,6 +62,12 @@
         </tr>
       </template>
     </VTable>
+    <v-pagination
+      v-model="currentPage"
+      :pages="totalPages"
+      :range-size="1"
+      active-color="#DCEDFF"
+    />
     <ActivityOutputModal 
       :activity="activity"
       @inserted="reloadOutputModal"/>
@@ -85,6 +95,9 @@ export default {
   data(){
     return {
       items: [], 
+      currentPage: 1,
+      totalPages: 1,
+      pageSize: 25,
       filters: {
         name: {
           value: '',
@@ -105,7 +118,7 @@ export default {
       // Toggle loading state 
       this.$store.commit('toggleReload')
 
-      await getAllActivities('relations[0]=participants.entity.trees')
+      await getAllActivities('relations[0]=participants.entity.trees&relations[1]=trees.planter')
       .then(res => {
         this.items = res.data.data.activities
         
@@ -134,7 +147,6 @@ export default {
     },
     async reloadOutputModal(activity) {
       await this.getActivities()
-      console.log(this.items.filter(item => item.id === activity.id)[0])
       this.activity = this.items.filter(item => item.id === activity.id)[0] 
       this.$store.commit('updateActivityOutputModalState', true)
     }

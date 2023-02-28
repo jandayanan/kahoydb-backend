@@ -10,6 +10,7 @@ import CoreuiVue from '@coreui/vue';
 import CIcon from '@coreui/icons-vue';
 import SmartTable from 'vuejs-smart-table'
 import VueDatePicker from '@vuepic/vue-datepicker';
+import VPagination from "@hennge/vue3-pagination";
 
 import { iconsSet as icons } from '@/Assets/icons'
 import store from '@/store/index'
@@ -18,6 +19,7 @@ import _ from 'lodash'
 import '@vuepic/vue-datepicker/dist/main.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@coreui/coreui/dist/css/coreui.min.css'
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Kahoy';
 
@@ -36,6 +38,7 @@ createInertiaApp({
       .provide('$_', _)
       .component('CIcon', CIcon)
       .component('VDatePicker', VueDatePicker)
+      .component('VPagination', VPagination)
       .mount(el);
   },
   progress: {
