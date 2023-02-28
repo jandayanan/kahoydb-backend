@@ -21,8 +21,8 @@ class CreateTreesTable extends Migration
             $table->string('planted_at');
             $table->string('donated_at');
             $table->string('tree_type');
-            $table->decimal('latitude', 10, 8)->nullable()->default(null);
-            $table->decimal('longitude', 11, 8)->nullable()->default(null);
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->string('tree_status');
             $table->timestamps();
             $table->softDeletes();

@@ -20,6 +20,7 @@ class Tree extends \Shared\BaseClasses\Model
         'planted_at',
         'donated_at',
         'tree_type',
+        'tree_species',
         'latitude',
         'longitude',
         'tree_status'
@@ -32,6 +33,7 @@ class Tree extends \Shared\BaseClasses\Model
         'planted_at',
         'donated_at',
         'tree_type',
+        'tree_species',
         'latitude',
         'longitude',
         'tree_status'
