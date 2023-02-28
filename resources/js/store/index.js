@@ -6,6 +6,7 @@ export default createStore({
     sidebarUnfoldable: false,
     isReloading: false,
     hasNewData: false,
+    activityOutputTabPaneKey: 1,
     showActivityModal: false,
     showActivityOutputModal: false,
     showParticipantInfoModal: false,
@@ -26,6 +27,9 @@ export default createStore({
     },
     toggleUnfoldable(state) {
       state.sidebarUnfoldable = !state.sidebarUnfoldable
+    },
+    setActivityOutputTabPaneKey(state, payload) {
+      state.activityOutputTabPaneKey = payload
     },
     updateSidebarVisible(state, payload) {
       state.sidebarVisible = payload.value

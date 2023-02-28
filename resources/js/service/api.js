@@ -81,3 +81,29 @@ export function upsertParticipant(data, activityId) {
     .catch(err => reject(err.response.data))
   })
 }
+
+export function upsertTree(data) {
+  return new Promise((resolve, reject) => {
+    let url = `trees/define?
+    activity_id=${data.activityId}&
+    planter_id=${data.planterId}&
+    planted_at=${data.plantedAt}&
+    donated_at=${data.donatedAt}&
+    tree_type=${data.treeType}&
+    tree_status=${data.treeStatus}`
+
+    if (data.id) {
+      url = `${url}&id=${data.id}`  
+    } 
+    if(data.latitude) {
+      url = `${url}&latitude=${data.latitude}`
+    }
+    if(data.longituded) {
+      url = `${url}&longitude=${data.longitude}`
+    }
+    
+    axios.post(url)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}

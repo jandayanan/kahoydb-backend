@@ -1,34 +1,14 @@
 <template>
-  <CModal size="lg" :visible="showActivityModal" @close="resetModalState" id="activityModal">
+  <CModal size="xl" backdrop="static" :visible="showActivityModal" @close="resetModalState" id="activityModal">
     <CModalHeader>
       <CModalTitle>Activity Output</CModalTitle>
     </CModalHeader>
     <CModalBody>
       <CContainer>
-        <CRow>
-          <CCol sm="auto"><strong>Name:</strong></CCol>
-          <CCol sm="auto">{{ activity.name }}</CCol>
-        </CRow>
-        <CRow class="mt-2">
-          <CCol sm="auto"><strong>Start Date:</strong></CCol>
-          <CCol sm="auto">{{ activity.start_date }}</CCol>
-        </CRow>
-        <CRow class="mt-2">
-          <CCol sm="auto"><strong>End Date:</strong></CCol>
-          <CCol sm="auto">{{ activity.end_date }}</CCol>
-        </CRow>
-        <CRow class="mt-2">
-          <CCol sm="auto"><strong>Status:</strong></CCol>
-          <CCol sm="auto">{{ activity.activity_status.toUpperCase() }}</CCol>
-        </CRow>
-        <CRow class="mt-4">
-          <CCol sm="auto"><strong>No. of Participants:</strong></CCol>
-          <CCol sm="auto">{{ participants.length }}</CCol>
-        </CRow>
-        <CRow>
-          <CCol sm="auto"><strong>No. of Trees:</strong></CCol>
-          <CCol sm="auto">{{ trees.length }}</CCol>
-        </CRow>
+        <ActivityOutputInfo 
+          :activity="activity"
+          :participants="participants"
+          :trees="trees" />
         <CRow>
           <CCol sm="auto">
             <CButton 
@@ -39,7 +19,13 @@
             <ParticipantInsertModal 
               :participants="participants"
               :activityId="activity.id" 
-              @inserted="insertedParticipant"/>
+              @inserted="inserted"/>
+            <TreeUpsertModal 
+              :activity="activity"
+              :participants="participants"
+              :method="treeUpsertMethod"
+              :tree="tree"
+              @inserted="inserted" />
           </CCol>
         </CRow>
       </CContainer>
@@ -49,7 +35,7 @@
             <CNavLink
               href="javascript:void(0);"
               :active="tabPaneActiveKey === 1"
-              @click="() => {tabPaneActiveKey = 1}"
+              @click="() => {$store.commit('setActivityOutputTabPaneKey', 1)}"
             >
               Participants
             </CNavLink>
@@ -58,7 +44,7 @@
             <CNavLink
               href="javascript:void(0);"
               :active="tabPaneActiveKey === 2"
-              @click="() => {tabPaneActiveKey = 2}"
+              @click="() => {$store.commit('setActivityOutputTabPaneKey', 2)}"
             >
               Trees
             </CNavLink>
@@ -66,9 +52,15 @@
         </CNav>
         <CTabContent class="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="participants-tab" :visible="tabPaneActiveKey === 1">
-            <ParticipantsTable :items="participants" @selectedRow="selectedParticipantRow"/>
+            <ParticipantsTable 
+              :items="participants" 
+              @selectedRow="selectedParticipantRow"/>
           </CTabPane>
           <CTabPane role="tabpanel" aria-labelledby="trees-tab" :visible="tabPaneActiveKey === 2">
+            <TreesTable 
+              :items="trees" 
+              :permission="'write'"
+              @updateSelectedRow="updateTreeRow" />
           </CTabPane>
         </CTabContent>
       </CContainer>
@@ -79,14 +71,20 @@
 
 <script>
 import { mapState } from 'vuex'
+import TreesTable from '@/Components/Trees/TreesTable.vue'
 import ParticipantsTable from '@/Components/Participants/ParticipantsTable.vue'
-import ParticipantInsertModal from '../Participants/ParticipantInsertModal.vue'
+import ParticipantInsertModal from '@/Components/Participants/ParticipantInsertModal.vue'
+import TreeUpsertModal from '@/Components/Trees/TreeUpsertModal.vue'
+import ActivityOutputInfo from './ActivityOutputInfo.vue'
 
 export default {
   name: "ActivityOutputModal",
   components: {
+    TreesTable,
     ParticipantsTable,
-    ParticipantInsertModal
+    ParticipantInsertModal,
+    TreeUpsertModal,
+    ActivityOutputInfo
   },
   props: {
     activity: {
@@ -98,7 +96,8 @@ export default {
     return {
       participants: [],
       trees: [],
-      tabPaneActiveKey: 1
+      treeUpsertMethod: 'create',
+      tree: {}
     };
   },
   updated() {        
@@ -109,14 +108,14 @@ export default {
       // Segregate participants and trees into separate arrays
       this.clearEntities()
       this.activity.participants.forEach((participant) => {
-        if (participant.entity.trees) {
-          this.trees = this.trees.concat(participant.entity.trees)
-        }
         this.participants.push({
           status: participant.participant_status,
           origin: participant,
           ...participant.entity
         })
+      })
+      this.activity.trees.forEach((tree) => {
+        this.trees.push(tree)
       })
     },
     resetModalState() {
@@ -129,19 +128,30 @@ export default {
       this.trees = []
     },
     showInsertModal() {
+      this.segregateEntities()
+
       if(this.tabPaneActiveKey == 1) {
-        this.segregateEntities()
         this.$store.commit('updateParticipantInsertModalState', true)
+      } 
+      else if(this.tabPaneActiveKey == 2) {
+        this.treeUpsertMethod = 'create'
+        this.$store.commit('updateTreeUpsertModalState', true)
       }
     },
-    insertedParticipant(){
+    updateTreeRow(row) {
+      this.tree = row
+      this.treeUpsertMethod = 'update'
+      this.$store.commit('updateTreeUpsertModalState', true)
+    },
+    inserted(){
       this.$emit('inserted', this.activity)
       this.resetModalState()
-    }
+    },
   },
   computed: {
     ...mapState({
-      showActivityModal: state => state.showActivityOutputModal
+      showActivityModal: state => state.showActivityOutputModal,
+      tabPaneActiveKey: state => state.activityOutputTabPaneKey
     })
   }
 }
