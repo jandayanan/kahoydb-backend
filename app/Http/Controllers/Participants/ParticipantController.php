@@ -57,6 +57,19 @@ class ParticipantController extends BaseController
 
     }
 
+    /**
+     * Create and Update participant and entity.
+     *
+     * @param Request $request
+     * @return ParticipantController
+     */
+    public function creation( Request $request ){
+        return $this->absorb(
+            $this->participant_repo->participantEntity( $request->all() )
+        )->json();
+
+    }
+
     // endregion Define
 
     // region Delete

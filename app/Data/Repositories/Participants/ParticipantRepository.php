@@ -4,11 +4,12 @@ namespace App\Data\Repositories\Participants;
 
 use App\Data\Models\Participants\Participant;
 use App\Data\Repositories\BaseRepository;
+use App\Data\Repositories\Entity\EntityRepository;
 
 class ParticipantRepository extends BaseRepository
 {
 
-    protected $participants, $meta_index = "participants";
+    protected $participants, $entity_repo, $meta_index = "participants";
 
     /**
      * Instantiate class
@@ -16,8 +17,10 @@ class ParticipantRepository extends BaseRepository
      * @param Participant $participant
      */
     public function __construct(
-        Participant $participant ){
+        Participant $participant,
+        EntityRepository $entityRepository){
         $this->participant = $participant;
+        $this->entity_repo = $entityRepository;
     }
 
     // region Define
@@ -74,6 +77,69 @@ class ParticipantRepository extends BaseRepository
             'data' => [
                 $this->meta_index => $participant,
             ]
+        ]);
+
+    }
+
+    /**
+     * Create participant and entity
+     *
+     * @param array $data
+     * @return ParticipantRepository
+     */
+    public function participantEntity($data = []){
+        $meta_index = 'entity';
+
+        // region Validation
+
+        $fillable = [
+            'activity_id' => 'Activity ID',
+            'first_name' => 'First name',
+            'last_name' => 'Last name',
+            'email' => 'Email',
+            'contact_number' => 'Contact number'
+        ];
+        foreach($fillable as $key => $value) {
+            if (!isset($data[$key])) {
+                return $this->httpNotFoundResponse([
+                    'code' => 404,
+                    'message' => $value." is not set."
+                ]);
+            }
+        }
+
+        // endregion Validation
+
+        $entity = $this->entity_repo->define($data);
+        if((isset($entity) && !is_code_success( $entity->getCode() )) || is_null($entity)){
+            return $this->httpInternalServerResponse([
+                "code" => 500,
+                "message" => _("Data Validation Error."),
+                "description" => _("An error was detected on one of the inputted data."),
+                "data" => $entity->getData()
+            ]);
+        }
+
+        $data['entity_id'] = $entity->getData()['entity']->id;
+
+        if(!$this->participant->save($data)){
+            return $this->httpInternalServerResponse([
+                "code" => 500,
+                "message" => _("Data Validation Error."),
+                "description" => _("An error was detected on one of the inputted data."),
+                "data" =>   [
+                    "errors" => $this->participant->errors(),
+                ]
+            ]);
+        }
+
+        return $this->httpSuccessResponse([
+            "code" => 200,
+            "message" => _("Successfully added a participant and entity."),
+            'data' => [
+                $this->meta_index => $this->participant,
+                $meta_index => $entity->getData()['entity']
+            ],
         ]);
 
     }

@@ -115,6 +115,7 @@ Route::group([
             Route::get("all", "ParticipantController@all");
             Route::post('delete/{id}', 'ParticipantController@delete');
             Route::post("define", "ParticipantController@define");
+            Route::post("creation", "ParticipantController@creation");
             Route::get("fetch/{id}", "ParticipantController@fetch");
             Route::get("search", "ParticipantController@search");
         });
