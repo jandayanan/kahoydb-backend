@@ -88,10 +88,8 @@ export default {
     segregateEntities() {
       // Segregate activities and trees into separate arrays
       this.clearEntities()
+      this.trees = this.trees.concat(this.entity.trees)
       this.entity.participants.forEach((participant) => {
-        if (participant.activity.trees) {
-          this.trees = this.trees.concat(participant.activity.trees)
-        }
         this.activities.push(participant.activity)
       })
     },

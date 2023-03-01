@@ -37,7 +37,7 @@ export default {
       // Toggle loading state 
       this.$store.commit('toggleReload')
 
-      getAllEntities('relations[0]=participants.activity.trees.activity&relations[1]=participants.entity')
+      getAllEntities('relations[0]=trees.activity&relations[1]=participants.activity')
       .then(res => {
         this.items = res.data.data.entity
         
