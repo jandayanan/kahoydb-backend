@@ -89,7 +89,25 @@ class EntityRepository extends BaseRepository
                     unset($data['email']);
                 }
             }
+
+            if(isset($data['contact_number'])){
+                if($entity->contact_number == $data['contact_number']){
+                    unset($data['contact_number']);
+                }
+            }
         } else {
+            if($this->entity->where('email', $data['email'])->exists()){
+                return $this->httpInternalServerResponse([
+                    'code' => 500,
+                    'message' => "Email is already exists."
+                ]);
+            }
+            if($this->entity->where('contact_number', $data['contact_number'])->exists()){
+                return $this->httpInternalServerResponse([
+                    'code' => 500,
+                    'message' => "Contact Number is already exists."
+                ]);
+            }
             $entity = $this->entity->init($this->entity->pullFillable($data));
         }
 

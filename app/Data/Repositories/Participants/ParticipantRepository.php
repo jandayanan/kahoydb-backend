@@ -114,7 +114,7 @@ class ParticipantRepository extends BaseRepository
         if((isset($entity) && !is_code_success( $entity->getCode() )) || is_null($entity)){
             return $this->httpInternalServerResponse([
                 "code" => 500,
-                "message" => _("Data Validation Error."),
+                "message" => $entity->getMessage(),
                 "description" => _("An error was detected on one of the inputted data."),
                 "data" => $entity->getData()
             ]);
