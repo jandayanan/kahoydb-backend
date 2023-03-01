@@ -70,7 +70,8 @@
     />
     <ActivityOutputModal 
       :activity="activity"
-      @inserted="reloadOutputModal"/>
+      @inserted="reloadOutputModal"
+      @deleted="reloadOutputModal"/>
 
     <CModal :visible="showDeleteModalVisible" @close="showDeleteModalVisible = false">
     <CModalBody>Are you sure you want to delete {{ name }} activity</CModalBody>

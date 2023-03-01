@@ -90,7 +90,8 @@ export function upsertTree(data) {
     planted_at=${data.plantedAt}&
     donated_at=${data.donatedAt}&
     tree_type=${data.treeType}&
-    tree_status=${data.treeStatus}`
+    tree_status=${data.treeStatus}&
+    tree_species=${data.treeSpecies}`
 
     if (data.id) {
       url = `${url}&id=${data.id}`  
@@ -98,11 +99,29 @@ export function upsertTree(data) {
     if(data.latitude) {
       url = `${url}&latitude=${data.latitude}`
     }
-    if(data.longituded) {
+    if(data.longitude) {
       url = `${url}&longitude=${data.longitude}`
     }
     
     axios.post(url)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function deleteTree(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(`trees/delete/${id}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function getVariables(args = '/all') {
+  return new Promise((resolve, reject) => {
+    let url = `variables${args}` 
+
+    axios.get(url)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })

@@ -25,7 +25,7 @@
               :participants="participants"
               :method="treeUpsertMethod"
               :tree="tree"
-              @inserted="inserted" />
+              @inserted="insertedTree" />
           </CCol>
         </CRow>
       </CContainer>
@@ -60,8 +60,14 @@
             <TreesTable 
               :items="trees" 
               :permission="'write'"
-              @updateSelectedRow="updateTreeRow" />
+              @updateSelectedRow="updateTreeRow"
+              @deleteSelectedRow="deleteTreeRow" />
           </CTabPane>
+          <DeleteModal
+            :entityId="entityId"
+            :entityName="entityName"
+            :entityType="entityType"
+            @deleted="deletedTree" />
         </CTabContent>
       </CContainer>
     </CModalBody>
@@ -76,6 +82,7 @@ import ParticipantsTable from '@/Components/Participants/ParticipantsTable.vue'
 import ParticipantInsertModal from '@/Components/Participants/ParticipantInsertModal.vue'
 import TreeUpsertModal from '@/Components/Trees/TreeUpsertModal.vue'
 import ActivityOutputInfo from './ActivityOutputInfo.vue'
+import DeleteModal from '@/Components/DeleteModal.vue'
 
 export default {
   name: "ActivityOutputModal",
@@ -84,7 +91,8 @@ export default {
     ParticipantsTable,
     ParticipantInsertModal,
     TreeUpsertModal,
-    ActivityOutputInfo
+    ActivityOutputInfo,
+    DeleteModal
   },
   props: {
     activity: {
@@ -97,7 +105,10 @@ export default {
       participants: [],
       trees: [],
       treeUpsertMethod: 'create',
-      tree: {}
+      tree: {},
+      entityId: null,
+      entityName: null,
+      entityType: 'entity'
     };
   },
   updated() {        
@@ -143,10 +154,19 @@ export default {
       this.treeUpsertMethod = 'update'
       this.$store.commit('updateTreeUpsertModalState', true)
     },
-    inserted(){
+    deleteTreeRow(row) {
+      this.entityId = row.id
+      this.entityName = `"${row.tree_species} - ${row.planter.full_name}"`
+      this.entityType = 'tree'
+    },
+    insertedTree(){
       this.$emit('inserted', this.activity)
       this.resetModalState()
     },
+    deletedTree(){
+      this.$emit('deleted', this.activity)
+      this.resetModalState()
+    }
   },
   computed: {
     ...mapState({

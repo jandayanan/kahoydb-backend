@@ -10,7 +10,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { deleteActivity, deleteEntity } from '@/service/api'
+import { deleteActivity, deleteEntity, deleteTree } from '@/service/api'
 
 export default {
   props: {
@@ -26,20 +26,29 @@ export default {
     }
   },
   methods: {
-    remove() {
+    async remove() {
       if(this.entityType == 'activity') {
-        deleteActivity(this.entityId)
+        await deleteActivity(this.entityId)
         .then(() => {
           this.resetModalState()
         })
       }
 
       if(this.entityType == 'entity') {
-        deleteEntity(this.entityId)
+        await deleteEntity(this.entityId)
         .then(() => {
           this.resetModalState()
         })
       }
+
+      if(this.entityType == 'tree') {
+        await deleteTree(this.entityId)
+        .then(() => {
+          this.resetModalState()
+        })
+      }
+
+      this.$emit('deleted')
     },
     resetModalState() {
       this.$store.commit('updateDeleteModalState', false)

@@ -7,8 +7,8 @@
       <CModalBody>
         <label for="planterInput" class="form-label">Planter</label>
         <v-select 
-          label="full_name"
-          key="origin.id" 
+          id="treeSelect2Input"
+          label="full_name" 
           v-model="planter"
           :options="participants" />
         <div class="form-text">Required</div>
@@ -44,42 +44,33 @@
           placeholder="-1.25688547"
           v-model="form.longitude"
         />
+        <label for="treeSpecieInput" class="form-label">Specie</label>
         <CFormSelect
           class="mt-2"
           aria-label="Tree Species Selection"
           v-model="form.treeSpecies"
-          :options="[
-            { label: '-- Choose Specie --', value: ''},
-            { label: 'Banana', value: 'banana' },
-            { label: 'Cacao', value: 'cacao' },
-            { label: 'Maple', value: 'maple' },
-          ]"
+          :options="treeSpecies"
           required>
         </CFormSelect>
+        <div class="form-text">Required</div>
+        <label for="treeTypeInput" class="form-label">Tree Type</label>
         <CFormSelect
           class="mt-2"
-          aria-label="Entity Status Selection Field"
+          aria-label="Tree Type Selection Field"
           v-model="form.treeType"
-          :options="[
-            { label: '-- Choose Tree type --', value: ''},
-            { label: 'Fruit Bearing', value: 'fruit_bearing' },
-            { label: 'Non-Fruit Bearing', value: 'non_fruit_bearing' },
-            { label: 'Hardwood', value: 'hardwood' },
-          ]"
+          :options="treeTypes"
           required>
         </CFormSelect>
+        <div class="form-text">Required</div>
+        <label for="treeTypeInput" class="form-label">Tree Status</label>
         <CFormSelect
           class="mt-2"
-          aria-label="Entity Status Selection Field"
+          aria-label="Tree Status Selection Field"
           v-model="form.treeStatus"
-          :options="[
-            { label: '-- Choose Tree status --', value: '', disabled: true},
-            { label: 'Planted', value: 'planted' },
-            { label: 'Seedling', value: 'seedling' },
-            { label: 'Full Grown', value: 'full_grown' },
-          ]"
+          :options="treeStatuses"
           required>
         </CFormSelect>
+        <div class="form-text">Required</div>
       </CModalBody>
       <CModalFooter>
         <CButton color="secondary" @click="closeModal">Close</CButton>
@@ -92,7 +83,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { upsertTree } from '@/service/api'
+import { upsertTree, getVariables } from '@/service/api'
 
 export default {
   name: 'TreeUpsertModal',
@@ -124,13 +115,16 @@ export default {
         donatedAt: null,
         latitude: null,
         longitude: null,
-        treeType: null,
-        treeSpecies: null,
-        treeStatus: "planted",
+        treeType: "",
+        treeSpecies: "",
+        treeStatus: "",
         errors: []
       },
       planter: {},
-      participantsSelect: []
+      participantsSelect: [],
+      treeTypes: [{label: '--Choose Tree Type--', value: "", disabled: true}],
+      treeSpecies: [{label: '--Choose Tree Specie--', value: "", disabled: true}],
+      treeStatuses: [{label: '--Choose Tree Status--', value: "", disabled: true}]
     }
   },
   watch: {
@@ -160,6 +154,13 @@ export default {
   },  
   updated() {
     this.form.activityId = this.activity.id
+    let treeSelect2Input = document.getElementById('treeSelect2Input')
+    if(treeSelect2Input && this.tree.planter) {
+      treeSelect2Input.getElementsByClassName('vs__search')[0].value = this.tree.planter.full_name
+    }
+  },
+  mounted() {
+    this.getVariablesEntities()
   },
   methods: {
     closeModal() {
@@ -168,9 +169,6 @@ export default {
     },
     submit(event) {
       event.preventDefault()
-      if(this.form.planterId) {
-
-      }
 
       upsertTree(this.form)
       .then(() => {
@@ -188,11 +186,51 @@ export default {
         donatedAt: null,
         latitude: null,
         longitude: null,
-        treeType: null,
-        treeSpecies: null,
-        treeStatus: "planted",
+        treeType: "",
+        treeSpecies: "",
+        treeStatus: "",
         errors: []
       }
+    },
+    async getVariablesEntities() {
+      await getVariables('/of/tree.status')
+      .then(res => {
+        res.data.data.variables.forEach((variable)=> {
+          this.treeStatuses.push({
+            label: variable.value,
+            value: variable.value
+          })
+        })
+        if(this.treeStatuses.length > 1) {
+          this.form.treeStatus = this.treeStatuses[1].value
+        }
+      })
+
+      await getVariables('/of/tree.type')
+      .then(res => {
+        res.data.data.variables.forEach((variable)=> {
+          this.treeTypes.push({
+            label: variable.value,
+            value: variable.value
+          })
+        })
+        if(this.treeTypes.length > 1) {
+          this.form.treeType = this.treeTypes[1].value
+        }
+      })
+
+      await getVariables('/of/tree.species')
+      .then(res => {
+        res.data.data.variables.forEach((variable)=> {
+          this.treeSpecies.push({
+            label: variable.value,
+            value: variable.value
+          })
+        })
+        if(this.treeSpecies.length > 1) {
+          this.form.treeSpecies = this.treeSpecies[1].value
+        }
+      })
     }
   },
   computed: {
