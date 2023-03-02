@@ -82,6 +82,14 @@ export function upsertParticipant(data, activityId) {
   })
 }
 
+export function getAllTrees(args='') {
+  return new Promise((resolve, reject) => {
+    axios.get(`trees/all?sort=id&order=desc&${args}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
 export function upsertTree(data) {
   return new Promise((resolve, reject) => {
     let url = `trees/define?
@@ -117,7 +125,7 @@ export function deleteTree(id) {
   })
 }
 
-export function getVariables(args = '/all') {
+export function getAllVariables(args = '/all') {
   return new Promise((resolve, reject) => {
     let url = `variables${args}` 
 

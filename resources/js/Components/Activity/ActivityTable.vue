@@ -110,9 +110,9 @@ export default {
       showDeleteModalVisible: false
     }
   },
-  mounted() {
+  async created() {
     // Fetch all activities when component is mounted
-    this.getActivities()
+    await this.getActivities()
   },
   methods: {
     async getActivities() {

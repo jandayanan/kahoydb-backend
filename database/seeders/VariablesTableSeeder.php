@@ -28,13 +28,23 @@ class VariablesTableSeeder extends Seeder
                 'type' => 'tree.type'
             ],
             [
+                'key'  => 'planting',
+                'value' => 'Planting',
+                'type' => 'tree.status'
+            ],
+            [
                 'key'  => 'planted',
                 'value' => 'Planted',
                 'type' => 'tree.status'
             ],
             [
-                'key'  => 'planting',
-                'value' => 'Planting',
+                'key'  => 'seedling',
+                'value' => 'Seedling',
+                'type' => 'tree.status'  
+            ],
+            [
+                'key'  => 'full_grown',
+                'value' => 'Full Grown',
                 'type' => 'tree.status'
             ],
             [
