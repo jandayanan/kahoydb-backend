@@ -83,7 +83,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { upsertTree, getVariables } from '@/service/api'
+import { upsertTree, getAllVariables } from '@/service/api'
 
 export default {
   name: 'TreeUpsertModal',
@@ -193,7 +193,7 @@ export default {
       }
     },
     async getVariablesEntities() {
-      await getVariables('/of/tree.status')
+      await getAllVariables('/of/tree.status')
       .then(res => {
         res.data.data.variables.forEach((variable)=> {
           this.treeStatuses.push({
@@ -206,7 +206,7 @@ export default {
         }
       })
 
-      await getVariables('/of/tree.type')
+      await getAllVariables('/of/tree.type')
       .then(res => {
         res.data.data.variables.forEach((variable)=> {
           this.treeTypes.push({
@@ -219,7 +219,7 @@ export default {
         }
       })
 
-      await getVariables('/of/tree.species')
+      await getAllVariables('/of/tree.species')
       .then(res => {
         res.data.data.variables.forEach((variable)=> {
           this.treeSpecies.push({
