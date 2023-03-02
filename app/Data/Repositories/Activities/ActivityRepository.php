@@ -169,14 +169,10 @@ class ActivityRepository extends BaseRepository
                     ]
                 ];
             } else {
-                $params = [
-                    'where' => [
-                        [
-                            'operator' => '=',
-                            'target' => 'id',
-                            'value' => $data[ 'id' ],
-                        ]
-                    ]
+                $params['where'][] = [
+                    'operator' => '=',
+                    'target' => 'id',
+                    'value' => $data[ 'id' ],
                 ];
             }
         }

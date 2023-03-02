@@ -35,8 +35,33 @@ class TreeController extends BaseController
      * @return TreeController
      */
     public function all( Request $request ){
+        $data = $request->all();
+        if( isset($data['tree_type']) ){
+            $data['where'][] = [
+                'operator' => '=',
+                'target' => 'tree_type',
+                'value' => $data[ 'tree_type' ],
+            ];
+        }
+
+        if( isset($data['tree_species']) ){
+            $data['where'][] = [
+                'operator' => '=',
+                'target' => 'tree_species',
+                'value' => $data[ 'tree_species' ],
+            ];
+        }
+
+        if( isset($data['tree_status']) ){
+            $data['where'][] = [
+                'operator' => '=',
+                'target' => 'tree_status',
+                'value' => $data[ 'tree_status' ],
+            ];
+        }
+
         return $this->absorb(
-            $this->tree_repo->fetch( $request->all() )
+            $this->tree_repo->fetch( $data )
         )->json();
     }
 
