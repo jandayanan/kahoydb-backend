@@ -15,11 +15,6 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return Inertia::render('Auth/Login');
-})->middleware('guest');
-
 Route::group([
     'middleware' => ['auth.web']
 ], function (){

@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue'
 import axios from 'axios';
 
 defineProps({
@@ -19,15 +20,24 @@ const form = useForm({
     remember: false,
 });
 
+const error = ref(null)
+
 const submit = () => {
     axios.post(`${route('auth.login')}?username=${form.username}&password=${form.password}`)
     .then(res => {
         localStorage.setItem('api_token', res.data.data.token)
+        error.value = null
+    }).
+    catch(err => {
+        error.value = err.response.data.message
     })
 
-    axios.post(route('login'), form)
-    .then(()=> {
-        window.location.href = '/dashboard'
+    axios.post(route('web.login'), form)
+    .then((res)=> {
+        console.log(error.value)
+        if(error.value == null) {
+            window.location.href = '/dashboard'
+        }
     })
 };
 </script>
@@ -38,6 +48,10 @@ const submit = () => {
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
+        </div>
+
+        <div v-if="error" class="mb-4 font-medium text-sm text-red-600">
+            {{ error }}
         </div>
 
         <form @submit.prevent="submit">

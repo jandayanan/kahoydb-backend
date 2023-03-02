@@ -19,7 +19,7 @@
             <ParticipantInsertModal 
               :participants="participants"
               :activityId="activity.id" 
-              @inserted="inserted"/>
+              @inserted="insertedParticipant"/>
             <TreeUpsertModal 
               :activity="activity"
               :participants="participants"
@@ -159,7 +159,7 @@ export default {
       this.entityName = `"${row.tree_species} - ${row.planter.full_name}"`
       this.entityType = 'tree'
     },
-    insertedTree(){
+    insertedParticipant(){
       this.$emit('inserted', this.activity)
       this.resetModalState()
     },

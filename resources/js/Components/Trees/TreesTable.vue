@@ -43,7 +43,13 @@
           <td>{{ row.tree_status.toUpperCase() }}</td>
           <td v-if="permission == 'write'">
             <div class="d-flex">
-              <CButton color="success" @click="updateRow(row)">
+              <CButton color="info" @click="viewOnMap(row.latitude, row.longitude)">
+                <CIcon
+                class="nav-icon"
+                :icon="'cil-map'">
+                </CIcon>
+              </CButton>
+              <CButton color="success" class="ml-2" @click="updateRow(row)">
                 <CIcon
                 class="nav-icon"
                 :icon="'cil-pencil'">
@@ -107,6 +113,9 @@ export default {
     },
     selectedRow(row) {
       this.$emit('selectedRow', row)
+    },
+    viewOnMap(lat, long) {
+      window.open(`https://maps.google.com/?q=${lat},${long}`, '_blank')
     }
   },
   computed: {
