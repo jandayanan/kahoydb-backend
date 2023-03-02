@@ -5,10 +5,10 @@
     </CDropdownToggle>
     <CDropdownMenu class="pt-0">
       <CDropdownHeader component="h6" class="bg-light fw-semibold py-2">
-        Settings
+        User
       </CDropdownHeader>
-      <CDropdownItem> <CIcon icon="cil-user" /> Profile </CDropdownItem>
-      <CDropdownItem> <CIcon icon="cil-settings" /> Settings </CDropdownItem>
+      <!-- <CDropdownItem> <CIcon icon="cil-user" /> Profile </CDropdownItem>
+      <CDropdownItem> <CIcon icon="cil-settings" /> Settings </CDropdownItem> -->
       <CDropdownItem @click="logout"> <CIcon icon="cil-lock-locked" /> Logout </CDropdownItem>
     </CDropdownMenu>
   </CDropdown>
