@@ -148,5 +148,17 @@ Route::group([
         Route::get("of/{type}", "VariablesController@fetchByType" );
     });
 
+    Route::group([
+        "prefix" => "participate",
+        "namespace" => "Participate"
+    ], function() {
+        Route::group([
+            "prefix" => "{activity_id}",
+        ], function() {
+            Route::post("add/tree", "ParticipateController@add" );
+        });
+        Route::post("view/tree", "ParticipateController@view" );
+    });
+
 
 });

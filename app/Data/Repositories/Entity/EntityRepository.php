@@ -42,18 +42,6 @@ class EntityRepository extends BaseRepository
                     'message' => "Last name is not set."
                 ]);
             }
-            if(!isset($data['email'])){
-                return $this->httpNotFoundResponse([
-                    'code' => 404,
-                    'message' => "Email is not set."
-                ]);
-            }
-            if(!isset($data['contact_number'])){
-                return $this->httpNotFoundResponse([
-                    'code' => 404,
-                    'message' => "Contact number is not set."
-                ]);
-            }
             if(!isset($data['full_name'])){
                 $data['full_name'] = $data['first_name'] . ' ' . $data['last_name'];
             }
@@ -96,13 +84,13 @@ class EntityRepository extends BaseRepository
                 }
             }
         } else {
-            if($this->entity->where('email', $data['email'])->exists()){
+            if (isset($data['email']) && $this->entity->where('email', $data['email'])->exists()) {
                 return $this->httpInternalServerResponse([
                     'code' => 500,
                     'message' => "Email is already exists."
                 ]);
             }
-            if($this->entity->where('contact_number', $data['contact_number'])->exists()){
+            if(isset($data['contact_number']) && $this->entity->where('contact_number', $data['contact_number'])->exists()){
                 return $this->httpInternalServerResponse([
                     'code' => 500,
                     'message' => "Contact Number is already exists."
