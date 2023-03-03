@@ -9,6 +9,7 @@ use App\Data\Repositories\Trees\TreeRepository;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Shared\Traits\Instances\Response;
+use Inertia\Inertia;
 
 /**
  * Class TreeController
@@ -37,6 +38,46 @@ class ParticipateController extends BaseController
         $this->base_url = env("APP_URL", 'http://localhost:8000');
         $this->salt = env("APP_SALT", 'KAHOY_Default');
     }
+    // region show
+
+    /**
+     * Show Create tree form.
+     *
+     * @param Request $request
+     * @return Inertia
+     */
+    public function show( Request $request, $activity_id ) {
+        $hash = $request->query('hash');
+        if(!isset($hash) || !validate_app_hash("ACTIVITY".$this->salt.$activity_id, $hash)){
+            return Inertia::render('404');
+        }
+
+        return Inertia::render('Participate', [
+            'hash' => $hash,
+            'activityId' => $activity_id
+        ]);
+    }
+
+    // region viewTree
+
+    /**
+     * Show Tree status page.
+     *
+     * @param Request $request
+     * @return Inertia
+     */
+    public function viewTree( Request $request, $tree_id ) {
+        $hash = $request->query('hash');
+        if(!isset($hash) || !validate_app_hash("TREE".$this->salt.$tree_id, $hash)){
+            return Inertia::render('404');
+        }
+
+        return Inertia::render('ParticipateView', [
+            'hash' => $hash,
+            'treeId' => $tree_id
+        ]);
+    }
+
 
     // region Add
 
@@ -180,7 +221,7 @@ class ParticipateController extends BaseController
          * Prepare data for tree define
          */
         $data['planter_id'] = $data['entity_id'];
-        $data['tree_status'] = 'planted';
+        $data['tree_status'] = 'Planted';
 
         /**
          * Define a tree
@@ -208,6 +249,8 @@ class ParticipateController extends BaseController
                 "code" => 200,
                 "message" => 'Successfully added a tree.',
                 "data" => [
+                    "tree_id" => $tree->data['trees']->id,
+                    "hash" => $hash,
                     "url" => $url
                 ]
             ])
