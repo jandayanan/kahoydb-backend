@@ -134,3 +134,33 @@ export function getAllVariables(args = '/all') {
     .catch(err => reject(err.response.data))
   })
 }
+
+export function createTree(data) {
+  return new Promise((resolve, reject) => {
+    let args = `first_name=${data.firstName}&
+    last_name=${data.lastName}&
+    email=${data.email}&
+    tree_species=${data.treeSpecies}&
+    tree_type=${data.treeType}&
+    planted_at=${data.plantedAt}&
+    donated_at=${data.donatedAt}&
+    latitude=${data.latitude}&
+    longitude=${data.longitude}`
+
+    if(data.contactNo) {
+      args = `${args}&contact_number=${data.contactNo}`
+    }
+
+    axios.post(`participate/${data.activityId}/add/tree?hash=${data.hash}&${args}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err))
+  })
+}
+
+export function getHashedTree(treeId, hash) {
+  return new Promise((resolve, reject) => {
+    axios.post(`participate/view/tree/${treeId}?hash=${hash}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err))
+  })
+}
