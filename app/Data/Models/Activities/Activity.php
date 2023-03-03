@@ -27,6 +27,15 @@ class Activity extends \Shared\BaseClasses\Model
         'activity_status'
     ];
 
+    protected $appends = [
+        'app_hash'
+    ];
+
+    public function getAppHashAttribute()
+    {
+        return app_hash("ACTIVITY".env("APP_SALT", 'KAHOY_Default').$this->id);
+    }
+
     public function trees()
     {
         return $this->hasMany(Tree::class);

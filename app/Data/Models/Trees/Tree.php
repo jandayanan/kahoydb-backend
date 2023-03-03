@@ -39,6 +39,14 @@ class Tree extends \Shared\BaseClasses\Model
         'tree_status'
     ];
 
+    protected $appends = [
+        'app_hash'
+    ];
+
+    public function getAppHashAttribute()
+    {
+        return app_hash("TREE".env("APP_SALT", 'KAHOY_Default').$this->id);
+    }
 
     public function activity()
     {

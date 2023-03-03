@@ -68,6 +68,18 @@ class ParticipateController extends BaseController
         }
 
         /**
+         * Hash Validation
+         */
+        if(!isset($data['hash']) || !validate_app_hash("ACTIVITY".$this->salt.$data['activity_id'], $data['hash'])){
+            return $this->absorb(
+                $this->httpInternalServerResponse([
+                    'message' => "Invalid app hash.",
+                    'data' => []
+                ])
+            )->json();
+        }
+
+        /**
          * Entity validation and define
          */
         if( isset($data['first_name']) ){
@@ -235,7 +247,7 @@ class ParticipateController extends BaseController
         }
 
         /**
-         * Validation
+         * Hash Validation
          */
         if(!isset($data['hash']) || !validate_app_hash("TREE".$this->salt.$data['id'], $data['hash'])){
             return $this->absorb(
