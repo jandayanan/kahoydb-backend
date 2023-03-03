@@ -157,7 +157,7 @@ Route::group([
         ], function() {
             Route::post("add/tree", "ParticipateController@add" );
         });
-        Route::post("view/tree", "ParticipateController@view" );
+        Route::post("view/tree/{id}", "ParticipateController@view" );
     });
 
 

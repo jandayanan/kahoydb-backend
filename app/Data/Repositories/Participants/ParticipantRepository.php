@@ -54,7 +54,7 @@ class ParticipantRepository extends BaseRepository
         }
 
         foreach( $data as $key => $value ){
-            if( in_array( $key, $this->participant->getFillable()) ){
+            if( in_array( $key, $participant->getFillable()) ){
                 if( $participant->hasAttribute( $key ) ){
                     $participant->$key = $value;
                 }

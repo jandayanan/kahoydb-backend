@@ -19,6 +19,24 @@ if( !function_exists( "app_hash" ) ){
     }
 }
 
+if (!function_exists("validate_app_hash")) {
+    /**
+     * Validate a hash
+     *
+     * @param string $value
+     * @param integer $from
+     * @param integer $to
+     * @param string $func
+     * @return string
+     */
+    function validate_app_hash($value, $hash, $func='sha1')
+    {
+        $quick_hash = quick_hash( $value, 0, 0, $func );
+
+        return $quick_hash == $hash;
+    }
+}
+
 if (!function_exists("between")) {
     /**
      * Check if value is in between.

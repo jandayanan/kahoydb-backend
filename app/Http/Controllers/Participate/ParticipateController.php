@@ -8,6 +8,7 @@ use App\Data\Repositories\Participants\ParticipantRepository;
 use App\Data\Repositories\Trees\TreeRepository;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Shared\Traits\Instances\Response;
 
 /**
  * Class TreeController
@@ -16,7 +17,7 @@ use Illuminate\Http\Request;
 class ParticipateController extends BaseController
 {
 
-    protected $activity_repo, $entity_repo, $participant_repo, $tree_repo;
+    protected $base_url, $activity_repo, $entity_repo, $participant_repo, $salt, $tree_repo;
 
     /**
      * Instantiate class with $treeRepository
@@ -33,6 +34,8 @@ class ParticipateController extends BaseController
         $this->entity_repo = $entityRepository;
         $this->participant_repo = $participantRepository;
         $this->tree_repo = $treeRepository;
+        $this->base_url = env("APP_URL", 'http://localhost:8000');
+        $this->salt = env("APP_SALT", 'KAHOY_Default');
     }
 
     // region Add
@@ -41,7 +44,7 @@ class ParticipateController extends BaseController
      * Add tree.
      *
      * @param Request $request
-     * @return ParticipateController
+     * @return mixed
      */
     public function add( Request $request, $activity_id ){
         $data = $request->all();
@@ -64,6 +67,9 @@ class ParticipateController extends BaseController
             )->json();
         }
 
+        /**
+         * Entity validation and define
+         */
         if( isset($data['first_name']) ){
             $data['where'][] = [
                 'operator' => '=',
@@ -104,7 +110,8 @@ class ParticipateController extends BaseController
             $this->entity_repo->fetch( $data )
         );
 
-        if ( $activity->isError() ) {
+        if ( $entity->isError() ) {
+
             $entity_creation = $this->absorb(
                 $this->entity_repo->define( $data )
             );
@@ -116,11 +123,14 @@ class ParticipateController extends BaseController
                 )->json();
             }
 
-            $data['entity_id'] = $entity->pluckData()->id;
+            $data['entity_id'] = $entity_creation->pluckData()->id;
         }
 
         if(!isset( $data['entity_id'] )) $data['entity_id'] = $entity->pluckData()->id;
 
+        /**
+         * Participant validation and define
+         */
         $participant_params['single'] = true;
         $participant_params['where'] = [
             [
@@ -154,15 +164,90 @@ class ParticipateController extends BaseController
             }
         }
 
+        /**
+         * Prepare data for tree define
+         */
         $data['planter_id'] = $data['entity_id'];
         $data['tree_status'] = 'planted';
 
-        return $this->absorb(
+        /**
+         * Define a tree
+         */
+        $tree = $this->absorb(
             $this->tree_repo->define( $data )
-        )->json();
+        );
+
+        if ( $tree->isError() ) {
+            return $this->absorb(
+                $this->httpNotFoundResponse([
+                    'message' => 'Failed to add tree.',
+                    'data' => [
+                        "exception" => $tree->getMessage (),
+                    ]
+                ])
+            )->json();
+        }
+
+        $hash = app_hash("TREE".$this->salt.$tree->pluckData()->id);
+        $url = $this->base_url."/participate/view/tree/".$tree->pluckData()->id."?hash=".$hash;
+
+        return response()->json(
+            Response::respond([
+                "code" => 200,
+                "message" => 'Successfully added a tree.',
+                "data" => [
+                    "url" => $url
+                ]
+            ])
+        );
 
     }
 
     //endregion Add
 
+    // region View
+
+    /**
+     * View a tree.
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function view( Request $request, $id ){
+        $data = $request->all();
+        $data['id'] = $id;
+        $data['single'] = true;
+
+        /**
+         * Check if the tree exists.
+         */
+        $tree = $this->absorb(
+            $this->tree_repo->fetch( $data )
+        );
+
+        if ( $tree->isError() ) {
+            return $this->absorb(
+                $this->httpNotFoundResponse([
+                    'message' => "Tree does not exists",
+                    'data' => []
+                ])
+            )->json();
+        }
+
+        /**
+         * Validation
+         */
+        if(!isset($data['hash']) || !validate_app_hash("TREE".$this->salt.$data['id'], $data['hash'])){
+            return $this->absorb(
+                $this->httpInternalServerResponse([
+                    'message' => "Invalid app hash.",
+                    'data' => []
+                ])
+            )->json();
+        }
+
+        return $tree->json();
+    }
+
+    //endregion View
 }
