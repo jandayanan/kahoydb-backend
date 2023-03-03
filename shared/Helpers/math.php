@@ -24,10 +24,9 @@ if (!function_exists("validate_app_hash")) {
      * Validate a hash
      *
      * @param string $value
-     * @param integer $from
-     * @param integer $to
+     * @param string $hash
      * @param string $func
-     * @return string
+     * @return boolean
      */
     function validate_app_hash($value, $hash, $func='sha1')
     {
