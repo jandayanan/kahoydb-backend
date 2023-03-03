@@ -34,7 +34,7 @@ Route::group([
 });
 
 Route::get('participate/{activity_id}/add/tree', [ParticipateController::class, 'show'])->name('participate.form');
-Route::get('participate/{tree_id}/view/tree', [ParticipateController::class, 'viewTree'])->name('participate.view.tree');
+Route::get('participate/view/tree/{tree_id}', [ParticipateController::class, 'viewTree'])->name('participate.view.tree');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
