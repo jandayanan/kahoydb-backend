@@ -25,7 +25,7 @@ class Sponsor extends \Shared\BaseClasses\Model
         'sponsorship_status'
     ];
 
-    public function entity()
+    public function organization()
     {
         return $this->belongsTo(Organization::class, "organization_id");
     }
