@@ -38,6 +38,20 @@ class ParticipateController extends BaseController
         $this->base_url = env("APP_URL", 'http://localhost:8000');
         $this->salt = env("APP_SALT", 'KAHOY_Default');
     }
+
+    // region public dashboard
+
+    /**
+     * Show Render public dashboard.
+     *
+     * @param Request $request
+     * @return Inertia
+     */
+    public function publicDashboard( Request $request) {
+
+        return Inertia::render('PublicDashboard');
+    }
+
     // region show
 
     /**
