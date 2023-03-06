@@ -1,13 +1,17 @@
 <template>
   <div>
-    <ParticipantsTable :items="items" @selectedRow="showInfoModal"/>
+    <ParticipantsTable :items="items" :showInfo="true" @selectedRow="showInfoModal"/>
     <ParticipantInfoModal :entity="modalData"/>
+    <DeleteModal 
+      :entityId="entityId"
+      :entityName="entityName"
+      :entityType="entityType" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { getAllEntities} from '@/service/api'
+import { getAllEntities, getAllParticipants } from '@/service/api'
 import ParticipantInfoModal from './ParticipantInfoModal.vue'
 import ParticipantsTable from './ParticipantsTable.vue'
 
@@ -26,7 +30,10 @@ export default {
           keys: ['full_name', 'email']
         }
       },
-      modalData: []
+      modalData: [],
+      entityId: null,
+      entityName: null,
+      entityType: null
     }
   },
   mounted(){
@@ -37,11 +44,17 @@ export default {
       // Toggle loading state 
       this.$store.commit('toggleReload')
 
-      getAllEntities('relations[0]=trees.activity&relations[1]=participants.activity')
+      getAllParticipants('relations[0]=entity.trees.activity&relations[1]=entity.participants.activity')
       .then(res => {
-        this.items = res.data.data.entity
-        
-        // Reset loading state
+        this.items = res.data.data.participants
+        this.items = this.items.map(item => {
+          return item = {
+            trees: _.get(item.entity, 'trees', []),
+            participants: _.get(item.entity, 'participants', []),
+            ...item.entity
+          }
+        })
+
         this.$store.commit('toggleReload')
         this.$store.commit('updateNewDataStatus', false) 
       })

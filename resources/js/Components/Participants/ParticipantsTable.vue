@@ -34,6 +34,14 @@
           <td>{{ row.full_name }}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.contact_number }}</td>
+          <td v-if="permission == 'read'">
+            <CButton color="success" @click="showInfoModal(row)" v-if="showInfo">
+                <CIcon
+                  class="nav-icon"
+                  :icon="'cil-lightbulb'">
+                </CIcon>
+              </CButton>
+          </td>
           <td v-if="permission == 'write'">
             <div class="d-flex">
               <CButton color="success" @click="showInfoModal(row)" v-if="showInfo">
