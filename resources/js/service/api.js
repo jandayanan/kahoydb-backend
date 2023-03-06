@@ -101,9 +101,17 @@ export function upsertParticipant(data, activityId) {
   })
 }
 
+export function deleteParticipant(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(`participants/delete/${id}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
 export function getAllTrees(args='') {
   return new Promise((resolve, reject) => {
-    axios.get(`trees/all?sort=id&order=desc&${args}`)
+    axios.get(`trees/view?sort=id&order=desc&${args}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
