@@ -19,13 +19,18 @@
             <ParticipantInsertModal 
               :participants="participants"
               :activityId="activity.id" 
-              @inserted="insertedParticipant"/>
+              @inserted="upserted" />
+            <ParticipantUpsertModal 
+              :method="participantUpsertMethod" 
+              :participant="selectedParticipant" 
+              :activityId="activity.id" 
+              @inserted="upserted" />
             <TreeUpsertModal 
               :activity="activity"
               :participants="participants"
               :method="treeUpsertMethod"
               :tree="tree"
-              @inserted="insertedTree" />
+              @inserted="upserted" />
           </CCol>
         </CRow>
       </CContainer>
@@ -54,7 +59,12 @@
           <CTabPane role="tabpanel" aria-labelledby="participants-tab" :visible="tabPaneActiveKey === 1">
             <ParticipantsTable 
               :items="participants" 
-              @selectedRow="selectedParticipantRow"/>
+              :permission="'write'"
+              :showInfo="false"
+              @selectedRow="selectedParticipantRow" 
+              @updateSelectedRow="updateParticipantRow"/>
+              <ParticipantInfoModal 
+                :entity="participantModalData" />
           </CTabPane>
           <CTabPane role="tabpanel" aria-labelledby="trees-tab" :visible="tabPaneActiveKey === 2">
             <TreesTable 
@@ -80,6 +90,8 @@ import { mapState } from 'vuex'
 import TreesTable from '@/Components/Trees/TreesTable.vue'
 import ParticipantsTable from '@/Components/Participants/ParticipantsTable.vue'
 import ParticipantInsertModal from '@/Components/Participants/ParticipantInsertModal.vue'
+import ParticipantUpsertModal from '@/Components/Participants/ParticipantUpsertModal.vue'
+import ParticipantInfoModal from '@/Components/Participants/ParticipantInfoModal.vue'
 import TreeUpsertModal from '@/Components/Trees/TreeUpsertModal.vue'
 import ActivityOutputInfo from './ActivityOutputInfo.vue'
 import DeleteModal from '@/Components/DeleteModal.vue'
@@ -90,6 +102,8 @@ export default {
     TreesTable,
     ParticipantsTable,
     ParticipantInsertModal,
+    ParticipantUpsertModal,
+    ParticipantInfoModal,
     TreeUpsertModal,
     ActivityOutputInfo,
     DeleteModal
@@ -103,9 +117,15 @@ export default {
   data() {
     return {
       participants: [],
-      trees: [],
+      
+      participant: {},
+      participantUpsertMethod: 'create',
+      selectedParticipant: null,
+
       treeUpsertMethod: 'create',
       tree: {},
+      trees: [],
+
       entityId: null,
       entityName: null,
       entityType: 'entity'
@@ -119,9 +139,12 @@ export default {
       // Segregate participants and trees into separate arrays
       this.clearEntities()
       this.activity.participants.forEach((participant) => {
+        console.log(participant)
         this.participants.push({
           status: participant.participant_status,
+          activity: participant.activity,
           origin: participant,
+          trees: participant.entity.trees,
           ...participant.entity
         })
       })
@@ -142,7 +165,8 @@ export default {
       this.segregateEntities()
 
       if(this.tabPaneActiveKey == 1) {
-        this.$store.commit('updateParticipantInsertModalState', true)
+        this.participantUpsertMethod = 'create'
+        this.$store.commit('updateParticipantUpsertModalState', true)
       } 
       else if(this.tabPaneActiveKey == 2) {
         this.treeUpsertMethod = 'create'
@@ -159,13 +183,24 @@ export default {
       this.entityName = `"${row.tree_species} - ${row.planter.full_name}"`
       this.entityType = 'tree'
     },
-    insertedParticipant(){
-      this.$emit('inserted', this.activity)
+    upserted(){
+      this.$emit('upserted', this.activity)
       this.resetModalState()
     },
     deletedTree(){
       this.$emit('deleted', this.activity)
       this.resetModalState()
+    },
+    selectedParticipantRow(row){
+      this.participantModalData = {
+        participants: row,
+        ...row
+      }
+    },
+    updateParticipantRow(row) {
+      this.participantUpsertMethod = 'update' 
+      this.selectedParticipant = row
+      this.$store.commit('updateParticipantUpsertModalState', true)
     }
   },
   computed: {

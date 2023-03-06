@@ -25,15 +25,37 @@
         <th>Name</th>
         <th>Email</th>
         <th>Contact #</th>
-        <th v-if="type == 'write'">Actions</th>
+        <th v-if="permission == 'write'">Actions</th>
       </tr>
     </template>
     <template #body="{rows}">
-      <tr v-for="row in rows" :key="row.id" @click="showInfoModal(row)">
+      <tr v-for="row in rows" :key="row.id">
           <td>{{ row.id }}</td>
           <td>{{ row.full_name }}</td>
           <td>{{ row.email }}</td>
           <td>{{ row.contact_number }}</td>
+          <td v-if="permission == 'write'">
+            <div class="d-flex">
+              <CButton color="success" @click="showInfoModal(row)" v-if="showInfo">
+                <CIcon
+                  class="nav-icon"
+                  :icon="'cil-lightbulb'">
+                </CIcon>
+              </CButton>
+              <CButton color="success" class="ml-2" @click="updateRow(row)">
+                <CIcon
+                class="nav-icon"
+                :icon="'cil-pencil'">
+                </CIcon>
+              </CButton>
+              <CButton color="danger" class="ml-2" @click="deleteRow(row)">
+                <CIcon
+                class="nav-icon"
+                :icon="'cil-x-circle'">
+                </CIcon>
+              </CButton>
+            </div>
+          </td>
       </tr>
     </template>
   </VTable>
@@ -60,9 +82,13 @@ export default {
       type: Array,
       default: []
     },
-    tableType: {
+    permission: {
       type: String,
       default: 'read'
+    },
+    showInfo: {
+      type: Boolean, 
+      default: true
     }
   },
   data(){
@@ -83,6 +109,10 @@ export default {
     this.data = this.items
   },
   methods: {
+    updateRow(row) {
+      console.log(row)
+      this.$emit('updateSelectedRow', row)
+    },
     showInfoModal(row){
       this.$emit('selectedRow', row)
       this.$store.commit('updateParticipantInfoModalState', true)
