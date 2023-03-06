@@ -3,6 +3,7 @@
 namespace App\Data\Models\Sponsors;
 
 use App\Data\Models\Entity\Entity;
+use App\Data\Models\Organizations\Organization;
 
 class Sponsor extends \Shared\BaseClasses\Model
 {
@@ -26,7 +27,7 @@ class Sponsor extends \Shared\BaseClasses\Model
 
     public function entity()
     {
-        return $this->belongsTo(Entity::class, "organization_id");
+        return $this->belongsTo(Organization::class, "organization_id");
     }
 
 }
