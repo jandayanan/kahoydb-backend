@@ -103,7 +103,7 @@ class VariablesTableSeeder extends Seeder
                 'type' => 'organization.type'
             ],
             [
-                'key'  => 'Civic',
+                'key'  => 'civic',
                 'value' => 'Civic',
                 'type' => 'organization.type'
             ],
