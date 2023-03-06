@@ -7,7 +7,7 @@ axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 export function getAllActivities(relations = '') {
   return new Promise((resolve, reject) => {
-    axios.get(`activities/all?${relations}`)
+    axios.get(`activities/all?&sort=id&order=desc&${relations}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
@@ -35,7 +35,7 @@ export function deleteActivity(id) {
 
 export function getAllEntities(relations = '') {
   return new Promise((resolve, reject) => {
-    axios.get(`entities/all?${relations}`)
+    axios.get(`entities/all?&sort=id&order=desc&${relations}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
@@ -44,6 +44,20 @@ export function getAllEntities(relations = '') {
 export function upsertEntity(data) {
   return new Promise((resolve, reject) => {
     let url = `entities/create?first_name=${data.firstName}&last_name=${data.lastName}&email=${data.email}&contact_number=${data.contactNo}&status=${data.status}`
+
+    if (data.id) {
+      url = `${url}&id=${data.id}`  
+    }
+
+    axios.post(url)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function updateEntity(data) {
+  return new Promise((resolve, reject) => {
+    let url = `entities/update/${data.id}?first_name=${data.firstName}&last_name=${data.lastName}&email=${data.email}&contact_number=${data.contactNo}&status=${data.status}`
 
     if (data.id) {
       url = `${url}&id=${data.id}`  
@@ -65,7 +79,7 @@ export function deleteEntity(id) {
 
 export function getAllParticipants() {
   return new Promise((resolve, reject) => {
-    axios.get('participants/all?relations[0]=entity&relations[1]=activity')
+    axios.get('participants/all?&sort=id&order=desc&relations[0]=entity&relations[1]=activity')
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
@@ -73,10 +87,15 @@ export function getAllParticipants() {
 
 export function upsertParticipant(data, activityId) {
   return new Promise((resolve, reject) => {
+    var args = ""
     if(data.status == null) {
       data.status = 'active'
     }
-    axios.post(`participants/define?entity_id=${data.id}&activity_id=${activityId}&participant_status=${data.status}`)
+    if(data.id != null) {
+      args = `${args}id=${data.id}`
+    }
+
+    axios.post(`participants/define?entity_id=${data.entityId}&activity_id=${data.activityId}&participant_status=${data.status}&${args}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
@@ -160,6 +179,21 @@ export function createTree(data) {
 export function getHashedTree(treeId, hash) {
   return new Promise((resolve, reject) => {
     axios.post(`participate/view/tree/${treeId}?hash=${hash}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err))
+  })
+}
+
+export function createParticipant(data) {
+  return new Promise((resolve, reject) => {
+    let args = `activity_id=${data.activityId}&
+    first_name=${data.firstName}&
+    last_name=${data.lastName}&
+    email=${data.email}&
+    contact_number=${data.contactNo}&
+    participant_status=active&`
+
+    axios.post(`participants/creation?${args}`)
     .then(res => resolve(res))
     .catch(err => reject(err))
   })

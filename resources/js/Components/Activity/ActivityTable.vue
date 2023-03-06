@@ -70,7 +70,7 @@
     />
     <ActivityOutputModal 
       :activity="activity"
-      @inserted="reloadOutputModal"
+      @upserted="reloadOutputModal"
       @deleted="reloadOutputModal"/>
 
     <CModal :visible="showDeleteModalVisible" @close="showDeleteModalVisible = false">
@@ -118,8 +118,12 @@ export default {
     async getActivities() {
       // Toggle loading state 
       this.$store.commit('toggleReload')
-
-      await getAllActivities('relations[0]=participants.entity.trees&relations[1]=trees.planter.participant')
+      let url = `relations[0]=participants.entity.trees&
+      relations[1]=trees.planter.participant&
+      relations[2]=trees.activity&
+      relations[3]=participants.activity`
+      
+      await getAllActivities(url)
       .then(res => {
         this.items = res.data.data.activities
         
@@ -147,8 +151,11 @@ export default {
       this.$store.commit('updateActivityOutputModalState', true)
     },
     async reloadOutputModal(activity) {
+      console.log('reloading')
       await this.getActivities()
+      console.log('done reloading')
       this.activity = this.items.filter(item => item.id === activity.id)[0] 
+      console.log(this.activity)
       this.$store.commit('updateActivityOutputModalState', true)
     }
   },

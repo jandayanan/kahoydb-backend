@@ -17,10 +17,6 @@
           <CCol sm="auto"><strong>Contact #:</strong></CCol>
           <CCol sm="auto">{{ entity.contact_number }}</CCol>
         </CRow>
-        <CRow class="mt-2">
-          <CCol sm="auto"><strong>Status:</strong></CCol>
-          <CCol sm="auto">{{ entity.status.toUpperCase() }}</CCol>
-        </CRow>
       </CContainer>
       <CContainer class="mt-5">
         <CNav variant="tabs" role="tablist">
@@ -88,6 +84,7 @@ export default {
     segregateEntities() {
       // Segregate activities and trees into separate arrays
       this.clearEntities()
+      console.log(this.entity)
       this.trees = this.trees.concat(this.entity.trees)
       this.entity.participants.forEach((participant) => {
         this.activities.push(participant.activity)

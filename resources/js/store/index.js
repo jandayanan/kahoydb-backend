@@ -11,9 +11,11 @@ export default createStore({
     showActivityOutputModal: false,
     showParticipantInfoModal: false,
     showParticipantInsertModal: false,
+    showParticipantUpsertModal: false,
     showTreeUpsertModal: false,
     showEntityUpsertModal: false,
     showDeleteModal: false,
+    
   },
   mutations: {
     updateNewDataStatus(state, status) {
@@ -45,6 +47,9 @@ export default createStore({
     },
     updateParticipantInsertModalState(state, payload) {
       state.showParticipantInsertModal = payload
+    },
+    updateParticipantUpsertModalState(state, payload) {
+      state.showParticipantUpsertModal = payload
     },
     updateTreeUpsertModalState(state, payload) {
       state.showTreeUpsertModal = payload

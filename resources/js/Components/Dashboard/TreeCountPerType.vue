@@ -10,7 +10,8 @@
               inverse 
               class="text-light"  style="background-color: #76b5c5 !important;">
               <template #icon>
-                <img :src=" treeType.key == 'fruit' ? 'fruit.svg': treeType.key == 'hardwood' ? 'tree.svg': '' ">
+                <img v-if="treeType.key == 'fruit'" src="@/Assets/fruit.svg" alt="">
+                <img v-if="treeType.key == 'hardwood'" src="@/Assets/tree.svg" alt="">
               </template>
             </CWidgetStatsC>
           </CCol>
@@ -26,6 +27,11 @@ export default {
     treeTypes: {
       type: Array,
       default: []
+    }
+  },
+  data() {
+    return {
+      assetsUrl: `${location.host}/resources/js/Assets`
     }
   },
   methods: {
