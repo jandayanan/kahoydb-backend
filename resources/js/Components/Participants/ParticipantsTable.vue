@@ -110,8 +110,11 @@ export default {
   },
   methods: {
     updateRow(row) {
-      console.log(row)
       this.$emit('updateSelectedRow', row)
+    },
+    deleteRow(row) {
+      this.$emit('deleteSelectedRow', row)
+      this.$store.commit('updateDeleteModalState', true)
     },
     showInfoModal(row){
       this.$emit('selectedRow', row)

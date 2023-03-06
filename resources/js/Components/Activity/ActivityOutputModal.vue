@@ -62,7 +62,9 @@
               :permission="'write'"
               :showInfo="false"
               @selectedRow="selectedParticipantRow" 
+              @deleteSelectedRow="deleteParticipantRow"
               @updateSelectedRow="updateParticipantRow"/>
+
               <ParticipantInfoModal 
                 :entity="participantModalData" />
           </CTabPane>
@@ -73,13 +75,13 @@
               @updateSelectedRow="updateTreeRow"
               @deleteSelectedRow="deleteTreeRow" />
           </CTabPane>
-          <DeleteModal
-            :entityId="entityId"
-            :entityName="entityName"
-            :entityType="entityType"
-            @deleted="deletedTree" />
         </CTabContent>
       </CContainer>
+      <DeleteModal
+        :entityId="entityId"
+        :entityName="entityName"
+        :entityType="entityType"
+        @deleted="deleted" />
     </CModalBody>
   </CModal>
   
@@ -139,7 +141,6 @@ export default {
       // Segregate participants and trees into separate arrays
       this.clearEntities()
       this.activity.participants.forEach((participant) => {
-        console.log(participant)
         this.participants.push({
           status: participant.participant_status,
           activity: participant.activity,
@@ -187,7 +188,7 @@ export default {
       this.$emit('upserted', this.activity)
       this.resetModalState()
     },
-    deletedTree(){
+    deleted(){
       this.$emit('deleted', this.activity)
       this.resetModalState()
     },
@@ -201,7 +202,13 @@ export default {
       this.participantUpsertMethod = 'update' 
       this.selectedParticipant = row
       this.$store.commit('updateParticipantUpsertModalState', true)
-    }
+    },
+    deleteParticipantRow(row) {
+      console.log(row)
+      this.entityId = row.origin.id
+      this.entityName = `"${row.full_name}"`
+      this.entityType = 'participant'
+    } 
   },
   computed: {
     ...mapState({
