@@ -81,67 +81,6 @@ class SponsorRepository extends BaseRepository
 
     }
 
-    /**
-     * Create sponsor and entity
-     *
-     * @param array $data
-     * @return SponsorRepository
-     */
-    public function sponsorEntity($data = []){
-        $meta_index = 'entity';
-
-        // region Validation
-
-        $fillable = [
-            'activity_id' => 'Activity ID',
-            'full_name' => 'Name',
-            'sponsorship_type' => 'Sponsor Type'
-        ];
-        foreach($fillable as $key => $value) {
-            if (!isset($data[$key])) {
-                return $this->httpNotFoundResponse([
-                    'code' => 404,
-                    'message' => $value." is not set."
-                ]);
-            }
-        }
-
-        // endregion Validation
-
-        $entity = $this->entity_repo->define($data);
-        if((isset($entity) && !is_code_success( $entity->getCode() )) || is_null($entity)){
-            return $this->httpInternalServerResponse([
-                "code" => 500,
-                "message" => $entity->getMessage(),
-                "description" => _("An error was detected on one of the inputted data."),
-                "data" => $entity->getData()
-            ]);
-        }
-
-        $data['entity_id'] = $entity->getData()['entity']->id;
-
-        if(!$this->sponsor->save($data)){
-            return $this->httpInternalServerResponse([
-                "code" => 500,
-                "message" => _("Data Validation Error."),
-                "description" => _("An error was detected on one of the inputted data."),
-                "data" =>   [
-                    "errors" => $this->sponsor->errors(),
-                ]
-            ]);
-        }
-
-        return $this->httpSuccessResponse([
-            "code" => 200,
-            "message" => _("Successfully added a sponsor and entity."),
-            'data' => [
-                $this->meta_index => $this->sponsor,
-                $meta_index => $entity->getData()['entity']
-            ],
-        ]);
-
-    }
-
     // endregion Define
 
     // region Delete

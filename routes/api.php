@@ -141,7 +141,6 @@ Route::group([
             Route::get("all", "SponsorController@all");
             Route::post('delete/{id}', 'SponsorController@delete');
             Route::post("define", "SponsorController@define");
-            Route::post("creation", "SponsorController@creation");
             Route::get("fetch/{id}", "SponsorController@fetch");
             Route::get("search", "SponsorController@search");
         });
