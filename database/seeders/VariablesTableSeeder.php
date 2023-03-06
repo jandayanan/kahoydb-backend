@@ -40,7 +40,7 @@ class VariablesTableSeeder extends Seeder
             [
                 'key'  => 'seedling',
                 'value' => 'Seedling',
-                'type' => 'tree.status'  
+                'type' => 'tree.status'
             ],
             [
                 'key'  => 'full_grown',
@@ -66,6 +66,46 @@ class VariablesTableSeeder extends Seeder
                 'key'  => 'mangosteen',
                 'value' => 'Mangosteen',
                 'type' => 'tree.species'
+            ],
+            [
+                'key'  => 'major',
+                'value' => 'Major',
+                'type' => 'sponsor.type'
+            ],
+            [
+                'key'  => 'minor',
+                'value' => 'Minor',
+                'type' => 'sponsor.type'
+            ],
+            [
+                'key'  => 'major',
+                'value' => 'Major',
+                'type' => 'sponsor.type'
+            ],
+            [
+                'key'  => 'internal',
+                'value' => 'Internal',
+                'type' => 'organization.type'
+            ],
+            [
+                'key'  => 'lgu',
+                'value' => 'LGU',
+                'type' => 'organization.type'
+            ],
+            [
+                'key'  => 'ngo',
+                'value' => 'NGO',
+                'type' => 'organization.type'
+            ],
+            [
+                'key'  => 'corporate',
+                'value' => 'Corporate',
+                'type' => 'organization.type'
+            ],
+            [
+                'key'  => 'Civic',
+                'value' => 'Civic',
+                'type' => 'organization.type'
             ],
         ];
 
