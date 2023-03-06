@@ -94,10 +94,7 @@ class ParticipantRepository extends BaseRepository
 
         $fillable = [
             'activity_id' => 'Activity ID',
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
-            'email' => 'Email',
-            'contact_number' => 'Contact number'
+            'full_name' => 'Name'
         ];
         foreach($fillable as $key => $value) {
             if (!isset($data[$key])) {
@@ -149,7 +146,7 @@ class ParticipantRepository extends BaseRepository
     // region Delete
 
     /**
-     * Delete an participant
+     * Delete a participant
      *
      * @param id
      * @return ParticipantRepository
@@ -208,7 +205,7 @@ class ParticipantRepository extends BaseRepository
     // region Retrieve Data
 
     /**
-     * Fetch an participant's information.
+     * Fetch a participant's information.
      *
      * @param array $data
      * @return ParticipantRepository

@@ -20,8 +20,6 @@ class Entity extends BaseModel
     protected $searchable = [
         'id',
         'full_name',
-        'first_name',
-        'last_name',
         'email',
         'contact_number',
         'status'
@@ -29,8 +27,6 @@ class Entity extends BaseModel
 
     protected $fillable = [
         'full_name',
-        'first_name',
-        'last_name',
         'email',
         'contact_number',
         'status'

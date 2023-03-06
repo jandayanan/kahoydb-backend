@@ -23,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('participants', function($table){
-            $table->dropColumn('participant_status');
-        });
+        // Empty
     }
 };

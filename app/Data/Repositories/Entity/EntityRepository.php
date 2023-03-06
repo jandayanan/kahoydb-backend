@@ -26,34 +26,6 @@ class EntityRepository extends BaseRepository
      * @return mixed
      */
     public function define($data = []){
-
-        //region data validation
-        if(!isset($data['id'])){
-
-            if(!isset($data['first_name'])){
-                return $this->httpNotFoundResponse([
-                    'code' => 404,
-                    'message' => "First Name is not set."
-                ]);
-            }
-            if(!isset($data['last_name'])){
-                return $this->httpNotFoundResponse([
-                    'code' => 404,
-                    'message' => "Last name is not set."
-                ]);
-            }
-            if(!isset($data['full_name'])){
-                $data['full_name'] = $data['first_name'] . ' ' . $data['last_name'];
-            }
-
-        }
-
-        //endregion data validation
-
-        if(!isset($data['status'])){
-            $data['status'] = 'active';
-        }
-
         //region existence check
 
         if (isset($data['id'])) {
@@ -97,16 +69,6 @@ class EntityRepository extends BaseRepository
                 ]);
             }
             $entity = $this->entity->init($this->entity->pullFillable($data));
-        }
-
-        if( !isset( $data['manual_full_name'] ) || $data['manual_full_name'] === false ) {
-            if ( isset( $data[ 'first_name' ] ) && isset( $data[ 'last_name' ] ) ) {
-                $data[ 'full_name' ] = $data[ 'first_name' ] . ' ' . $data[ 'last_name' ];
-            } else if ( isset( $data[ 'first_name' ] ) && !isset( $data[ 'last_name' ] ) ) {
-                $data[ 'full_name' ] = $data[ 'first_name' ] . ' ' . $entity->last_name;
-            } else if ( !isset( $data[ 'first_name' ] ) && isset( $data[ 'last_name' ] ) ) {
-                $data[ 'full_name' ] = $entity->first_name . ' ' . $data[ 'last_name' ];
-            }
         }
 
         if(!$entity->save($data)){

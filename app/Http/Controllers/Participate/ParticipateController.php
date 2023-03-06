@@ -82,19 +82,11 @@ class ParticipateController extends BaseController
         /**
          * Entity validation and define
          */
-        if( isset($data['first_name']) ){
+        if( isset($data['full_name']) ){
             $data['where'][] = [
                 'operator' => '=',
-                'target' => 'first_name',
-                'value' => $data[ 'first_name' ],
-            ];
-        }
-
-        if( isset($data['last_name']) ){
-            $data['where'][] = [
-                'operator' => '=',
-                'target' => 'last_name',
-                'value' => $data[ 'last_name' ],
+                'target' => 'full_name',
+                'value' => $data[ 'full_name' ],
             ];
         }
 

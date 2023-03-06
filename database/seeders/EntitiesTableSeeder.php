@@ -35,8 +35,6 @@ class EntitiesTableSeeder extends Seeder
 
             $data = [];
             $data[ "full_name" ] = $full_name;
-            $data[ "first_name" ] = $first_name;
-            $data[ "last_name" ] = $last_name;
             $data[ "email" ] = $email;
             $data[ "contact_number" ] = $faker->phoneNumber ();
             $data[ "status" ] = $status;

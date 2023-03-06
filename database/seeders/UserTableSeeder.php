@@ -50,8 +50,6 @@ class UserTableSeeder extends Seeder
 
             $data[ "id" ] = $i;
             $data[ "full_name" ] = $full_name;
-            $data[ "first_name" ] = $value["first_name"];
-            $data[ "last_name" ] = $value["last_name"];
             $data[ "email" ] = $email;
             $data[ "contact_number" ] = $faker->phoneNumber ();
             $data[ "status" ] = 'active';

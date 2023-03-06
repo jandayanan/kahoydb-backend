@@ -22,9 +22,7 @@ class UserRepository extends BaseRepository
         $this->user = $user;
         $this->entity_repo = $entityRepo;
         $this->no_sort = [
-            'full_name',
-            'first_name',
-            'last_name',
+            'full_name'
         ];
     }
 
@@ -331,8 +329,7 @@ class UserRepository extends BaseRepository
             'email' => 'Email',
             'username' => 'Username',
             'password' => 'Password',
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
+            'full_name' => 'Name',
             'contact_number' => 'Contact number'
         ];
         foreach($fillable as $key => $value) {

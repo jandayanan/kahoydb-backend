@@ -14,6 +14,8 @@ class Activity extends \Shared\BaseClasses\Model
 
     protected $searchable = [
         'id',
+        'parent_organization_id',
+        'child_organization_id',
         'name',
         'start_date',
         'end_date',
@@ -21,6 +23,8 @@ class Activity extends \Shared\BaseClasses\Model
     ];
 
     protected $fillable = [
+        'parent_organization_id',
+        'child_organization_id',
         'name',
         'start_date',
         'end_date',
