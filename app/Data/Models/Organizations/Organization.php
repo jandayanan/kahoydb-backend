@@ -62,7 +62,7 @@ class Organization extends \Shared\BaseClasses\Model
             if(!empty($children->toArray())){
                 foreach($children as $value_){
                     if(isset($value_->entity) && isset($value->children)) $children['entity'] = $value_->entity;
-                    if(isset($value_->sponsors) && isset($value->sponsor)) $children['sponsors'] = $value_->entity;
+                    if(isset($value_->sponsors) && isset($value->children)) $children['sponsors'] = $value_->entity;
                 }
             }
             $result->push($children);
