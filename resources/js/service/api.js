@@ -77,9 +77,9 @@ export function deleteEntity(id) {
   })
 }
 
-export function getAllParticipants() {
+export function getAllParticipants(args) {
   return new Promise((resolve, reject) => {
-    axios.get('participants/all?&sort=id&order=desc&relations[0]=entity&relations[1]=activity')
+    axios.get(`participants/all?&sort=id&order=desc&${args}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })
