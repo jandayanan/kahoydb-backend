@@ -161,7 +161,6 @@ Route::group([
 
     });
 
-
     Route::group([
         "prefix" => "variables",
         "namespace" => "Variables"
@@ -184,6 +183,14 @@ Route::group([
             Route::post("add/tree", "ParticipateController@add" );
         });
         Route::post("view/tree/{id}", "ParticipateController@view" );
+    });
+
+    Route::group([
+        "prefix" => "trees",
+        "namespace" => "Trees"
+    ], function () {
+
+        Route::get("view", "TreeController@all");
     });
 
 
