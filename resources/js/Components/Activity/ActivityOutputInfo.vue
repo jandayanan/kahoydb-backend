@@ -12,6 +12,14 @@
       default: []
     }
   })
+  
+  function copyTreeCreationLink(){
+    var copyText = document.getElementById('linkInput')
+    copyText.select()
+    copyText.setSelectionRange(0, 99999)
+
+    navigator.clipboard.writeText(copyText.value)
+  }
 </script>
 
 <template>
@@ -30,6 +38,21 @@
   <CRow class="mt-2">
     <CCol sm="auto"><strong>Status:</strong></CCol>
     <CCol sm="auto">{{ activity.activity_status.toUpperCase() }}</CCol>
+  </CRow>
+  <CRow class="mt-2">
+    <CCol sm="auto">
+      <CFormInput 
+          :value="`${route('participate.form', {activity_id: activity.id, hash: activity.app_hash})}`" 
+          type="text" 
+          id="linkInput"
+          disabled 
+          hidden/>
+      <CPopover content="Copied" placement="bottom">
+        <template #toggler="{ on }">
+          <CButton color="primary" v-on="on" @click="copyTreeCreationLink">Generate Participation Link</CButton>
+        </template>
+      </CPopover>
+    </CCol>
   </CRow>
   <CRow class="mt-4">
     <CCol sm="auto"><strong>No. of Participants:</strong></CCol>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CButton color="success" class="mb-3" @click="showInsertModal">Add Entity</CButton>
+    <CButton color="success" class="mb-3" @click="showInsertModal">Add User</CButton>
     <EntitiesTable 
       :items="items"
       @updateSelectedRow="showUpdateModal"

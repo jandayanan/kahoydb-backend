@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Participate\ParticipateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,10 +28,13 @@ Route::group([
     Route::get('/participants', function () {
         return Inertia::render('Participants', ['page' => 'participants']);
     });
-    Route::get('/entities', function () {
-        return Inertia::render('EntitiesList', ['page' => 'entities']);
+    Route::get('/users', function () {
+        return Inertia::render('EntitiesList', ['page' => 'users']);
     });
 });
+
+Route::get('participate/{activity_id}/add/tree', [ParticipateController::class, 'show'])->name('participate.form');
+Route::get('participate/view/tree/{tree_id}', [ParticipateController::class, 'viewTree'])->name('participate.view.tree');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
