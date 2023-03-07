@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organizations;
 use App\Data\Repositories\Organizations\OrganizationRepository;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 /**
  * Class OrganizationController
@@ -25,6 +26,17 @@ class OrganizationController extends BaseController
         OrganizationRepository $organizationRepository){
         $this->organization_repo = $organizationRepository;
     }
+
+    // region Show List
+    /**
+     * Render list of organizations
+     *
+     * @param Request $request
+     * @return Inertia
+     */
+    public function showList( Request $request ){
+        Inertia::render('Organizations');
+    }    
 
     // region All
 

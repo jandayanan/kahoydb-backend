@@ -14,6 +14,8 @@ export default createStore({
     showParticipantUpsertModal: false,
     showTreeUpsertModal: false,
     showEntityUpsertModal: false,
+    showOrganizationInfoModal: false,
+    showOrganizationUpsertModal: false,
     showDeleteModal: false,
     
   },
@@ -50,6 +52,12 @@ export default createStore({
     },
     updateParticipantUpsertModalState(state, payload) {
       state.showParticipantUpsertModal = payload
+    },
+    updateOrganizationInfoModalState(state, payload) {
+      state.showOrganizationInfoModal = payload
+    },
+    updateOrganizationUpsertModalState(state, payload) {
+      state.showOrganizationUpsertModal = payload
     },
     updateTreeUpsertModalState(state, payload) {
       state.showTreeUpsertModal = payload
