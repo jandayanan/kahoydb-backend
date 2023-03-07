@@ -24,21 +24,27 @@ const error = ref(null)
 
 const submit = () => {
     axios.post(`${route('auth.login')}?username=${form.username}&password=${form.password}`)
-    .then(res => {
-        localStorage.setItem('api_token', res.data.data.token)
-        error.value = null
-    }).
-    catch(err => {
-        error.value = err.response.data.message
-    })
+        .then(res => {
+            if(res.data.code === 200) {
+                localStorage.setItem('api_token', res.data.data.token)
+                error.value = null
+                axios.post(route('web.login'), form)
+                    .then((res)=> {
+                        if(res.data.code === 200) {
+                            window.location.href = '/dashboard'
+                        } else {
+                            error.value = res.data.message;
+                        }
+                    })
+            }
 
-    axios.post(route('web.login'), form)
-    .then((res)=> {
-        console.log(error.value)
-        if(error.value == null) {
-            window.location.href = '/dashboard'
-        }
-    })
+            error.value = res.data.exception;
+        }).
+        catch(err => {
+            error.value = err.response.data.message
+        })
+
+
 };
 </script>
 

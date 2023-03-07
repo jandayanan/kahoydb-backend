@@ -3,6 +3,7 @@
 namespace Shared\BaseClasses;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Shared\Traits\Instances\Response;
@@ -57,6 +58,13 @@ abstract class LaravelException extends ExceptionHandler
                         "message" => "Unauthorized action.",
                     ])
                 );
+            }
+
+            if ($exception instanceof ThrottleRequestsException) {
+                return response()->json([
+                    "code" => 401,
+                    "message" => "Too many failed attempt. Try again later.",
+                ], 401);
             }
 
             if ($this->isHttpException($exception)) {

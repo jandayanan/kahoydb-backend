@@ -32,7 +32,7 @@ Route::group([
         'prefix' => 'auth',
         'namespace' => 'Auth'
     ], function () {
-        Route::post('login', "TokenController@login")->name('auth.login');
+        Route::post('login', "TokenController@login")->middleware('throttle:5,1')->name('auth.login');
         Route::post("define", "UserController@define")->name('create'); // Create user
         Route::post("register", "UserController@register")->name('register'); // Create Entities and user
 
