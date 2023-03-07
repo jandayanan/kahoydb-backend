@@ -37,8 +37,6 @@ const submit = () => {
                         }
                     })
             }
-
-            error.value = res.data.exception;
         }).
         catch(err => {
             error.value = err.response.data.message
