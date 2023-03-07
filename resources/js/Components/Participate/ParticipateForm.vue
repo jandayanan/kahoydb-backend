@@ -12,14 +12,8 @@
       Required
     </CFormText>
 
-    <CFormLabel for="firstNameInput">First Name</CFormLabel>
-    <CFormInput v-model="form.firstName" type="text" id="firstNameInput" placeholder="John"  required/>
-    <CFormText component="span" class="mb-3">
-      Required
-    </CFormText>
-
-    <CFormLabel for="lastNameInput">Last Name</CFormLabel>
-    <CFormInput v-model="form.lastName" type="text" id="lastNameInput" placeholder="Doe"  required/>
+    <CFormLabel for="firstNameInput">Name</CFormLabel>
+    <CFormInput v-model="form.fullName" type="text" id="fullNameInput" placeholder="John"  required/>
     <CFormText component="span" class="mb-3">
       Required
     </CFormText>
@@ -86,8 +80,7 @@ export default {
       form: {
         activityId: this.activityId,
         hash: this.hash,
-        firstName: null,
-        lastName: null,
+        fullName: null,
         email: null,
         contactNo: null,
         latitude: null,
