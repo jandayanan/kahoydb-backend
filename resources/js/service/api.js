@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { reject } from 'lodash'
 
 const token = localStorage.getItem('api_token')
 
@@ -61,14 +62,22 @@ export function upsertEntity(data) {
 
 export function updateEntity(data) {
   return new Promise((resolve, reject) => {
-    let url = `entities/update/${data.id}?
-    full_name=${data.fullName}&
-    email=${data.email}&
-    contact_number=${data.contactNo}&
-    status=${data.status}`
+    let url = `entities/update/${data.id}?`
 
-    if (data.id) {
-      url = `${url}&id=${data.id}`  
+    if (data.fullName) {
+      url = `${url}&full_name=${data.fullName}`
+    }
+    
+    if (data.email) {
+      url = `${url}&email=${data.email}`
+    }
+
+    if (data.contactNo) {
+      url = `${url}&contact_number=${data.contactNo}`
+    }
+
+    if (data.status) {
+      url = `${url}&status=${data.status}`
     }
 
     axios.post(url)
@@ -210,5 +219,52 @@ export function createParticipant(data) {
     axios.post(`participants/creation?${args}`)
     .then(res => resolve(res))
     .catch(err => reject(err))
+  })
+}
+
+export function getAllOrganizations(args) {
+  return new Promise((resolve, reject) => {
+    axios.get(`organizations/all?relations[0]=entity&sort=id&order=desc&${args}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function createOrganization(data) {
+  return new Promise((resolve, reject) => {
+    let args = `organization_type=${data.type}&
+    full_name=${data.fullName}`
+    if(data.parentId){
+      args = `${args}&parent_organization_id=${data.parentId}`
+    }
+
+    axios.post(`organizations/creation?${args}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function deleteOrganization(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(`organizations/delete/${id}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
+export function upsertOrganization(data) {
+  return new Promise((resolve, reject) => {
+    let args = `entity_id=${data.entityId}&
+    organization_type=${data.type}&
+    organization_status=${data.status}&
+    &parent_organization_id=${data.parentId == null ? '':data.parentId}`
+
+    if(data.id) {
+      args = `${args}&id=${data.id}`
+    }
+
+    axios.post(`organizations/define?${args}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
   })
 }

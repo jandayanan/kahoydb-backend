@@ -43,6 +43,10 @@ class Organization extends \Shared\BaseClasses\Model
         return $this->belongsTo(Entity::class, "entity_id");
     }
 
+    public function parentOrganization(){
+        return $this->belongsTo(Organization::class, 'parent_organization_id');
+    }
+
     public function children()
     {
         return $this->hasMany(Organization::class, 'parent_organization_id');
@@ -53,6 +57,12 @@ class Organization extends \Shared\BaseClasses\Model
         return $this->hasMany(Activity::class, 'parent_organization_id');
     }
 
+    public function activitiesSub()
+
+    {
+        return $this->hasMany(Activity::class, 'child_organization_id');
+    }
+    
     public function sponsors()
     {
         return $this->hasMany(Sponsor::class);

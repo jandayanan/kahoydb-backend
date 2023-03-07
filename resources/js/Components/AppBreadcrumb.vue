@@ -40,21 +40,21 @@ export default {
           {
             'name': 'Dashboard',
             'active': false,
-            'path': '/dashoard'
+            'path': '/dashboard'
           },
           {
             'name': 'Participants',
             'active': true
           },
         ],
-        'entities': [
+        'organizations': [
           {
             'name': 'Dashboard',
             'active': false,
-            'path': '/dashoard'
+            'path': '/dashboard'
           },
           {
-            'name': 'Entities',
+            'name': 'Organizations',
             'active': true
           },
         ]

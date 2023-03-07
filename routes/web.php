@@ -28,8 +28,8 @@ Route::group([
     Route::get('/participants', function () {
         return Inertia::render('Participants', ['page' => 'participants']);
     });
-    Route::get('/users', function () {
-        return Inertia::render('EntitiesList', ['page' => 'users']);
+    Route::get('/organizations', function () {
+        return Inertia::render('Organizations', ['page' => 'organizations']);
     });
 });
 

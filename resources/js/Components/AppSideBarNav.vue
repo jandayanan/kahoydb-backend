@@ -31,13 +31,13 @@
       </CNavLink>
     </CNavItem>
     <CNavItem>
-      <CNavLink href="/users" :active="page == 'users'">
+      <CNavLink href="/organizations" :active="page == 'organizations'">
         <CIcon
         class="nav-icon"
         :icon="'cil-user'"
         >
         </CIcon>
-        Users
+        Organizations
       </CNavLink>
     </CNavItem>
   </CSidebarNav>
