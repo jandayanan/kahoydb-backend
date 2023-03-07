@@ -7,21 +7,12 @@
       <CModalBody>
         <CFormInput
           type="text"
-          id="firstNameInput"
-          label="First Name"
+          id="fullNameInput"
+          label="Name"
           required="true"
-          placeholder="John"
+          placeholder="John Doe"
           text="Required"
-          v-model="form.firstName"
-        />
-        <CFormInput
-          type="text"
-          id="lastNameInput"
-          label="Last Name"
-          required="true"
-          placeholder="Doe"
-          text="Required"
-          v-model="form.lastName"
+          v-model="form.fullName"
         />
         <CFormInput
           type="emaiol"
@@ -81,8 +72,7 @@ export default {
       form: {
         id: null,
         activityId: this.activityId,
-        firstName: null,
-        lastName: null,
+        fullName: null,
         email: null,
         contactNo: null,
         status: 'active',
@@ -98,8 +88,7 @@ export default {
         this.form.entityId = newData.id
         this.form.id = newData.origin.id,
         this.form.activityId = newData.activity.id
-        this.form.firstName = newData.first_name 
-        this.form.lastName = newData.last_name 
+        this.form.fullName = newData.full_name
         this.form.email = newData.email 
         this.form.contactNo = newData.contact_number
         this.form.participantStatus = newData.origin.participant_status
@@ -158,10 +147,11 @@ export default {
     clearFields(){
       this.form = {
         id: null,
-        firstName: null,
-        lastName: null,
+        activityId: this.activityId,
+        fullName: null,
         email: null,
         contactNo: null,
+        status: 'active',
         errors: []
       }
     }

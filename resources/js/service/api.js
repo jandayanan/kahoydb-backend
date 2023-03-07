@@ -43,7 +43,11 @@ export function getAllEntities(relations = '') {
 
 export function upsertEntity(data) {
   return new Promise((resolve, reject) => {
-    let url = `entities/create?first_name=${data.firstName}&last_name=${data.lastName}&email=${data.email}&contact_number=${data.contactNo}&status=${data.status}`
+    let url = `entities/create?
+    full_name=${data.fullName}&
+    email=${data.email}&
+    contact_number=${data.contactNo}&
+    status=${data.status}`
 
     if (data.id) {
       url = `${url}&id=${data.id}`  
@@ -57,7 +61,11 @@ export function upsertEntity(data) {
 
 export function updateEntity(data) {
   return new Promise((resolve, reject) => {
-    let url = `entities/update/${data.id}?first_name=${data.firstName}&last_name=${data.lastName}&email=${data.email}&contact_number=${data.contactNo}&status=${data.status}`
+    let url = `entities/update/${data.id}?
+    full_name=${data.fullName}&
+    email=${data.email}&
+    contact_number=${data.contactNo}&
+    status=${data.status}`
 
     if (data.id) {
       url = `${url}&id=${data.id}`  
@@ -195,8 +203,7 @@ export function getHashedTree(treeId, hash) {
 export function createParticipant(data) {
   return new Promise((resolve, reject) => {
     let args = `activity_id=${data.activityId}&
-    first_name=${data.firstName}&
-    last_name=${data.lastName}&
+    full_name=${data.fullName}&
     email=${data.email}&
     contact_number=${data.contactNo}&
     participant_status=active&`
