@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             EntitiesTableSeeder::class,
             ParticipantsTableSeeder::class,
-            VariablesTableSeeder::class
+            VariablesTableSeeder::class,
+            OrganizationsTableSeeder::class,
+            SponsorsTableSeeder::class
         ]);
     }
 }
