@@ -26,8 +26,6 @@
           <th>Tree type</th>
           <th>Planter</th>
           <th>Planted at</th>
-          <th>Latitude</th>
-          <th>Longitude</th>
           <th>Status</th>
           <th v-if="permission == 'write'">Actions</th>
         </tr>
@@ -38,9 +36,15 @@
           <td>{{ row.tree_type }}</td>
           <td>{{ row.planter.full_name}}</td>
           <td>{{ row.planted_at }}</td>
-          <td>{{ row.latitude }}</td>
-          <td>{{ row.longitude }}</td>
           <td>{{ row.tree_status.toUpperCase() }}</td>
+          <td v-if="permission == 'read'">
+            <CButton color="info" @click="viewOnMap(row.latitude, row.longitude)">
+              <CIcon
+              class="nav-icon"
+              :icon="'cil-map'">
+              </CIcon>
+            </CButton>
+          </td>
           <td v-if="permission == 'write'">
             <div class="d-flex">
               <CButton color="info" @click="viewOnMap(row.latitude, row.longitude)">
@@ -98,7 +102,7 @@ export default {
       filters: {
         name: {
           value: '',
-          keys: ['tree_type', 'planter.first_name', 'tree_status']
+          keys: ['tree_type', 'planter.full_name', 'tree_status']
         }
       }
     }

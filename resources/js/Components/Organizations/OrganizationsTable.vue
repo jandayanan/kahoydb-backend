@@ -29,12 +29,12 @@
     </template>
     <template #body="{rows}">
       <tr v-for="row in rows" :key="row.id">
-          <td>{{ row.id }}</td>
+          <td>{{ row.organization.id }}</td>
           <td>{{ row.full_name }}</td>
           <td>{{ $_.get(row, 'organization.organization_type', '').toUpperCase() }}</td>
           <td v-if="permission == 'write'">
             <div class="d-flex">
-              <CButton color="success" @click="showInfoModal(row)" v-if="showInfo">
+              <CButton color="success" @click="selectedRow(row)">
                 <CIcon
                   class="nav-icon"
                   :icon="'cil-lightbulb'">
@@ -84,10 +84,6 @@ export default {
     permission: {
       type: String,
       default: 'read'
-    },
-    showInfo: {
-      type: Boolean, 
-      default: true
     }
   },
   data(){
@@ -115,9 +111,8 @@ export default {
       this.$emit('deleteSelectedRow', row)
       this.$store.commit('updateDeleteModalState', true)
     },
-    showInfoModal(row){
+    selectedRow(row){
       this.$emit('selectedRow', row)
-      this.$store.commit('updateOrganizationInfoModalState', true)
     }
   },
   computed: {

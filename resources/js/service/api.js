@@ -222,7 +222,7 @@ export function createParticipant(data) {
   })
 }
 
-export function getAllOrganizations(args) {
+export function getAllOrganizations(args='') {
   return new Promise((resolve, reject) => {
     axios.get(`organizations/all?relations[0]=entity&sort=id&order=desc&${args}`)
     .then(res => resolve(res))

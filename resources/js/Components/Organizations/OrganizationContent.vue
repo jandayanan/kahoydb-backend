@@ -5,10 +5,10 @@
       :items="items" 
       :permission="'write'"
       @updateSelectedRow="showUpdateModal"
-      @deleteSelectedRow="showDeleteModal" />
-      <!-- @selectedRow="showInfoModal" -->
+      @deleteSelectedRow="showDeleteModal"
+      @selectedRow="showInfoModal" />
     <OrganizationInfoModal 
-      :entity="modalData" />
+      :organization="modalData" />
     <OrganizationUpsertModal 
       :organization="organization"
       :method="formMethod" />
@@ -30,7 +30,7 @@ import DeleteModal from '@/Components/DeleteModal.vue'
 export default {
   name: 'ParticipantsContent',
   components: {
-    // OrganizationInfoModal,
+    OrganizationInfoModal,
     OrganizationsTable,
     OrganizationUpsertModal,
     DeleteModal
@@ -62,9 +62,11 @@ export default {
 
       getAllOrganizations(`
         relations[3]=sponsors&
-        relations[4]=activities.trees&
-        relations[5]=parentOrganization.entity`)
+        relations[4]=activities.trees.planter&
+        relations[5]=activitiesSub.trees.planter&
+        relations[6]=parentOrganization.entity`)
       .then(res => {
+        var trees = []
         this.items = res.data.data.organizations
         this.items = this.items.map(item => {
           let organizationObj = {
@@ -77,10 +79,19 @@ export default {
             },
             ...item.entity
           }
+          
+          if(item.parent_organization_id){
+            organizationObj['activities'] = item.activities_sub
+          } else {
+            organizationObj['activities'] = item.activities
+          }
 
-          // if(item.organization.parent_organization_id) {
+          organizationObj.activities.forEach(activity => {
+            trees = trees.concat(activity.trees)
+          })
 
-          // }
+          organizationObj['trees'] = trees
+          organizationObj['treesCount'] = trees.filter(tree => tree.tree_status == 'Planted').length
 
           return organizationObj
         })
@@ -98,6 +109,7 @@ export default {
     },
     showInfoModal(row){
       this.modalData = row
+      this.$store.commit('updateOrganizationInfoModalState', true)
     },
     showCreateModal() {
       this.formMethod = 'create'
