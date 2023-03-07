@@ -172,8 +172,7 @@ export function getAllVariables(args = '/all') {
 
 export function createTree(data) {
   return new Promise((resolve, reject) => {
-    let args = `first_name=${data.firstName}&
-    last_name=${data.lastName}&
+    let args = `full_name=${data.fullName}&
     email=${data.email}&
     tree_species=${data.treeSpecies}&
     tree_type=${data.treeType}&
