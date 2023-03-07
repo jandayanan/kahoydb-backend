@@ -48,6 +48,10 @@ class Organization extends \Shared\BaseClasses\Model
         return $this->hasMany(Organization::class, 'parent_organization_id');
     }
 
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'parent_organization_id');
+    }
 
     public function sponsors()
     {
