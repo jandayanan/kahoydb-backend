@@ -2,6 +2,7 @@
 
 namespace App\Data\Models\Activities;
 
+use App\Data\Models\Organizations\Organization;
 use App\Data\Models\Participants\Participant;
 use App\Data\Models\Trees\Tree;
 
@@ -38,6 +39,16 @@ class Activity extends \Shared\BaseClasses\Model
     public function getAppHashAttribute()
     {
         return app_hash("ACTIVITY".env("APP_SALT", 'KAHOY_Default').$this->id);
+    }
+
+    public function parentOrganization()
+    {
+        return $this->belongsTo(Organization::class, "parent_organization_id");
+    }
+
+    public function childOrganization()
+    {
+        return $this->belongsTo(Organization::class, "child_organization_id");
     }
 
     public function trees()
