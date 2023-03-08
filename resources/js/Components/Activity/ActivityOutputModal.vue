@@ -145,10 +145,11 @@ export default {
           status: participant.participant_status,
           activity: participant.activity,
           origin: participant,
-          trees: participant.entity.trees,
+          trees: _.get(participant, 'entity.trees', []),
           ...participant.entity
         })
       })
+      console.l
       this.activity.trees.forEach((tree) => {
         this.trees.push(tree)
       })
