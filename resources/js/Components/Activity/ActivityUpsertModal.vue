@@ -115,7 +115,7 @@ export default {
         this.form.startDate = newData.start_date 
         this.form.endDate = newData.end_date 
         this.form.parentOrganizationId = _.get(newData, 'parent_organization_id', null)
-        this.form.childOrganizationId = _.get(newData, 'parent_organization_id', null)
+        this.form.childOrganizationId = _.get(newData, 'child_organization_id', null)
         this.form.status = newData.activity_status
         this.org = this.buildParentOrgSelected()
       }
