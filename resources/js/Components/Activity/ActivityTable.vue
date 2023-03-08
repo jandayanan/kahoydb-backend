@@ -85,7 +85,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getAllActivities, deleteActivity } from '@/service/api'
+import { getAllActivities, deleteActivity, getAllOrganizations } from '@/service/api'
 import ActivityOutputModal from './ActivityOutputModal.vue'
 
 export default {
@@ -113,6 +113,7 @@ export default {
   async created() {
     // Fetch all activities when component is mounted
     await this.getActivities()
+    await this.getOrganizationsOptions()
   },
   methods: {
     async getActivities() {
@@ -121,7 +122,9 @@ export default {
       let url = `relations[0]=participants.entity.trees&
       relations[1]=trees.planter.participant&
       relations[2]=trees.activity&
-      relations[3]=participants.activity`
+      relations[3]=participants.activity&
+      relations[4]=parentOrganization.entity&
+      relations[5]=childOrganization.entity`
       
       await getAllActivities(url)
       .then(res => {
@@ -151,12 +154,16 @@ export default {
       this.$store.commit('updateActivityOutputModalState', true)
     },
     async reloadOutputModal(activity) {
-      console.log('reloading')
       await this.getActivities()
-      console.log('done reloading')
       this.activity = this.items.filter(item => item.id === activity.id)[0] 
-      console.log(this.activity)
       this.$store.commit('updateActivityOutputModalState', true)
+    },
+    async getOrganizationsOptions() {
+      await getAllOrganizations()
+      .then(res => {
+        this.parentOrganizations = res.data.data.organizations.filter(org => org.parent_organization_id == null)
+        this.childOrganizations = res.data.data.organizations.filter(org => org.parent_organization_id != null)
+      })
     }
   },
   watch: {

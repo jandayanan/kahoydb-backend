@@ -28,6 +28,13 @@
     <CCol sm="auto">{{ activity.name }}</CCol>
   </CRow>
   <CRow class="mt-2">
+    <CCol sm="auto"><strong>Organizer:</strong></CCol>
+    <CCol sm="auto">{{ 
+      activity.parent_organization ? 
+      activity.parent_organization.entity.full_name:activity.child_organization ? 
+      activity.child_organization.entity.full_name:null }}</CCol>
+  </CRow>
+  <CRow class="mt-2">
     <CCol sm="auto"><strong>Start Date:</strong></CCol>
     <CCol sm="auto">{{ activity.start_date }}</CCol>
   </CRow>

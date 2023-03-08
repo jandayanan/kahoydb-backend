@@ -30,11 +30,10 @@ const submit = () => {
                 error.value = null
                 axios.post(route('web.login'), form)
                     .then((res)=> {
-                        if(res.data.code === 200) {
-                            window.location.href = '/dashboard'
-                        } else {
-                            error.value = res.data.message;
-                        }
+                        window.location.href = '/dashboard'
+                    })
+                    .catch(err => {
+                        error.value = err.response.data.message;
                     })
             }
         }).

@@ -24,6 +24,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Type</th>
+        <th>Trees Planted</th>
         <th v-if="permission == 'write'">Actions</th>
       </tr>
     </template>
@@ -32,6 +33,7 @@
           <td>{{ row.organization.id }}</td>
           <td>{{ row.full_name }}</td>
           <td>{{ $_.get(row, 'organization.organization_type', '').toUpperCase() }}</td>
+          <td>{{ row.treesCount }}</td>
           <td v-if="permission == 'write'">
             <div class="d-flex">
               <CButton color="success" @click="selectedRow(row)">

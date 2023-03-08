@@ -66,9 +66,10 @@ export default {
         relations[5]=activitiesSub.trees.planter&
         relations[6]=parentOrganization.entity`)
       .then(res => {
-        var trees = []
+        
         this.items = res.data.data.organizations
         this.items = this.items.map(item => {
+          var trees = []
           let organizationObj = {
             organization: {
               id: item.id,
@@ -79,15 +80,15 @@ export default {
             },
             ...item.entity
           }
-          
+
           if(item.parent_organization_id){
             organizationObj['activities'] = item.activities_sub
           } else {
             organizationObj['activities'] = item.activities
           }
-
           organizationObj.activities.forEach(activity => {
             trees = trees.concat(activity.trees)
+
           })
 
           organizationObj['trees'] = trees

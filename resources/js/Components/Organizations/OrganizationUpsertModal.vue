@@ -1,7 +1,7 @@
 <template>
   <CModal size="md" @close="resetModalState" :visible="showModal">
     <CModalHeader>
-      <CModalTitle>{{ method == 'create' ? 'Insert Participant': 'Update Entity' }}</CModalTitle>
+      <CModalTitle>{{ method == 'create' ? 'Insert Organization': 'Update Organization' }}</CModalTitle>
     </CModalHeader>
     <CForm @submit.prevent="submit">
       <CModalBody>

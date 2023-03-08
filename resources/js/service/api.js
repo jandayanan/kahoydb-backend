@@ -16,7 +16,20 @@ export function getAllActivities(relations = '') {
 
 export function upsertActivity(data) {
   return new Promise((resolve, reject) => {
-    let url = `activities/define?name=${data.name}&start_date=${data.startDate}&end_date=${data.endDate}&activity_status=${data.status}`
+    let url = `activities/define?
+    name=${data.name}&
+    start_date=${data.startDate}&
+    end_date=${data.endDate}&
+    activity_status=${data.status}&`
+
+    if(data.parentOrganizationId) {
+      url = `${url}parent_organization_id=${data.parentOrganizationId}&
+      child_organization_id=`
+    } 
+    else if(data.childOrganizationId) {
+      url = `${url}child_organization_id=${data.childOrganizationId}&
+      parent_organization_id=`
+    }
     if(data.id) {
       url = `${url}&id=${data.id}`  
     }
