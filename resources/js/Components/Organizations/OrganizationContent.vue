@@ -28,7 +28,7 @@ import OrganizationUpsertModal from './OrganizationUpsertModal.vue'
 import DeleteModal from '@/Components/DeleteModal.vue'
 
 export default {
-  name: 'ParticipantsContent',
+  name: 'OrganizationContent',
   components: {
     OrganizationInfoModal,
     OrganizationsTable,

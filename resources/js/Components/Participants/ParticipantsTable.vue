@@ -29,7 +29,7 @@
       </tr>
     </template>
     <template #body="{rows}">
-      <tr v-for="row in rows" :key="row.id">
+      <tr v-for="row in rows" :key="row">
           <td>{{ row.id }}</td>
           <td>{{ row.full_name }}</td>
           <td>{{ row.email }}</td>
