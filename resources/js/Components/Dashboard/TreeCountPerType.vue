@@ -26,7 +26,18 @@ export default {
   props: {
     treeTypes: {
       type: Array,
-      default: []
+      default: [
+        {
+          type: 'tree.type',
+          description: 'Fruit-bearing trees planted',
+          treeCount: 0
+        },
+        {
+          type: 'tree.type',
+          description: 'Hardwood trees planted',
+          treeCount: 0
+        }
+      ]
     }
   },
   data() {

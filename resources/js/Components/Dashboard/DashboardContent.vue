@@ -59,13 +59,15 @@ export default {
     async getVariables() {
       await getAllVariables()
       .then(res => {
-        this.variables = res.data.data.variables
-        this.variables.forEach(variable => {
-          if(variable.type == 'tree.type') {
-            this.treeTypeOptions.push({ label: variable.value, value: variable.value })
-          }
-          
-        })
+
+        if(res.data.code == 200) {
+          this.variables = res.data.data.variables
+          this.variables.forEach(variable => {
+            if(variable.type == 'tree.type') {
+              this.treeTypeOptions.push({ label: variable.value, value: variable.value })
+            }
+          })
+        }
       })
     },
     async getTreeCountPerType(){
@@ -74,7 +76,13 @@ export default {
         if(variable.type == 'tree.type'){
           await getAllTrees(`tree_type=${variable.value}&tree_status=Planted`)
           .then(res => {
-            variable.treeCount = res.data.data.trees.length
+
+            if(res.data.code == 200){
+              variable.treeCount = res.data.data.trees.length
+            }
+          })
+          .catch(err => {
+            variable.treeCount = 0
           })
         }
       })
@@ -88,13 +96,16 @@ export default {
       if(this.treeTypeSelected != 'All Types') {
         await getAllTrees(`tree_type=${this.treeTypeSelected}`)
         .then(res => {
-          trees = res.data.data.trees
-          console.log(trees)
+          if(res.data.code == 200) {
+            trees = res.data.data.trees
+          }
         })
       } else {
         await getAllTrees()
         .then(res => {
-          trees = res.data.data.trees
+          if(res.data.code == 200) {
+            trees = res.data.data.trees
+          }
         })
       }
 
@@ -115,10 +126,8 @@ export default {
           planted: treesPlanted,
           pending: treesPending
         })
-        console.log(treesPerSpecie)
       })
       this.treesPerSpecie = treesPerSpecie
-      console.log(this.treesPerSpecie)
     },
     treeTypeChanged(treeType){
       this.treeTypeSelected = treeType
