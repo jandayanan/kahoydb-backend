@@ -125,7 +125,7 @@ export default {
       await getAllOrganizations()
       .then(res => {
         let items = res.data.data.organizations 
-        this.parentOrganizations = items.filter(item => item.parent_organization_id == null) 
+        this.parentOrganizations = items.filter(item => item.parent_organization_id == null && item.organization_type == 'internal') 
         this.parentOrganizations = this.parentOrganizations.map(org => {
           return {
             id: org.id,

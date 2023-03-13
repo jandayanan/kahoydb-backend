@@ -20,11 +20,13 @@ class VariablesTableSeeder extends Seeder
             [
                 'key'  => 'fruit',
                 'value' => 'Fruit',
+                'description' => 'Fruit-bearing trees planted',
                 'type' => 'tree.type'
             ],
             [
                 'key'  => 'hardwood',
                 'value' => 'Hardwood',
+                'description' => 'Hardwood trees planted',
                 'type' => 'tree.type'
             ],
             [
