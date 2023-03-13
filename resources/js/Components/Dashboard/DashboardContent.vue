@@ -1,10 +1,5 @@
 <template>
   <CContainer>
-    <CRow>
-      <CCol sm="12">
-        <DashboardBanner />
-      </CCol>
-    </CRow>
     <CRow class="mt-4">
       <CCol sm="6">
         <TreeCountPerType :treeTypes="variables"/>
