@@ -41,7 +41,7 @@
     </div>
     <div class="banner-background">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <h3 style="color: #FCDB02; font-size: 4rem;" class="my-0 h1-mobile text-center-mobile text-uppercase">Fruit-bearing Trees</h3>
+        <h3 style="color: #FCDB02; font-size: 6rem;" class="my-0 h1-mobile text-center-mobile text-uppercase">Fruit-bearing Trees</h3>
       </div>
     </div>
   </CContainer>
@@ -54,7 +54,7 @@
         <img src="@/Assets/placeholder.png" style="height: 10vh;" alt="">
       </CCol>
       <CCol md-4 class="d-flex justify-content-center py-4">
-        <div class="text-center text-uppercase text-white font-weight-bolder">Honor. Patriotism. Duty</div>
+        <div class="text-center text-uppercase text-white font-weight-bolder d-flex align-items-center">Honor. Patriotism. Duty</div>
       </CCol>
       <CCol md-4 class="d-flex justify-content-end">
         <img src="@/Assets/placeholder.png" style="height: 10vh;" alt="">
