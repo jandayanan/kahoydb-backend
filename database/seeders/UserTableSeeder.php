@@ -29,6 +29,10 @@ class UserTableSeeder extends Seeder
                 'last_name' => 'Dayanan',
             ],
             [
+                'first_name'  => 'Erasto',
+                'last_name' => 'Gallardo',
+            ],
+            [
                 'first_name'  => 'Miguel',
                 'last_name' => 'Dorado'
             ]
