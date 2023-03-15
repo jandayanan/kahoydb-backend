@@ -13,11 +13,22 @@
       v-model="treeType"
       aria-label="Select Tree Type"
       class="mt-3"
-      :options="treeTypeOptions"
-      @change="changeTreeType">
+      :options="treeTypeOptions">
     </CFormSelect>
-    <div class="d-flex justify-content-center" v-if="isLoading">
+    <CFormSelect
+      v-model="organization"
+      aria-label="Select Organizataion"
+      class="mt-3"
+      :options="organizationOptions">
+    </CFormSelect>
+    <div class="d-flex mt-3">
+      <span class="font-weight-bold">Trees Planted: {{ treesPlanted }}</span> 
+    </div>
+    <div class="d-flex justify-content-center mt-3" v-if="isLoading">
       <CSpinner color="success" />
+    </div>
+    <div class="d-flex justify-content-end">
+      <CButton color="primary" @click="refresh">Refresh</CButton>
     </div>
     <VTable 
       v-if="!isLoading" 
@@ -53,6 +64,9 @@
 </template>
 
 <script>
+import { getAllOrganizations } from '@/service/api'
+import { mapState } from 'vuex';
+
 export default {
   name: 'TreeCountBySpecieTable',
   props: {
@@ -63,12 +77,18 @@ export default {
     treeTypeOptions: {
       type: Array,
       default: []
+    },
+    treesPlanted: {
+      type: Number,
+      default: 0
     }
   },
   data(){
     return { 
       data: [],
       treeType: 'All Types',
+      organization: '',
+      organizationOptions: [{ label: 'All Organizations', value: '' }],
       pageSize: 10,
       totalPages: 1,
       currentPage: 1,
@@ -83,13 +103,45 @@ export default {
   watch: {
     treeType(){
       this.changeTreeType()
+    },
+    organization() {
+      this.filterOrganizations()
     }
+
+  },
+  mounted(){
+    this.getOrganizationOptions()
   },
   methods: {
     changeTreeType() {
       this.$emit('treeTypeSelected', this.treeType)
+    },
+    getOrganizationOptions(){
+      getAllOrganizations()
+      .then(res => {
+        let organizationOptions = res.data.data.organizations.map(organization => {
+          return {
+            label: _.get(organization.entity, 'full_name', ''),
+            value: _.get(organization.entity, 'full_name', '')
+          }
+        })
+
+        this.organizationOptions = this.organizationOptions.concat(organizationOptions)
+      })
+    },
+    filterOrganizations(){
+      this.$emit('organizationSelected', this.organization)
+    },
+    refresh() {
+      this.$emit('refresh')
     }
+
   },
+    computed: {
+    ...mapState({
+      isLoading: state => state.isReloading,
+    })
+  }
 }
 </script>
 

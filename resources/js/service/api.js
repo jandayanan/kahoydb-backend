@@ -237,7 +237,7 @@ export function createParticipant(data) {
 
 export function getAllOrganizations(args='') {
   return new Promise((resolve, reject) => {
-    axios.get(`organizations/all?relations[0]=entity&sort=id&order=desc&${args}`)
+    axios.get(`organizations/view?relations[0]=entity&sort=id&order=desc&${args}`)
     .then(res => resolve(res))
     .catch(err => reject(err.response.data))
   })

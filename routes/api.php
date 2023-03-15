@@ -192,5 +192,11 @@ Route::group([
         Route::get("view", "TreeController@all");
     });
 
+    Route::group([
+        "prefix" => "organizations",
+        "namespace" => "Organizations"
+    ], function () {
+        Route::get("view", "OrganizationController@all");
+    });
 
 });

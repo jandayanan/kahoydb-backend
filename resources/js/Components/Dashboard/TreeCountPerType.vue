@@ -3,7 +3,7 @@
     <CContainer>
       <CRow>
         <template v-for="treeType in treeTypes" :key="treeType.id">
-          <CCol v-if="treeType.type == 'tree.type'">
+          <CCol lg="6" v-if="treeType.type == 'tree.type'" class="mb-2">
             <CWidgetStatsC 
               :value="shortenNum(treeType.treeCount)" 
               :title="treeType.description"

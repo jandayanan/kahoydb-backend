@@ -71,16 +71,13 @@ export default {
 </script>
 
 <style scoped>
-  .banner {
-    
-  }
   .banner-background {
     background-image: url(../planting_soldier.jpg);
     width: 100vw;
     min-height: 500px;
-    -webkit-box-shadow: inset 0px 68px 18px 4px rgba(0,0,0,0.26);
-    -moz-box-shadow: inset 0px 68px 18px 4px rgba(0,0,0,0.26);
-    box-shadow: inset 0px 68px 18px 4px rgba(0,0,0,0.26);
+    -webkit-box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
+    -moz-box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
+    box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
   }
   @media only screen and (max-width: 767px){
 

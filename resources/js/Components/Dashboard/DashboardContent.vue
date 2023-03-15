@@ -8,7 +8,10 @@
         <TreeCountBySpecie 
           :items="treesPerSpecie"
           :treeTypeOptions="treeTypeOptions"
-          @treeTypeSelected="treeTypeChanged"/>
+          :treesPlanted="treesPlanted"
+          @treeTypeSelected="treeTypeChanged"
+          @organizationSelected="organizationChanged" 
+          @refresh="refresh" />
       </CCol>
       <CCol>
       </CCol>
@@ -36,10 +39,13 @@ export default {
       variables: [],
       treesPerSpecie: [],
       treeTypeSelected: 'All Types',
+      organizationSelected: 'All Organizations',
+      treesPlanted: 0,
       treeTypeOptions: [{ label: 'All Types', value:'All Types' }]
     }
   },
   async created() {
+    this.$store.commit('toggleReload')
     await this.getVariables()
     this.getTreeCountPerType()
     this.getTreesPerSpecies()
@@ -83,20 +89,25 @@ export default {
       })
     },
     async getTreesPerSpecies(){
+      var args = `relations[0]=activity.parentOrganization.entity&
+        relations[1]=activity.childOrganization.entity`
       var trees = []
       var treesPlanted = []
       var treesPending = []
       var treesPerSpecie = []
+      this.treesPerSpecie = []
       
       if(this.treeTypeSelected != 'All Types') {
-        await getAllTrees(`tree_type=${this.treeTypeSelected}`)
+        
+
+        await getAllTrees(`tree_type=${this.treeTypeSelected}&${args}`)
         .then(res => {
           if(res.data.code == 200) {
             trees = res.data.data.trees
           }
         })
       } else {
-        await getAllTrees()
+        await getAllTrees(args)
         .then(res => {
           if(res.data.code == 200) {
             trees = res.data.data.trees
@@ -106,26 +117,48 @@ export default {
 
       // Get species available on the tree list
       var species = [...new Set(trees.map(tree => tree.tree_species))]
+      var treesPlantedCtr = 0
 
       species.forEach(async specie => { 
         treesPlanted = trees.filter(tree => {
           return (tree.tree_species == specie) && (tree.tree_status != 'Planting')
-        }).length 
+        }) 
 
         treesPending = trees.filter(tree => {
           return (tree.tree_species == specie) && (tree.tree_status == 'Planting')
-        }).length 
-
+        }) 
         treesPerSpecie.push({
           name: specie,
-          planted: treesPlanted,
-          pending: treesPending
+          planted: this.filterByOrganization(treesPlanted).length,
+          pending: this.filterByOrganization(treesPending).length
         })
+
+        treesPlantedCtr += this.filterByOrganization(treesPlanted).length
       })
+      this.$store.commit('toggleReload')
       this.treesPerSpecie = treesPerSpecie
+      this.treesPlanted = treesPlantedCtr
     },
+    filterByOrganization(trees) {{
+      if(this.organizationSelected != 'All Organizations'){
+        let treesFiltered = trees.filter(tree => {
+          return _.get(tree.activity.parent_organization, 'entity.full_name') == this.organizationSelected ||
+          (tree.activity.child_organization && _.get(tree.activity.child_organization, 'entity.full_name') == this.organizationSelected)
+        })
+        return treesFiltered
+      } 
+      return trees      
+    }},
     treeTypeChanged(treeType){
       this.treeTypeSelected = treeType
+      this.refresh()
+    },
+    organizationChanged(organization) {
+      this.organizationSelected = organization
+      this.refresh()
+    },
+    refresh(){
+      this.$store.commit('toggleReload')
       this.getTreesPerSpecies()
     }
   }
