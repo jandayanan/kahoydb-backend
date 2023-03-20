@@ -127,6 +127,26 @@ class TreeController extends BaseController
 
     // endregion Retrieve Data
 
+    // region Retrieve Summary Data
+
+    /**
+     * Fetch a summary data for a tree.
+     *
+     * @param Request $request
+     * @return TreeController
+     */
+    public function fetchSummary( Request $request ){
+        $data = $request->all();
+        return $this->absorb(
+            $this->tree_repo->fetchSummary(
+                $data
+            )
+        )->json();
+
+    }
+
+    // endregion Retrieve Summary Data
+
     // region Search Data
 
     /**

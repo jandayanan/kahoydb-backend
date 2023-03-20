@@ -207,6 +207,76 @@ class TreeRepository extends BaseRepository
 
     // endregion Retrieve Data
 
+    // region Retrieve Summary Data
+
+    /**
+     * Fetch tree's summary.
+     *
+     * @param array $data
+     * @return TreeRepository
+     */
+    public function fetchSummary( $data=[] )
+    {
+        if(!isset($data['tree_status'])){
+            $data['tree_status'] = "planted";
+        }
+
+        $years = json_decode(json_encode(
+            \DB::table('trees')
+                ->select(\DB::raw('YEAR(created_at) as year'))
+                ->distinct()
+                ->get()
+                ->toArray()
+            , true) );
+
+        $result = [];
+        if(!empty($years)){
+            foreach($years as $value){
+                $monthly = \DB::table('trees')
+                    ->select(\DB::raw('MONTH(created_at) month, COUNT(*) as value '))
+                    ->whereRaw("YEAR(created_at) = ". $value->year)
+                    ->where('tree_status', $data['tree_status'])
+                    ->groupBy('month')
+                    ->get()
+                    ->toArray();
+
+                $monthly = array_map(function($v){
+                    return [$v['month'] => $v['value']];
+                }, json_decode(json_encode($monthly), true));
+
+                $default = [
+                    "year" => $value->year,
+                    1 => 0,
+                    2 => 0,
+                    3 => 0,
+                    4 => 0,
+                    5 => 0,
+                    6 => 0,
+                    7 => 0,
+                    8 => 0,
+                    9 => 0,
+                    10 => 0,
+                    11 => 0,
+                    12 => 0
+                ];
+                foreach( $monthly as $value_ ){
+                    $result[] = array_replace( $default, $value_ );
+                }
+
+            }
+        }
+
+        return $this->httpSuccessResponse([
+            "message" => "Successfully retrieved trees summary",
+            "data" => [
+                $result
+            ]
+        ]);
+
+    }
+
+    // endregion Retrieve Summary Data
+
     // region Search Data
 
     /**
