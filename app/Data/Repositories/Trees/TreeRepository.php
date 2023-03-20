@@ -221,13 +221,18 @@ class TreeRepository extends BaseRepository
             $data['tree_status'] = "planted";
         }
 
-        $years = json_decode(json_encode(
-            \DB::table('trees')
-                ->select(\DB::raw('YEAR(created_at) as year'))
-                ->distinct()
-                ->get()
-                ->toArray()
-            , true) );
+        if(isset($data['year'])){
+            $years = [(object) [ 'year' => $data['year']]];
+        } else {
+
+            $years = json_decode(json_encode(
+                \DB::table('trees')
+                    ->select(\DB::raw('YEAR(created_at) as year'))
+                    ->distinct()
+                    ->get()
+                    ->toArray()
+                , true) );
+        }
 
         $result = [];
         if(!empty($years)){
@@ -244,8 +249,13 @@ class TreeRepository extends BaseRepository
                     return [$v['month'] => $v['value']];
                 }, json_decode(json_encode($monthly), true));
 
-                $default = [
+                $total = 0;
+                foreach ($monthly as $key => $v_ ) {
+                    $total += array_values($v_)[0];
+                }
+                $result[$value->year] = [
                     "year" => $value->year,
+                    "total" => $total,
                     1 => 0,
                     2 => 0,
                     3 => 0,
@@ -260,7 +270,7 @@ class TreeRepository extends BaseRepository
                     12 => 0
                 ];
                 foreach( $monthly as $value_ ){
-                    $result[] = array_replace( $default, $value_ );
+                    $result[$value->year] = array_replace( $result[$value->year], $value_ );
                 }
 
             }

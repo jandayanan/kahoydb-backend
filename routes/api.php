@@ -190,7 +190,7 @@ Route::group([
     ], function () {
 
         Route::get("view", "TreeController@all");
-        Route::get("summary", "TreeController@fetchSummary");
+        Route::get("count", "TreeController@fetchSummary");
     });
 
     Route::group([
