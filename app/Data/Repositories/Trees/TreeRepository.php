@@ -222,19 +222,6 @@ class TreeRepository extends BaseRepository
             $data['tree_status'] = "planted";
         }
 
-        if(isset($data['year'])){
-            $years = [(object) [ 'year' => $data['year']]];
-        } else {
-
-            $years = json_decode(json_encode(
-                \DB::table('trees')
-                    ->select(\DB::raw('YEAR(created_at) as year'))
-                    ->distinct()
-                    ->get()
-                    ->toArray()
-                , true) );
-        }
-
         $years = \DB::table('trees')
             ->select(\DB::raw('YEAR(trees.created_at) as year'), 'act.parent_organization_id', 'act.child_organization_id')
             ->leftjoin('activities as act', 'act.id', '=', 'trees.activity_id')
