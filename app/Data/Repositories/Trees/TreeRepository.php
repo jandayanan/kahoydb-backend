@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories\Trees;
 
+use App\Data\Models\Organizations\Organization;
 use App\Data\Models\Trees\Tree;
 use App\Data\Repositories\BaseRepository;
 
@@ -234,13 +235,51 @@ class TreeRepository extends BaseRepository
                 , true) );
         }
 
+        $years = \DB::table('trees')
+            ->select(\DB::raw('YEAR(trees.created_at) as year'), 'act.parent_organization_id', 'act.child_organization_id')
+            ->leftjoin('activities as act', 'act.id', '=', 'trees.activity_id')
+            ->distinct('act.parent_organization_id', 'act.child_organization_id');
+
+        if(isset($data['year'])){
+            $years = $years->whereRaw('YEAR(trees.created_at) = ?', [$data['year']]);
+        }
+
+        if(isset($data['organization_id'])){
+            $years = $years->where('act.parent_organization_id', $data['organization_id']);
+        }
+
+        $years = $years->get()
+            ->toArray();
+
         $result = [];
         if(!empty($years)){
-            foreach($years as $value){
+            foreach($years as $key => $value){
                 $monthly = \DB::table('trees')
-                    ->select(\DB::raw('MONTH(created_at) month, COUNT(*) as value '))
-                    ->whereRaw("YEAR(created_at) = ". $value->year)
+                    ->whereRaw("YEAR(trees.created_at) = ". $value->year)
                     ->where('tree_status', $data['tree_status'])
+                    ->leftjoin('activities as act', 'act.id', '=', 'trees.activity_id');
+
+                if(!isset($data['organization_id'])){
+                    if(!is_null($value->parent_organization_id)){
+                        $org_id = $value->parent_organization_id;
+                        $monthly = $monthly->where('act.parent_organization_id', $value->parent_organization_id);
+                    } else {
+                        $org_id = $value->child_organization_id;
+                        $monthly = $monthly->where('act.child_organization_id', $value->child_organization_id);
+                    }
+
+                } else {
+                    $org_id = $data['organization_id'];
+                    if(isset($data['organization_type'])){
+                        $org_type = $data['organization_type'] == 'parent' ? 'act.parent_organization_id' : 'act.child_organization_id';
+                        $monthly = $monthly->where($org_type, $data['organization_id']);
+                    } else {
+                        $monthly = $monthly->where('act.parent_organization_id', $data['organization_id']);
+                    }
+
+                }
+
+                $monthly = $monthly->select(\DB::raw('MONTH(trees.created_at) month, COUNT(*) as value'))
                     ->groupBy('month')
                     ->get()
                     ->toArray();
@@ -250,10 +289,10 @@ class TreeRepository extends BaseRepository
                 }, json_decode(json_encode($monthly), true));
 
                 $total = 0;
-                foreach ($monthly as $key => $v_ ) {
+                foreach ($monthly as $k_ => $v_ ) {
                     $total += array_values($v_)[0];
                 }
-                $result[$value->year] = [
+                $result[$key][$value->year] = [
                     "year" => $value->year,
                     "total" => $total,
                     1 => 0,
@@ -267,10 +306,11 @@ class TreeRepository extends BaseRepository
                     9 => 0,
                     10 => 0,
                     11 => 0,
-                    12 => 0
+                    12 => 0,
+                    "organization" => Organization::with(['entity'])->where('id', $org_id)->get()
                 ];
                 foreach( $monthly as $value_ ){
-                    $result[$value->year] = array_replace( $result[$value->year], $value_ );
+                    $result[$key][$value->year] = array_replace( $result[$key][$value->year], $value_ );
                 }
 
             }
