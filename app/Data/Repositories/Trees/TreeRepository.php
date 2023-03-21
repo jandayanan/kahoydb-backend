@@ -279,7 +279,7 @@ class TreeRepository extends BaseRepository
                 foreach ($monthly as $k_ => $v_ ) {
                     $total += array_values($v_)[0];
                 }
-                $result[$key][$value->year] = [
+                $result[$key] = [
                     "year" => $value->year,
                     "total" => $total,
                     1 => 0,
@@ -297,7 +297,7 @@ class TreeRepository extends BaseRepository
                     "organization" => Organization::with(['entity'])->where('id', $org_id)->get()
                 ];
                 foreach( $monthly as $value_ ){
-                    $result[$key][$value->year] = array_replace( $result[$key][$value->year], $value_ );
+                    $result[$key] = array_replace( $result[$key], $value_ );
                 }
 
             }
@@ -305,9 +305,7 @@ class TreeRepository extends BaseRepository
 
         return $this->httpSuccessResponse([
             "message" => "Successfully retrieved trees summary",
-            "data" => [
-                $result
-            ]
+            "data" => $result
         ]);
 
     }
