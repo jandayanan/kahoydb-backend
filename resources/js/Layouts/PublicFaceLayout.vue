@@ -45,7 +45,7 @@
       </div>
     </div>
   </CContainer>
-  <CContainer fluid style="background-color: #18583E;" class="p-4">
+  <CContainer fluid style="background-color: #18583E;" class="p-4 d-flex justify-content-center">
     <slot />
   </CContainer>
   <CContainer fluid style="background-color: #18583E;" class="py-2 mt-5">
@@ -66,7 +66,8 @@
 
 <script>
 export default {
-
+  mounted() {
+  }
 }
 </script>
 
@@ -74,7 +75,7 @@ export default {
   .banner-background {
     background-image: url(../planting_soldier.jpg);
     width: 100vw;
-    min-height: 500px;
+    min-height: 350px;
     -webkit-box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
     -moz-box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
     box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);

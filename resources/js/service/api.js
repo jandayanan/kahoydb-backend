@@ -281,3 +281,11 @@ export function upsertOrganization(data) {
     .catch(err => reject(err.response.data))
   })
 }
+
+export function getTreeSumarry(args) {
+  return new Promise((resolve, reject) => {
+    axios.get(`trees/count?${args}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}

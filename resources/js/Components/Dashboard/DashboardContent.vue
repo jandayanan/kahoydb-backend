@@ -1,10 +1,13 @@
 <template>
   <CContainer>
     <CRow class="mt-4">
-      <CCol sm="6">
-        <TreeCountPerType :treeTypes="variables"/>
+      <CCol md="12" class="mb-4">
+        <AnimatedTreeCounter />
       </CCol>
-      <CCol sm="6">
+      <CCol lg="6" class="mb-4">
+        <TreeCountPerType :treeSpecies="variables"/>
+      </CCol>
+      <CCol lg="6" class="mb-4">
         <TreeCountBySpecie 
           :items="treesPerSpecie"
           :treeTypeOptions="treeTypeOptions"
@@ -13,25 +16,34 @@
           @organizationSelected="organizationChanged" 
           @refresh="refresh" />
       </CCol>
-      <CCol>
+      <CCol md="6" class="mb-4">
+        <AnnualTreesGraph />
+      </CCol>
+      <CCol md="6" class="mb-4">
+        <PerOrganizationTreePieGraph />
       </CCol>
     </CRow>
   </CContainer>
   
 </template>
-
 <script>
 import { tree } from '@/Assets/icons/tree'
 import { getAllVariables, getAllTrees } from '@/service/api'
 import DashboardBanner from './DashboardBanner.vue'
 import TreeCountPerType from './TreeCountPerType.vue'
 import TreeCountBySpecie from './TreeCountBySpecieTable.vue'
+import AnimatedTreeCounter from './AnimatedTreeCounter.vue'
+import AnnualTreesGraph from './AnnualTreesGraph.vue'
+import PerOrganizationTreePieGraph from './PerOrganizationTreePieGraph.vue'
 
 export default {
   components: {
     DashboardBanner,
     TreeCountPerType,
-    TreeCountBySpecie
+    TreeCountBySpecie,
+    AnimatedTreeCounter,
+    AnnualTreesGraph,
+    PerOrganizationTreePieGraph
   },
   data() {
     return {
@@ -74,8 +86,8 @@ export default {
     async getTreeCountPerType(){
       // Filter trees per type
       this.variables.forEach(async variable => {
-        if(variable.type == 'tree.type'){
-          await getAllTrees(`tree_type=${variable.value}&tree_status=Planted`)
+        if(variable.type == 'tree.species'){
+          await getAllTrees(`tree_species=${variable.value}&tree_status=Planted`)
           .then(res => {
 
             if(res.data.code == 200){

@@ -2,16 +2,17 @@
   <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-3">
     <CContainer>
       <CRow>
-        <template v-for="treeType in treeTypes" :key="treeType.id">
-          <CCol lg="6" v-if="treeType.type == 'tree.type'" class="mb-2">
+        <template v-for="(specie, i) in species" :key="specie.id" >
+          <!-- Top 4 tree species planted -->
+          <CCol lg="6" v-if="i < 4" class="mb-2">
             <CWidgetStatsC 
-              :value="shortenNum(treeType.treeCount)" 
-              :title="treeType.description"
+              :value="shortenNum(specie.treeCount)" 
+              :title="specie.value"
               inverse 
               class="text-light"  style="background-color: #76b5c5 !important;">
               <template #icon>
-                <img v-if="treeType.key == 'fruit'" src="@/Assets/fruit.svg" alt="">
-                <img v-if="treeType.key == 'hardwood'" src="@/Assets/tree.svg" alt="">
+                <img v-if="specie.key == 'fruit'" src="@/Assets/fruit.svg" alt="">
+                <img v-if="specie.key == 'hardwood'" src="@/Assets/tree.svg" alt="">
               </template>
             </CWidgetStatsC>
           </CCol>
@@ -24,17 +25,17 @@
 <script>
 export default {
   props: {
-    treeTypes: {
+    treeSpecies: {
       type: Array,
       default: [
         {
-          type: 'tree.type',
-          description: 'Fruit-bearing trees planted',
+          type: 'tree.species',
+          description: 'Durian',
           treeCount: 0
         },
         {
-          type: 'tree.type',
-          description: 'Hardwood trees planted',
+          type: 'tree.species',
+          description: 'Mango',
           treeCount: 0
         }
       ]
@@ -42,7 +43,22 @@ export default {
   },
   data() {
     return {
-      assetsUrl: `${location.host}/resources/js/Assets`
+      assetsUrl: `${location.host}/resources/js/Assets`,
+      species: []
+    }
+  },
+  watch: {
+    treeSpecies: {
+      handler(species) {
+        this.species = species.filter(specie => {
+          return specie.type == 'tree.species'
+        })
+
+        this.species.sort((specieA, specieB) => {
+          return specieB.treeCount - specieA.treeCount
+        })
+      },
+      deep: true
     }
   },
   methods: {

@@ -24,11 +24,11 @@
     <div class="d-flex mt-3">
       <span class="font-weight-bold">Trees Planted: {{ treesPlanted }}</span> 
     </div>
-    <div class="d-flex justify-content-center mt-3" v-if="isLoading">
-      <CSpinner color="success" />
-    </div>
     <div class="d-flex justify-content-end">
       <CButton color="primary" @click="refresh">Refresh</CButton>
+    </div>
+    <div class="d-flex justify-content-center mt-3" v-if="isLoading">
+      <CSpinner color="success" />
     </div>
     <VTable 
       v-if="!isLoading" 
@@ -89,7 +89,7 @@ export default {
       treeType: 'All Types',
       organization: '',
       organizationOptions: [{ label: 'All Organizations', value: '' }],
-      pageSize: 10,
+      pageSize: 5,
       totalPages: 1,
       currentPage: 1,
       filters: {

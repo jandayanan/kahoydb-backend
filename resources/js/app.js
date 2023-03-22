@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import CoreuiVue from '@coreui/vue';
+import CoreuiCharts from '@coreui/vue-chartjs'
 import CIcon from '@coreui/icons-vue';
 import SmartTable from 'vuejs-smart-table'
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -33,6 +34,7 @@ createInertiaApp({
       .use(plugin)
       .use(ZiggyVue, Ziggy)
       .use(CoreuiVue)
+      .use(CoreuiCharts)
       .use(SmartTable)
       .use(VueDatePicker)
       .use(store)
