@@ -282,22 +282,24 @@ class TreeRepository extends BaseRepository
                 $result[$key] = [
                     "year" => $value->year,
                     "total" => $total,
-                    1 => 0,
-                    2 => 0,
-                    3 => 0,
-                    4 => 0,
-                    5 => 0,
-                    6 => 0,
-                    7 => 0,
-                    8 => 0,
-                    9 => 0,
-                    10 => 0,
-                    11 => 0,
-                    12 => 0,
+                    "months" => [
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                        4 => 0,
+                        5 => 0,
+                        6 => 0,
+                        7 => 0,
+                        8 => 0,
+                        9 => 0,
+                        10 => 0,
+                        11 => 0,
+                        12 => 0
+                    ],
                     "organization" => Organization::with(['entity'])->where('id', $org_id)->get()
                 ];
                 foreach( $monthly as $value_ ){
-                    $result[$key] = array_replace( $result[$key], $value_ );
+                    $result[$key]["months"] = array_replace( $result[$key]["months"], $value_ );
                 }
 
             }
