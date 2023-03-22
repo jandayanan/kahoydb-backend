@@ -3,31 +3,18 @@
     <CRow>
       <p class="text-center text-uppercase text-white font-weight-bolder">Army 2040: World-Class. Multi-mission Ready. Cross-domain capable</p>
     </CRow>
-    <CRow>
-      <CCol md="4" class="d-flex justify-content-end justify-center-mobile mt-4">
-        <img src="@/Assets/placeholder.png" style="height: 16vh;" alt="">
+    <div class="d-flex justify-content-center">
+      <CCol sm="6">
+        <Carousel />
       </CCol>
-      <CCol md="4" class="d-flex justify-content-center">
-        <CRow>
-          <CCol md="6" class="mt-4 d-flex justify-content-center">
-            <img src="@/Assets/logo.png" style="height: 16vh;" alt="">
-          </CCol>
-          <CCol md="6" class="mt-4 d-flex justify-content-center">
-            <img src="@/Assets/doa_logo.png" style="height: 16vh;" alt="">
-          </CCol>
-        </CRow>
-        
-      </CCol>
-      <CCol md="4" class="text-center-mobile mt-4 d-flex justify-center-mobile" style="font-size: 1.6rem;">
-        <div>
-          <strong class="text-white text-uppercase">The Philippine Army</strong>
-          <p class="text-white my-0 font-weight-bolder">in partnership with</p>
-          <strong class="text-white text-uppercase">Department of Agriculture</strong>
-        </div>
-      </CCol>
-    </CRow>
-    
-    
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+      <div class="text-center" style="font-size: 1.6rem;">
+        <strong class="text-white text-uppercase">The Philippine Army</strong>
+        <p class="text-white my-0 font-weight-bolder">in partnership with</p>
+        <strong class="text-white text-uppercase">Department of Agriculture</strong>
+      </div>
+    </div>
   </CContainer>  
   <CContainer fluid class="px-0">
     <div class="banner">
@@ -45,7 +32,7 @@
       </div>
     </div>
   </CContainer>
-  <CContainer fluid style="background-color: #18583E;" class="p-4 d-flex justify-content-center">
+  <CContainer fluid style="background-color: #18583E;" class="p-4 d-flex justify-content-center block-mobile">
     <slot />
   </CContainer>
   <CContainer fluid style="background-color: #18583E;" class="py-2 mt-5">
@@ -65,8 +52,11 @@
 </template>
 
 <script>
+import Carousel from '@/Components/Carousel.vue'
+
 export default {
-  mounted() {
+  components: {
+    Carousel
   }
 }
 </script>
@@ -96,6 +86,10 @@ export default {
 
     .h2-mobile {
       font-size: 5rem !important;
+    }
+
+    .block-mobile {
+      display: block !important;
     }
   }
 
