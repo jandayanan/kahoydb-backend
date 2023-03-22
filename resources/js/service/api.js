@@ -14,6 +14,14 @@ export function getAllActivities(relations = '') {
   })
 } 
 
+export function fetchActivity(id) {
+  return new Promise((resolve, reject) => {
+    axios.get(`activities/fetch/${id}`)
+    .then(res => resolve(res))
+    .catch(err => reject(err.response.data))
+  })
+}
+
 export function upsertActivity(data) {
   return new Promise((resolve, reject) => {
     let url = `activities/define?

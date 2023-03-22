@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center">Plant A Tree</h1>
+  <h1 class="text-center">{{ activity.name }}</h1>
   <p class="text-center">
     <i>
       "The true meaning of life is to plant trees, under whose shade you do not expect to sit - Nelson Henderson"
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { getAllVariables, createTree } from '@/service/api'
+import { getAllVariables, createTree, fetchActivity } from '@/service/api'
 
 export default {
   props: {
@@ -70,6 +70,7 @@ export default {
     }
   },
   async created() {
+    await this.fetchActivityDetails()
     await this.getVariables()
     this.getPlanterLocation()
   },
@@ -77,6 +78,7 @@ export default {
     return {
       treeSpecies: [],
       treeTypes: [],
+      activity: {},
       form: {
         activityId: this.activityId,
         hash: this.hash,
@@ -103,6 +105,12 @@ export default {
       .then(res => {
         this.treeSpecies = res.data.data.variables
       })
+    },
+    async fetchActivityDetails() {
+      await fetchActivity(this.activityId)
+      .then(res => [
+        this.activity = res.data.data.activities
+      ])
     },
     getPlanterLocation() {
       if(navigator.geolocation) {
