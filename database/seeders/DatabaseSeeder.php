@@ -16,7 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserTableSeeder::class,
             EntitiesTableSeeder::class,
+            ActivitiesTableSeeder::class,
             ParticipantsTableSeeder::class,
+            TreesTableSeeder::class,
             VariablesTableSeeder::class,
             OrganizationsTableSeeder::class,
             SponsorsTableSeeder::class
