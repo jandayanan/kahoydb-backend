@@ -23,8 +23,8 @@ class TreesTableSeeder extends Seeder
             $data["activity_id"] = $activity_id;
             $data["planter_id"] = rand(1,1000);
             $data["unique_id"] = quick_hash(now());
-            $data["planted_at"] = 'Mintal';
-            $data["donated_at"] = 'Mintal';
+            $data["planted_at"] = 'Davao';
+            $data["donated_at"] = 'Davao';
             $data['tree_type'] = $tree_type;
             $data['tree_species'] = array_rand($tree_species);
             $data['tree_status'] = $status;
