@@ -13,20 +13,20 @@ class TreesTableSeeder extends Seeder
     public function run()
     {
         $tree_data = [];
-        $entry = 5; // Number of entry to be inserted
-        $activity_id = 1; // ID of an activity
+        $entry = 1000; // Number of entry to be inserted
+        $activity_id = 3; // ID of an activity
         $tree_type = 'fruit';
-        $tree_species = 'durian';
+        $tree_species = ['durian', 'mango', 'lanzones', 'mangosteen'];
         $status = 'planted';
 
         for( $i = 0; $i <= $entry; $i++ ){
             $data["activity_id"] = $activity_id;
-            $data["planter_id"] = $i + 1;
+            $data["planter_id"] = rand(1,1000);
             $data["unique_id"] = quick_hash(now());
             $data["planted_at"] = 'Mintal';
             $data["donated_at"] = 'Mintal';
             $data['tree_type'] = $tree_type;
-            $data['tree_species'] = $tree_species;
+            $data['tree_species'] = array_rand($tree_species);
             $data['tree_status'] = $status;
 
             $tree_data[] = $data;
