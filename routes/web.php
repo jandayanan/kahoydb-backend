@@ -33,7 +33,7 @@ Route::group([
     });
 });
 
-Route::get('/dashboard/public', [ParticipateController::class, 'publicDashboard'])->name('public.dashboard');
+Route::get('/', [ParticipateController::class, 'publicDashboard'])->name('public.dashboard');
 
 Route::get('/participate/{activity_id}/add/tree', [ParticipateController::class, 'show'])->name('participate.form');
 Route::get('/participate/view/tree/{tree_id}', [ParticipateController::class, 'viewTree'])->name('participate.view.tree');

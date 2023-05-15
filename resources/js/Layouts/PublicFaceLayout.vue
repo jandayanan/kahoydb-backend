@@ -1,7 +1,11 @@
 <template>
   <CContainer fluid style="background-color: #18583E;" class="p-4">
-    <CRow>
-      <p class="text-center text-uppercase text-white font-weight-bolder">Army 2040: World-Class. Multi-mission Ready. Cross-domain capable</p>
+    <CRow class="d-flex">
+      <p class="text-center text-uppercase text-white font-weight-bolder">
+        Army 2040: World-Class. Multi-mission Ready. Cross-domain capable
+        <CButton color="success" class="ml-5 login-desktop" @click="redirectToLogin">Login</CButton>
+      </p>
+      <CButton color="success" class="login-mobile w" @click="redirectToLogin">Login</CButton>
     </CRow>
     <CRow>
       <CCol md="4" class="d-flex justify-content-end justify-center-mobile mt-4">
@@ -87,6 +91,11 @@ import Carousel from '@/Components/Carousel.vue'
 export default {
   components: {
     Carousel
+  },
+  methods: {
+    redirectToLogin() {
+      window.location.href = route('web.login')
+    }
   }
 }
 </script>
@@ -99,6 +108,10 @@ export default {
     -webkit-box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
     -moz-box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
     box-shadow: inset 0px 117px 18px 4px rgba(0,0,0,0.32);
+  }
+
+  .login-mobile {
+    display: none;
   }
   @media only screen and (max-width: 767px){
 
@@ -120,6 +133,14 @@ export default {
 
     .block-mobile {
       display: block !important;
+    }
+
+    .login-mobile {
+      display: block !important;
+    }
+
+    .login-desktop {
+      display: none;
     }
   }
 
