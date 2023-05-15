@@ -24,7 +24,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 2,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Mintal Tree Planting',
                 'start_date' => '2023-01-08',
@@ -32,7 +32,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 2,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Calinan Tree Planting',
                 'start_date' => '2023-01-20',
@@ -40,7 +40,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 1,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Catalunan Tree Planting',
                 'start_date' => '2023-02-03',
@@ -48,7 +48,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 1,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Tugbok Tree Planting',
                 'start_date' => '2023-02-15',
@@ -56,7 +56,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 1,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Tacunan Tree Planting',
                 'start_date' => '2023-03-01',
@@ -64,7 +64,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 1,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Malagos Tree Planting',
                 'start_date' => '2023-03-10',
@@ -72,7 +72,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 1,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Bunawan Tree Planting',
                 'start_date' => '2023-03-15',
@@ -80,7 +80,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 1,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Talomo Tree Planting',
                 'start_date' => '2023-03-21',
@@ -88,7 +88,7 @@ class ActivitiesTableSeeder extends Seeder
                 'activity_status' => 'active'
             ],
             [
-                'parent_organization_id'  => 2,
+                'parent_organization_id'  => 192,
                 'child_organization_id' => null,
                 'name' => 'Mandug Tree Planting',
                 'start_date' => '2023-03-27',

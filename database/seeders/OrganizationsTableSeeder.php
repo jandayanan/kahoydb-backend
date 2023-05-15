@@ -85,22 +85,22 @@ class OrganizationsTableSeeder extends Seeder
             14 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Mechanized Infantry Battalion (MIB) 1',
-                'parent_organization_id' => 12,
+                'parent_organization_id' => 13,
             ],
             15 => [
                 'organization_type' => 'internal',
                 'full_name' => 'MIB 2',
-                'parent_organization_id' => 12,
+                'parent_organization_id' => 13,
             ],
             16 => [
                 'organization_type' => 'internal',
                 'full_name' => 'MIB 3',
-                'parent_organization_id' => 12,
+                'parent_organization_id' => 13,
             ],
             17 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Armor Brigade',
-                'parent_organization_id' => 17,
+                'parent_organization_id' => 12,
             ],
             18 => [
                 'organization_type' => 'internal',
@@ -120,7 +120,7 @@ class OrganizationsTableSeeder extends Seeder
             21 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 21,
+                'parent_organization_id' => 12,
             ],
             22 => [
                 'organization_type' => 'internal',
@@ -155,22 +155,22 @@ class OrganizationsTableSeeder extends Seeder
             28 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Light Reaction Battalion (LRB) 1',
-                'parent_organization_id' => 26,
+                'parent_organization_id' => 27,
             ],
             29 => [
                 'organization_type' => 'internal',
                 'full_name' => 'LRB 2',
-                'parent_organization_id' => 26,
+                'parent_organization_id' => 27,
             ],
             30 => [
                 'organization_type' => 'internal',
                 'full_name' => 'LRB 3',
-                'parent_organization_id' => 26,
+                'parent_organization_id' => 27,
             ],
             31 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Airborne Regiment',
-                'parent_organization_id' => 31,
+                'parent_organization_id' => 26,
             ],
             32 => [
                 'organization_type' => 'internal',
@@ -190,7 +190,7 @@ class OrganizationsTableSeeder extends Seeder
             35 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Special Forces Regiment (Airborne)',
-                'parent_organization_id' => 35,
+                'parent_organization_id' => 26,
             ],
             36 => [
                 'organization_type' => 'internal',
@@ -220,22 +220,22 @@ class OrganizationsTableSeeder extends Seeder
             41 => [
                 'organization_type' => 'internal',
                 'full_name' => '17th Infantry Battalion (IB)',
-                'parent_organization_id' => 39,
+                'parent_organization_id' => 40,
             ],
             42 => [
                 'organization_type' => 'internal',
                 'full_name' => '42nd IB',
-                'parent_organization_id' => 39,
+                'parent_organization_id' => 40,
             ],
             43 => [
                 'organization_type' => 'internal',
                 'full_name' => '49th IB',
-                'parent_organization_id' => 39,
+                'parent_organization_id' => 40,
             ],
             44 => [
                 'organization_type' => 'internal',
                 'full_name' => '102nd Infantry Brigade',
-                'parent_organization_id' => 44,
+                'parent_organization_id' => 39,
             ],
             45 => [
                 'organization_type' => 'internal',
@@ -255,7 +255,7 @@ class OrganizationsTableSeeder extends Seeder
             48 => [
                 'organization_type' => 'internal',
                 'full_name' => '103rd Infantry Brigade',
-                'parent_organization_id' => 48,
+                'parent_organization_id' => 39,
             ],
             49 => [
                 'organization_type' => 'internal',
@@ -275,7 +275,7 @@ class OrganizationsTableSeeder extends Seeder
             52 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 52,
+                'parent_organization_id' => 39,
             ],
             53 => [
                 'organization_type' => 'internal',
@@ -305,22 +305,22 @@ class OrganizationsTableSeeder extends Seeder
             58 => [
                 'organization_type' => 'internal',
                 'full_name' => '74th IB',
-                'parent_organization_id' => 56,
+                'parent_organization_id' => 57,
             ],
             59 => [
                 'organization_type' => 'internal',
                 'full_name' => '76th IB',
-                'parent_organization_id' => 56,
+                'parent_organization_id' => 57,
             ],
             60 => [
                 'organization_type' => 'internal',
                 'full_name' => '88th IB',
-                'parent_organization_id' => 56,
+                'parent_organization_id' => 57,
             ],
             61 => [
                 'organization_type' => 'internal',
                 'full_name' => '202nd Infantry Brigade',
-                'parent_organization_id' => 61,
+                'parent_organization_id' => 56,
             ],
             62 => [
                 'organization_type' => 'internal',
@@ -340,7 +340,7 @@ class OrganizationsTableSeeder extends Seeder
             65 => [
                 'organization_type' => 'internal',
                 'full_name' => '203rd Infantry Brigade',
-                'parent_organization_id' => 65,
+                'parent_organization_id' => 56,
             ],
             66 => [
                 'organization_type' => 'internal',
@@ -360,7 +360,7 @@ class OrganizationsTableSeeder extends Seeder
             69 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 69,
+                'parent_organization_id' => 56,
             ],
             70 => [
                 'organization_type' => 'internal',
@@ -390,22 +390,22 @@ class OrganizationsTableSeeder extends Seeder
             75 => [
                 'organization_type' => 'internal',
                 'full_name' => '67th IB',
-                'parent_organization_id' => 73,
+                'parent_organization_id' => 74,
             ],
             76 => [
                 'organization_type' => 'internal',
                 'full_name' => '81st IB',
-                'parent_organization_id' => 73,
+                'parent_organization_id' => 74,
             ],
             77 => [
                 'organization_type' => 'internal',
                 'full_name' => '84th IB',
-                'parent_organization_id' => 73,
+                'parent_organization_id' => 74,
             ],
             78 => [
                 'organization_type' => 'internal',
                 'full_name' => '302nd Infantry Brigade',
-                'parent_organization_id' => 78,
+                'parent_organization_id' => 73,
             ],
             79 => [
                 'organization_type' => 'internal',
@@ -425,7 +425,7 @@ class OrganizationsTableSeeder extends Seeder
             82 => [
                 'organization_type' => 'internal',
                 'full_name' => '303rd Infantry Brigade',
-                'parent_organization_id' => 82,
+                'parent_organization_id' => 73,
             ],
             83 => [
                 'organization_type' => 'internal',
@@ -445,7 +445,7 @@ class OrganizationsTableSeeder extends Seeder
             86 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 86,
+                'parent_organization_id' => 73,
             ],
             87 => [
                 'organization_type' => 'internal',
@@ -475,22 +475,22 @@ class OrganizationsTableSeeder extends Seeder
             92 => [
                 'organization_type' => 'internal',
                 'full_name' => '26th IB',
-                'parent_organization_id' => 90,
+                'parent_organization_id' => 91,
             ],
             93 => [
                 'organization_type' => 'internal',
                 'full_name' => '29th IB',
-                'parent_organization_id' => 90,
+                'parent_organization_id' => 91,
             ],
             94 => [
                 'organization_type' => 'internal',
                 'full_name' => '30th IB',
-                'parent_organization_id' => 90,
+                'parent_organization_id' => 91,
             ],
             95 => [
                 'organization_type' => 'internal',
                 'full_name' => '402nd Infantry Brigade',
-                'parent_organization_id' => 95,
+                'parent_organization_id' => 90,
             ],
             96 => [
                 'organization_type' => 'internal',
@@ -510,7 +510,7 @@ class OrganizationsTableSeeder extends Seeder
             99 => [
                 'organization_type' => 'internal',
                 'full_name' => '403rd Infantry Brigade',
-                'parent_organization_id' => 99,
+                'parent_organization_id' => 90,
             ],
             100 => [
                 'organization_type' => 'internal',
@@ -530,7 +530,7 @@ class OrganizationsTableSeeder extends Seeder
             103 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 103,
+                'parent_organization_id' => 90,
             ],
             104 => [
                 'organization_type' => 'internal',
@@ -560,22 +560,22 @@ class OrganizationsTableSeeder extends Seeder
             109 => [
                 'organization_type' => 'internal',
                 'full_name' => '74th IB',
-                'parent_organization_id' => 107,
+                'parent_organization_id' => 108,
             ],
             110 => [
                 'organization_type' => 'internal',
                 'full_name' => '76th IB',
-                'parent_organization_id' => 107,
+                'parent_organization_id' => 108,
             ],
             111 => [
                 'organization_type' => 'internal',
                 'full_name' => '88th IB',
-                'parent_organization_id' => 107,
+                'parent_organization_id' => 108,
             ],
             112 => [
                 'organization_type' => 'internal',
                 'full_name' => '502nd Infantry Brigade',
-                'parent_organization_id' => 112,
+                'parent_organization_id' => 107,
             ],
             113 => [
                 'organization_type' => 'internal',
@@ -595,7 +595,7 @@ class OrganizationsTableSeeder extends Seeder
             116 => [
                 'organization_type' => 'internal',
                 'full_name' => '503rd Infantry Brigade',
-                'parent_organization_id' => 116,
+                'parent_organization_id' => 107,
             ],
             117 => [
                 'organization_type' => 'internal',
@@ -615,7 +615,7 @@ class OrganizationsTableSeeder extends Seeder
             120 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 120,
+                'parent_organization_id' => 107,
             ],
             121 => [
                 'organization_type' => 'internal',
@@ -645,22 +645,22 @@ class OrganizationsTableSeeder extends Seeder
             126 => [
                 'organization_type' => 'internal',
                 'full_name' => '29th IB',
-                'parent_organization_id' => 124,
+                'parent_organization_id' => 125,
             ],
             127 => [
                 'organization_type' => 'internal',
                 'full_name' => '36th IB',
-                'parent_organization_id' => 124,
+                'parent_organization_id' => 125,
             ],
             128 => [
                 'organization_type' => 'internal',
                 'full_name' => '56th IB',
-                'parent_organization_id' => 124,
+                'parent_organization_id' => 125,
             ],
             129 => [
                 'organization_type' => 'internal',
                 'full_name' => '602nd Infantry Brigade',
-                'parent_organization_id' => 129,
+                'parent_organization_id' => 124,
             ],
             130 => [
                 'organization_type' => 'internal',
@@ -680,7 +680,7 @@ class OrganizationsTableSeeder extends Seeder
             133 => [
                 'organization_type' => 'internal',
                 'full_name' => '603rd Infantry Brigade',
-                'parent_organization_id' => 133,
+                'parent_organization_id' => 124,
             ],
             134 => [
                 'organization_type' => 'internal',
@@ -700,7 +700,7 @@ class OrganizationsTableSeeder extends Seeder
             137 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 137,
+                'parent_organization_id' => 124,
             ],
             138 => [
                 'organization_type' => 'internal',
@@ -730,22 +730,22 @@ class OrganizationsTableSeeder extends Seeder
             143 => [
                 'organization_type' => 'internal',
                 'full_name' => '1st IB',
-                'parent_organization_id' => 141,
+                'parent_organization_id' => 142,
             ],
             144 => [
                 'organization_type' => 'internal',
                 'full_name' => '5th IB',
-                'parent_organization_id' => 141,
+                'parent_organization_id' => 142,
             ],
             145 => [
                 'organization_type' => 'internal',
                 'full_name' => '32nd IB',
-                'parent_organization_id' => 141,
+                'parent_organization_id' => 142,
             ],
             146 => [
                 'organization_type' => 'internal',
                 'full_name' => '702nd Infantry Brigade',
-                'parent_organization_id' => 146,
+                'parent_organization_id' => 141,
             ],
             147 => [
                 'organization_type' => 'internal',
@@ -765,7 +765,7 @@ class OrganizationsTableSeeder extends Seeder
             150 => [
                 'organization_type' => 'internal',
                 'full_name' => '703rd Infantry Brigade',
-                'parent_organization_id' => 150,
+                'parent_organization_id' => 141,
             ],
             151 => [
                 'organization_type' => 'internal',
@@ -785,7 +785,7 @@ class OrganizationsTableSeeder extends Seeder
             154 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Division Artillery Brigade',
-                'parent_organization_id' => 154,
+                'parent_organization_id' => 141,
             ],
             155 => [
                 'organization_type' => 'internal',
@@ -805,7 +805,7 @@ class OrganizationsTableSeeder extends Seeder
             158 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Special Forces Regiment (Airborne)',
-                'parent_organization_id' => 158,
+                'parent_organization_id' => 141,
             ],
             159 => [
                 'organization_type' => 'internal',
@@ -825,7 +825,7 @@ class OrganizationsTableSeeder extends Seeder
             162 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Scout Ranger Regiment',
-                'parent_organization_id' => 162,
+                'parent_organization_id' => 141,
             ],
             163 => [
                 'organization_type' => 'internal',
@@ -855,22 +855,22 @@ class OrganizationsTableSeeder extends Seeder
             168 => [
                 'organization_type' => 'internal',
                 'full_name' => '20IB',
-                'parent_organization_id' => 166,
+                'parent_organization_id' => 167,
             ],
             169 => [
                 'organization_type' => 'internal',
                 'full_name' => '45IB',
-                'parent_organization_id' => 166,
+                'parent_organization_id' => 167,
             ],
             170 => [
                 'organization_type' => 'internal',
                 'full_name' => '93IB',
-                'parent_organization_id' => 166,
+                'parent_organization_id' => 167,
             ],
             171 => [
                 'organization_type' => 'internal',
                 'full_name' => '803rd Infantry Brigade "Peloton"',
-                'parent_organization_id' => 171,
+                'parent_organization_id' => 166,
             ],
             172 => [
                 'organization_type' => 'internal',
@@ -890,7 +890,7 @@ class OrganizationsTableSeeder extends Seeder
             175 => [
                 'organization_type' => 'internal',
                 'full_name' => '804th Infantry Brigade "Steadfast"',
-                'parent_organization_id' => 175,
+                'parent_organization_id' => 166,
             ],
             176 => [
                 'organization_type' => 'internal',
@@ -920,22 +920,22 @@ class OrganizationsTableSeeder extends Seeder
             181 => [
                 'organization_type' => 'internal',
                 'full_name' => '15IB',
-                'parent_organization_id' => 179,
+                'parent_organization_id' => 180,
             ],
             182 => [
                 'organization_type' => 'internal',
                 'full_name' => '30IB',
-                'parent_organization_id' => 179,
+                'parent_organization_id' => 180,
             ],
             183 => [
                 'organization_type' => 'internal',
                 'full_name' => '46IB',
-                'parent_organization_id' => 179,
+                'parent_organization_id' => 180,
             ],
             184 => [
                 'organization_type' => 'internal',
                 'full_name' => '902nd Infantry Brigade "Defender"',
-                'parent_organization_id' => 184,
+                'parent_organization_id' => 179,
             ],
             185 => [
                 'organization_type' => 'internal',
@@ -955,7 +955,7 @@ class OrganizationsTableSeeder extends Seeder
             188 => [
                 'organization_type' => 'internal',
                 'full_name' => '903rd Infantry Brigade "Patriot"',
-                'parent_organization_id' => 188,
+                'parent_organization_id' => 179,
             ],
             189 => [
                 'organization_type' => 'internal',
@@ -985,22 +985,22 @@ class OrganizationsTableSeeder extends Seeder
             194 => [
                 'organization_type' => 'internal',
                 'full_name' => '11IB',
-                'parent_organization_id' => 192,
+                'parent_organization_id' => 193,
             ],
             195 => [
                 'organization_type' => 'internal',
                 'full_name' => '16IB',
-                'parent_organization_id' => 192,
+                'parent_organization_id' => 193,
             ],
             196 => [
                 'organization_type' => 'internal',
                 'full_name' => '71IB',
-                'parent_organization_id' => 192,
+                'parent_organization_id' => 193,
             ],
             197 => [
                 'organization_type' => 'internal',
                 'full_name' => '1002nd Infantry Brigade "Lion"',
-                'parent_organization_id' => 197,
+                'parent_organization_id' => 192,
             ],
             198 => [
                 'organization_type' => 'internal',
@@ -1020,7 +1020,7 @@ class OrganizationsTableSeeder extends Seeder
             201 => [
                 'organization_type' => 'internal',
                 'full_name' => '1003rd Infantry Brigade "Raptor"',
-                'parent_organization_id' => 201,
+                'parent_organization_id' => 192,
             ],
             202 => [
                 'organization_type' => 'internal',
@@ -1050,22 +1050,22 @@ class OrganizationsTableSeeder extends Seeder
             207 => [
                 'organization_type' => 'internal',
                 'full_name' => '11IB',
-                'parent_organization_id' => 205,
+                'parent_organization_id' => 206,
             ],
             208 => [
                 'organization_type' => 'internal',
                 'full_name' => '19IB',
-                'parent_organization_id' => 205,
+                'parent_organization_id' => 206,
             ],
             209 => [
                 'organization_type' => 'internal',
                 'full_name' => '29IB',
-                'parent_organization_id' => 205,
+                'parent_organization_id' => 206,
             ],
             210 => [
                 'organization_type' => 'internal',
                 'full_name' => '1102nd Infantry Brigade "Kaugnay"',
-                'parent_organization_id' => 210,
+                'parent_organization_id' => 205,
             ],
             211 => [
                 'organization_type' => 'internal',
@@ -1085,7 +1085,7 @@ class OrganizationsTableSeeder extends Seeder
             214 => [
                 'organization_type' => 'internal',
                 'full_name' => '1103rd Infantry Brigade "Agila"',
-                'parent_organization_id' => 214,
+                'parent_organization_id' => 205,
             ],
             215 => [
                 'organization_type' => 'internal',
@@ -1250,22 +1250,22 @@ class OrganizationsTableSeeder extends Seeder
             247 => [
                 'organization_type' => 'internal',
                 'full_name' => '1st Mechanized Infantry Battalion',
-                'parent_organization_id' => 243,
+                'parent_organization_id' => 246,
             ],
             248 => [
                 'organization_type' => 'internal',
                 'full_name' => '2nd Mechanized Infantry Battalion',
-                'parent_organization_id' => 243,
+                'parent_organization_id' => 246,
             ],
             249 => [
                 'organization_type' => 'internal',
                 'full_name' => '3rd Mechanized Infantry Battalion',
-                'parent_organization_id' => 243,
+                'parent_organization_id' => 246,
             ],
             250 => [
                 'organization_type' => 'internal',
                 'full_name' => '2nd Mechanized Infantry Brigade',
-                'parent_organization_id' => 250,
+                'parent_organization_id' => 243,
             ],
             251 => [
                 'organization_type' => 'internal',
@@ -1285,7 +1285,7 @@ class OrganizationsTableSeeder extends Seeder
             254 => [
                 'organization_type' => 'internal',
                 'full_name' => '3rd Mechanized Infantry Brigade',
-                'parent_organization_id' => 254,
+                'parent_organization_id' => 243,
             ],
             255 => [
                 'organization_type' => 'internal',
@@ -1305,7 +1305,7 @@ class OrganizationsTableSeeder extends Seeder
             258 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Mechanized Artillery Regiment',
-                'parent_organization_id' => 258,
+                'parent_organization_id' => 243,
             ],
             259 => [
                 'organization_type' => 'internal',
@@ -1385,22 +1385,22 @@ class OrganizationsTableSeeder extends Seeder
             274 => [
                 'organization_type' => 'internal',
                 'full_name' => '1st Special Forces Battalion (Airborne)',
-                'parent_organization_id' => 271,
+                'parent_organization_id' => 273,
             ],
             275 => [
                 'organization_type' => 'internal',
                 'full_name' => '2nd Special Forces Battalion (Airborne)',
-                'parent_organization_id' => 271,
+                'parent_organization_id' => 273,
             ],
             276 => [
                 'organization_type' => 'internal',
                 'full_name' => '3rd Special Forces Battalion (Airborne)',
-                'parent_organization_id' => 271,
+                'parent_organization_id' => 273,
             ],
             277 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Light Reaction Regiment (LRR)',
-                'parent_organization_id' => 277,
+                'parent_organization_id' => 271,
             ],
             278 => [
                 'organization_type' => 'internal',
@@ -1415,22 +1415,22 @@ class OrganizationsTableSeeder extends Seeder
             280 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Army Aviation Battalion (Special Operations)',
-                'parent_organization_id' => 280,
+                'parent_organization_id' => 271,
             ],
             281 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Special Forces Regiment (Reserve)',
-                'parent_organization_id' => 280,
+                'parent_organization_id' => 271,
             ],
             282 => [
                 'organization_type' => 'internal',
                 'full_name' => '1st Special Forces Battalion (Reserve)',
-                'parent_organization_id' => 280,
+                'parent_organization_id' => 281,
             ],
             283 => [
                 'organization_type' => 'internal',
                 'full_name' => '2nd Special Forces Battalion (Reserve)',
-                'parent_organization_id' => 280,
+                'parent_organization_id' => 281,
             ],
             284 => [
                 'organization_type' => 'internal',
@@ -1565,52 +1565,52 @@ class OrganizationsTableSeeder extends Seeder
             310 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Army Officer Candidate School',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             311 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Army Officer Preparatory Course',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             312 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Officer Candidate School',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             313 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Basic Officers Leadership Course',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             314 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Advance Officers Leadership Course',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             315 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Senior Leaders Course',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             316 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Army Basic Training',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             317 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Army Reserve Officer Training Corps',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             318 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Army Special Forces Training School',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             319 => [
                 'organization_type' => 'internal',
                 'full_name' => 'Doctrine and Development Center',
-                'parent_organization_id' => 308,
+                'parent_organization_id' => 309,
             ],
             320 => [
                 'organization_type' => 'internal',
@@ -1726,12 +1726,7 @@ class OrganizationsTableSeeder extends Seeder
                 'organization_type' => 'internal',
                 'full_name' => 'Army Nurse Corps Reserve Component',
                 'parent_organization_id' => 338,
-            ],
-            343 => [
-                'organization_type' => 'internal',
-                'full_name' => NULL,
-                'parent_organization_id' => 338,
-            ],
+            ]
         ];
         foreach( $array as $value ){
             $entity_params['full_name'] = $value['full_name'];

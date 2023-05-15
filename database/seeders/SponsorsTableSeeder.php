@@ -18,11 +18,11 @@ class SponsorsTableSeeder extends Seeder
 
         $array = [
             [
-                'organization_id'  => 2,
+                'organization_id'  => 192,
                 'sponsorship_type' => 'major'
             ],
             [
-                'organization_id'  => 3,
+                'organization_id'  => 193,
                 'sponsorship_type' => 'organizer'
             ]
         ];
